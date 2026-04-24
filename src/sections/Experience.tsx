@@ -74,7 +74,7 @@ export function Experience() {
               key={i}
               data-exp
               data-i={i}
-              className={`reveal grid grid-cols-1 gap-4 md:grid-cols-[180px_1fr_240px] md:gap-7 lg:grid-cols-[220px_1fr_280px] lg:gap-10 py-8 border-t border-ink/15 items-start relative last:border-b overflow-hidden ${visibleRows.has(i) ? "in" : ""} ${hovered ? "md:bg-[#D5DBFF]" : ""}`}
+              className={`reveal grid grid-cols-1 gap-4 md:grid-cols-[180px_1fr_240px] md:gap-7 lg:grid-cols-[220px_1fr_280px] lg:gap-10 py-8 border-t border-ink/15 items-start relative last:border-b overflow-hidden ${visibleRows.has(i) ? "in" : ""} ${hovered ? "md:bg-[#EEF3FC]" : ""}`}
               style={{ "--d": i * 90 + "ms" } as React.CSSProperties}
               onMouseEnter={() => setHoveredRow(i)}
               onMouseLeave={() => setHoveredRow(null)}
