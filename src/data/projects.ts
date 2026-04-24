@@ -86,8 +86,8 @@ export const PROJECTS: Project[] = [
     links: [
       {
         label: "Private GitHub",
-        href: "",
-        disabled: true,
+        href: "https://github.com/yiyun-liao/track-stock",
+        disabled: false,
       },
       {
         label: "website WIP",
@@ -119,9 +119,9 @@ export const PROJECTS: Project[] = [
     ],
     links: [
       {
-        label: "Private GitHub",
-        href: "",
-        disabled: true,
+        label: "GitHub",
+        href: "https://github.com/yiyun-liao/daily-assistant",
+        disabled: false,
       },
     ],
     cover: "assets/daily/cover.png",
