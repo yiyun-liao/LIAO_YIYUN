@@ -85,7 +85,7 @@ export const PROJECTS: Project[] = [
     ],
     links: [
       {
-        label: "Private GitHub",
+        label: "GitHub",
         href: "https://github.com/yiyun-liao/track-stock",
         disabled: false,
       },
