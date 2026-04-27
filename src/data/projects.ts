@@ -175,8 +175,44 @@ export const PROJECTS: Project[] = [
     images: ["assets/splitly/cover.jpg", "assets/splitly/video_create_and_join.gif", "assets/splitly/video_create_group_expense.gif", "assets/splitly/video_create_personal_expense.gif", "assets/splitly/video_create_transfer.gif", "assets/splitly/video_device_all.gif", "assets/splitly/video_read.gif", "assets/splitly/video_settle.gif", "assets/splitly/video_split_by_item.gif"],
   },
   {
-    id: "designer-portfolio",
+    id: "at-design",
     idx: "05",
+    name: "AmazingTalker — Designer",
+    titleIt: false,
+    tagline:
+      "Led UI/UX across cart checkout, design system, classroom UI, and 70+ product design tasks over two years.",
+    vibe: false,
+    tags: ["Figma", "Design Systems", "UX Research", "Storybook", "Responsive Design", "A/B Testing"],
+    role: "Lead UI/UX Designer",
+    year: "2022 — 2024",
+    status: "Shipped",
+    overview:
+      "Lead UI/UX designer at AmazingTalker, an online language-learning marketplace. Owned end-to-end design for the cart checkout redesign that lifted purchase conversion by 14%. Established the company-wide Design Guideline and Storybook component library used across web and app. Delivered 70+ design tasks spanning group-purchase flows, teacher-wall experiments, AT classroom UI (loading animations, header, error pages), GDPR consent patterns, and cross-platform specs for iOS, Android, and web.",
+    highlights: [
+      "Cart checkout redesign — +14% purchase conversion, validated with data-driven drop-off analysis",
+      "Built company-wide Design Guideline and Storybook component library adopted by all frontend teams",
+      "Designed AT classroom UI — loading animation, header with help-center entry, onboarding tooltips",
+      "70+ shipped design tasks across group-purchase, teacher-wall, pricing cards, and GDPR compliance",
+      "Bridged design-to-engineering handoff for micro-frontend architecture adoption",
+    ],
+    links: [
+      {
+        label: "Presentation",
+        href: "https://www.figma.com/proto/SK132yqquO5w5M3UPLGu1N/wehelp?node-id=494-4963&p=f&viewport=-297%2C233%2C0.03&t=sbFb36x754Ygcn30-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=494%3A4963&show-proto-sidebar=1&page-id=0%3A1",
+        disabled: false,
+      },
+      {
+        label: "Storybook",
+        href: "https://res.staging.amazingtalker.com/storybook-ui/index.html?path=/docs/button--docs",
+        disabled: false,
+      },
+    ],
+    cover: "assets/at-designer/cover.png",
+    images: ["assets/at-designer/cover.png", "assets/at-designer/cart.png", "assets/at-designer/Announcements system.png", "assets/at-designer/notion.png", "assets/at-designer/sharing.png"],
+  },
+  {
+    id: "designer-portfolio",
+    idx: "06",
     name: "Designer Portfolio",
     titleIt: true,
     tagline:
