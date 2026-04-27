@@ -208,7 +208,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     cover: "assets/at-designer/cover.png",
-    images: ["assets/at-designer/cover.png", "assets/at-designer/cart.png", "assets/at-designer/Announcements system.png", "assets/at-designer/notion.png", "assets/at-designer/sharing.png"],
+    images: ["assets/at-designer/cover.png", "assets/at-designer/cart.gif", "assets/at-designer/Announcements system.gif", "assets/at-designer/notion.png", "assets/at-designer/sharing.png"],
   },
   {
     id: "designer-portfolio",
