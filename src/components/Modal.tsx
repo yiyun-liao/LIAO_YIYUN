@@ -18,17 +18,12 @@ function Carousel({ images, name }: CarouselProps) {
   }, [images.length]);
 
   useEffect(() => {
-    timerRef.current = window.setInterval(() => {
-      setIdx((prev) => (prev + 1) % images.length);
-    }, 4000);
+    // Auto-play disabled for modal carousel
     return () => clearInterval(timerRef.current);
   }, [images.length]);
 
   const resetTimer = () => {
-    clearInterval(timerRef.current);
-    timerRef.current = window.setInterval(() => {
-      setIdx((prev) => (prev + 1) % images.length);
-    }, 2000);
+    // No-op: manual navigation only
   };
 
   return (
