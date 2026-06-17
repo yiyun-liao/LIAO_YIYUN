@@ -46,13 +46,10 @@ export function Hero({ onCta }: HeroProps) {
             <p>
               Frontend Engineer working on real-time platforms. Former lead designer.
             </p>
-            <p>
-              Design Engineer · Bridging design systems and frontend engineering · AI-Assisted Development
-            </p>
-            <span className="block mt-2 text-[#2467D2] font-mono text-[16px] uppercase">
+            <span className="block mt-4 text-[#2467D2] font-mono text-[16px] uppercase">
               <QuoteIcon /> Open to design engineer roles
             </span>
-            <span className="block mt-2 text-[#2467D2] font-mono text-[12px] uppercase">
+            <span className="block text-[#2467D2] font-mono text-[12px] uppercase">
               Bridging design systems and frontend engineering · AI-Assisted Development
             </span>
           </div>
