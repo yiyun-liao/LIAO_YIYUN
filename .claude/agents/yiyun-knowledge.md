@@ -9,6 +9,7 @@ Keep it updated — the agent can only answer what's documented here.
 
 - **Name:** Yi-Yun, Liao (廖宜昀)
 - **Title:** Design Engineer · Bridging design systems and frontend engineering · AI-Assisted Development · Open to roles
+- **Experience** Frontend Engineer / Real-Time Platforms / Former Lead Designer
 - **Location:** Taipei, Taiwan
 - **Email:** yiyun.bian.design@gmail.com
 - **GitHub:** https://github.com/yiyun-liao/

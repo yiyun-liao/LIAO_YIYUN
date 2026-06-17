@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 const QUICK_PROMPTS = [
   "Why designer → engineer?",
   "Open to roles?",
-  "Tell me about Track Stock",
+  "Tell me about Splitly.",
 ];
 
 interface Message {
