@@ -35,3 +35,4 @@ LIAO_YIYUN/
 - All AI agent responses must be scoped to Yiyun-related information only.
 - Use Traditional Chinese (繁體中文) for user-facing content where appropriate.
 - Commit messages in English.
+- **Never auto-commit** — always wait for explicit user instruction ("commit and push") before creating commits.
