@@ -20,14 +20,15 @@ export function Projects({ onOpen }: ProjectsProps) {
       if (!lastTsRef.current) lastTsRef.current = ts;
       const dt = (ts - lastTsRef.current) / 1000;
       lastTsRef.current = ts;
-      if (!paused && !document.hidden) {
-        const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
-        if (atEnd) {
-          el.scrollLeft = 0;
-        } else {
-          el.scrollLeft += SPEED * dt;
-        }
-      }
+      // Auto-scroll disabled; only manual navigation
+      // if (!paused && !document.hidden) {
+      //   const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+      //   if (atEnd) {
+      //     el.scrollLeft = 0;
+      //   } else {
+      //     el.scrollLeft += SPEED * dt;
+      //   }
+      // }
       rafRef.current = requestAnimationFrame(step);
     };
     rafRef.current = requestAnimationFrame(step);
