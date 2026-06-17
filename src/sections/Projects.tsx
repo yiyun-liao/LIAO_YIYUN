@@ -15,10 +15,10 @@ export function Projects({ onOpen }: ProjectsProps) {
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    const SPEED = 40;
+    // const SPEED = 40;
     const step = (ts: number) => {
       if (!lastTsRef.current) lastTsRef.current = ts;
-      const dt = (ts - lastTsRef.current) / 1000;
+      // const dt = (ts - lastTsRef.current) / 1000;
       lastTsRef.current = ts;
       // Auto-scroll disabled; only manual navigation
       // if (!paused && !document.hidden) {
