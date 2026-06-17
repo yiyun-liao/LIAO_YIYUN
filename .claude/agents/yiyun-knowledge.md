@@ -8,7 +8,7 @@ Keep it updated — the agent can only answer what's documented here.
 ## Personal Info
 
 - **Name:** Yi-Yun, Liao (廖宜昀)
-- **Title:** Frontend Engineer / Real-Time Platforms / Former Lead Designer
+- **Title:** Design Engineer · Bridging design systems and frontend engineering · AI-Assisted Development · Open to roles
 - **Location:** Taipei, Taiwan
 - **Email:** yiyun.bian.design@gmail.com
 - **GitHub:** https://github.com/yiyun-liao/
@@ -21,7 +21,7 @@ Keep it updated — the agent can only answer what's documented here.
 
 ## Professional Summary
 
-A Frontend Engineer with a design background. After years of formal design education and hands-on experience across multiple design disciplines (industrial design, UI/UX, graphic design for film), Yiyun transitioned to engineering — driven by a passion for crafting exceptional user experiences and achieving seamless, high-performance integration with back-end data.
+A Design Engineer with extensive design background spanning industrial design, UI/UX, and graphic design. After years of formal design education and hands-on experience, Yiyun transitioned to engineering to bring design thinking to frontend architecture — bridging design systems and code. Driven by a passion for crafting exceptional user experiences and achieving seamless, high-performance integration with back-end data.
 
 Previously drove UX improvements and cross-team collaboration at a growth-stage company and independently managed end-to-end design projects in a small studio. Maintains a strong passion for continuous learning, constantly honing skills and applying new technologies to real-world development.
 

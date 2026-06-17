@@ -44,10 +44,10 @@ export function Hero({ onCta }: HeroProps) {
           </h1>
           <div className="mt-[18px] max-w-[520px] font-sans text-[15px] leading-[1.55] text-ink-soft mb-12">
             <p>
-              Frontend Engineer working on real-time platforms. Former lead designer.
+              Design Engineer · Bridging design systems and frontend engineering · AI-Assisted Development
             </p>
             <span className="block mt-2 text-[#2467D2] font-mono text-[12px] uppercase">
-              I bring the full craft from sketch to ship.
+              Open to design engineer roles
             </span>
           </div>
           <HeroLinks onCta={onCta} />
