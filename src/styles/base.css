@@ -74,6 +74,22 @@ body::before {
   0%, 60%, 100% { transform: translateY(0); opacity: .4; }
   30% { transform: translateY(-4px); opacity: 1; }
 }
+@keyframes nav-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes nav-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(6px); }
+}
+.nav-item-enter {
+  animation: nav-in .28s cubic-bezier(.2,.7,.2,1) both;
+  animation-delay: var(--d, 0ms);
+}
+.nav-item-exit {
+  animation: nav-out .2s cubic-bezier(.7,.2,1,.2) both;
+  animation-delay: var(--d, 0ms);
+}
 @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
 @keyframes rise { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 @keyframes askrise { from { transform: translateY(16px) scale(.98); opacity: 0; } to { transform: none; opacity: 1; } }
