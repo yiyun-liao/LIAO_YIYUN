@@ -1,7 +1,7 @@
-import { Button } from "../components/Button";
-import { NavLink } from "../components/NavLink";
-import { DownloadIcon, MailIcon, GitHubIcon, LinkedInIcon, QuoteIcon } from "../components/Icon";
-import { LINKS } from "../data/constants";
+import { Button } from "@/components/Button";
+import { NavLink } from "@/components/NavLink";
+import { DownloadIcon, MailIcon, GitHubIcon, LinkedInIcon, QuoteIcon } from "@/components/Icon";
+import { LINKS } from "@/data/constants";
 
 interface HeroLinksProps {
   onCta: () => void;

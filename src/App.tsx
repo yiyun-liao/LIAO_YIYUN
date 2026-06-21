@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Nav } from "./sections/Nav";
-import { HomePage } from "./pages/HomePage";
-import { DemosPage } from "./pages/DemosPage";
+import { HomePage } from "./pages/HomePage/index";
+import { DemosPage } from "./pages/DemosPage/index";
 
 export default function App() {
   const [compact, setCompact] = useState(false);

@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { ArrowIcon } from "./Icon";
 import { Pill } from "./Pill";
-import type { Project } from "../data/projects";
+import type { Project } from "@/data/projects";
 
 interface CardProps {
   project: Project;

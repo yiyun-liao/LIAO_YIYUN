@@ -1,4 +1,4 @@
-import { LINKS } from "../data/constants";
+import { LINKS } from "@/data/constants";
 
 export function Footer() {
   return (

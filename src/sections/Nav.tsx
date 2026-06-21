@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import { DownloadIcon } from "../components/Icon";
-import { NavLink } from "../components/NavLink";
-import { RESUME_PATH } from "../data/constants";
+import { DownloadIcon } from "@/components/Icon";
+import { NavLink } from "@/components/NavLink";
+import { RESUME_PATH } from "@/data/constants";
 
 const SECTION_LINKS = [
   { id: "work", label: "Work" },
@@ -43,20 +43,18 @@ export function Nav({ compact }: NavProps) {
           Yi<i className="text-accent">·</i>Yun<span className="text-accent">.</span>
         </Link>
         <ul className="hidden md:flex gap-4 list-none m-0 p-0">
-          {SECTION_LINKS.map(({ id, label }) => (
+          {isHome && SECTION_LINKS.map(({ id, label }) => (
             <li key={id}>
               <NavLink id={id} onClick={handleSectionClick}>{label}</NavLink>
             </li>
           ))}
+          {!isHome && (
+            <li>
+              <NavLink onClick={() => navigate("/")}>About</NavLink>
+            </li>
+          )}
           <li>
-            <Link
-              to="/demos"
-              className={`font-mono flex items-center p-2 border-b text-[12px] font-bold tracking-[.12em] uppercase opacity-75 hover:opacity-100 hover:text-[#2467D2] hover:font-bold ${
-                location.pathname === "/demos" ? "border-current opacity-100 text-[#2467D2]" : "border-transparent hover:border-current"
-              }`}
-            >
-              Demos
-            </Link>
+            <NavLink onClick={() => navigate("/demos")}>Demos</NavLink>
           </li>
         </ul>
         <NavLink underline icon={DownloadIcon} onClick={() => window.open(RESUME_PATH, "_blank")}>

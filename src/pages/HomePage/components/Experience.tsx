@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect} from "react";
 
-import { EXPERIENCE } from "../data/experience";
+import { EXPERIENCE } from "@/data/experience";
 
 function MoreNotePanel({ moreNote, hovered }: { moreNote: string[]; hovered: boolean }) {
   return (

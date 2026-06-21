@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import { Card } from "../components/Card";
-import { PROJECTS } from "../data/projects";
+import { Card } from "@/components/Card";
+import { PROJECTS } from "@/data/projects";
 
 interface ProjectsProps {
   onOpen: (id: string) => void;

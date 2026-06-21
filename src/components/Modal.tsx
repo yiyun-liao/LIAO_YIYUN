@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { CloseIcon, ExternalIcon } from "./Icon";
 import { Pill } from "./Pill";
 import { Button } from "./Button";
-import type { Project } from "../data/projects";
+import type { Project } from "@/data/projects";
 
 interface CarouselProps {
   images: string[];
