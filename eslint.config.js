@@ -4,12 +4,13 @@ import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
+import prettier from "eslint-config-prettier";
 
 export default tseslint.config(
   { ignores: ["dist"] },
   {
     files: ["**/*.{ts,tsx}"],
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    extends: [js.configs.recommended, ...tseslint.configs.recommended, prettier],
     languageOptions: {
       ecmaVersion: "latest",
       globals: globals.browser,
@@ -32,13 +33,6 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "react/prop-types": "off",
-      "indent": ["error", 2, { SwitchCase: 1 }],
-      "no-mixed-spaces-and-tabs": "error",
-      "no-trailing-spaces": "error",
-      "eol-last": ["error", "always"],
-      "no-multiple-empty-lines": ["error", { max: 1 }],
-      "semi": ["error", "always"],
-      "quotes": ["error", "double", { avoidEscape: true }],
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     },
   },

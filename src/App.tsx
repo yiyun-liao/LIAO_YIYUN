@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { Nav } from "./sections/Nav";
 import { HomePage } from "./pages/HomePage/index";
 import { DemosPage } from "./pages/DemosPage/index";
+import { DarkModeSwitchDemo } from "./pages/DemosPage/demo/DarkModeSwitchDemo";
 
 export default function App() {
   const [compact, setCompact] = useState(false);
@@ -19,6 +20,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/demos" element={<DemosPage />} />
+        <Route path="/demos/dark-mode-switch" element={<DarkModeSwitchDemo />} />
       </Routes>
     </>
   );

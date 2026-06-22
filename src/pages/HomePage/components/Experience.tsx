@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect} from "react";
+import { useRef, useState, useEffect } from "react";
 
 import { EXPERIENCE } from "@/data/experience";
 
@@ -12,7 +12,11 @@ function MoreNotePanel({ moreNote, hovered }: { moreNote: string[]; hovered: boo
       }}
     >
       <ul className="m-0 pl-[14px] text-[13px] leading-[1.55] text-ink-soft list-disc flex-col">
-        {moreNote.map((m) => <li key={m} className="mb-1.5">{m}</li>)}
+        {moreNote.map((m) => (
+          <li key={m} className="mb-1.5">
+            {m}
+          </li>
+        ))}
       </ul>
     </div>
   );
@@ -80,7 +84,9 @@ export function Experience() {
               onMouseLeave={() => setHoveredRow(null)}
             >
               <div>
-                <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft flex align-top">{row.when}</div>
+                <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft flex align-top">
+                  {row.when}
+                </div>
               </div>
               <div className="relative">
                 <h3 className="m-0 mb-2.5 flex items-center gap-3">
@@ -91,23 +97,35 @@ export function Experience() {
                 <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mb-4">{row.role}</div>
                 <div className="md:hidden">
                   <ul className="m-0 pl-[18px] text-ink-soft text-sm leading-[1.6] list-disc">
-                    {row.bullets.map((b) => <li key={b}>{b}</li>)}
+                    {row.bullets.map((b) => (
+                      <li key={b}>{b}</li>
+                    ))}
                   </ul>
                   <div
                     className="overflow-hidden transition-all duration-400 ease-[cubic-bezier(.2,.7,.2,1)]"
                     style={{ maxHeight: expandedRows.has(i) ? "600px" : "0" }}
                   >
                     <ul className="m-0 mt-2 pl-[18px] text-ink-soft text-sm leading-[1.6] list-disc">
-                      {row.moreNote.map((m) => <li key={m}>{m}</li>)}
+                      {row.moreNote.map((m) => (
+                        <li key={m}>{m}</li>
+                      ))}
                     </ul>
                   </div>
                   <button
                     className="mt-3 font-mono text-[11px] tracking-[.12em] uppercase text-accent flex items-center gap-1.5"
-                    onClick={(e) => { e.stopPropagation(); toggleExpand(i); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleExpand(i);
+                    }}
                   >
                     {expandedRows.has(i) ? "Collapse" : "More"}
                     <svg
-                      width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
                       className={`transition-transform duration-300 ${expandedRows.has(i) ? "rotate-180" : ""}`}
                     >
                       <path d="M6 9l6 6 6-6" />
@@ -122,7 +140,9 @@ export function Experience() {
                   }}
                 >
                   <ul className="m-0 pl-[18px] text-ink-soft text-sm leading-[1.6] list-disc">
-                    {row.bullets.map((b) => <li key={b}>{b}</li>)}
+                    {row.bullets.map((b) => (
+                      <li key={b}>{b}</li>
+                    ))}
                   </ul>
                 </div>
               </div>

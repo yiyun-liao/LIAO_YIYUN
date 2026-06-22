@@ -1,11 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 
-const QUICK_PROMPTS = [
-  "Why designer → engineer?",
-  "Open to roles?",
-  "Tell me about Splitly.",
-];
+const QUICK_PROMPTS = ["Why designer → engineer?", "Open to roles?", "Tell me about Splitly."];
 
 interface Message {
   role: "user" | "assistant";
@@ -65,7 +61,8 @@ export function AskYiYun() {
         ...m,
         {
           role: "assistant",
-          content: "Sorry — I couldn't reach the model just now. Try again in a moment, or email yiyun.bian.design@gmail.com.",
+          content:
+            "Sorry — I couldn't reach the model just now. Try again in a moment, or email yiyun.bian.design@gmail.com.",
         },
       ]);
     } finally {
@@ -88,7 +85,11 @@ export function AskYiYun() {
       )}
 
       {open && (
-        <div className="ask-enter ask-panel-shadow fixed right-2.5 bottom-2.5 sm:right-5 sm:bottom-5 z-75 w-[calc(100vw-20px)] h-[calc(100vh-20px)] sm:w-[min(380px,calc(100vw-40px))] sm:h-[min(560px,calc(100vh-40px))] bg-paper border border-ink flex flex-col overflow-hidden" role="dialog" aria-label="Ask Yi-Yun">
+        <div
+          className="ask-enter ask-panel-shadow fixed right-2.5 bottom-2.5 sm:right-5 sm:bottom-5 z-75 w-[calc(100vw-20px)] h-[calc(100vh-20px)] sm:w-[min(380px,calc(100vw-40px))] sm:h-[min(560px,calc(100vh-40px))] bg-paper border border-ink flex flex-col overflow-hidden"
+          role="dialog"
+          aria-label="Ask Yi-Yun"
+        >
           <div className="flex justify-between items-center px-4 py-3.5 border-b border-ink bg-paper">
             <div className="flex gap-3 items-center">
               <div className="relative w-10 h-10 rounded-full bg-accent text-white grid place-items-center font-serif text-base tracking-[-.02em]">
@@ -97,7 +98,9 @@ export function AskYiYun() {
               </div>
               <div>
                 <div className="font-serif text-lg leading-[1.1]">Ask about Yi-Yun</div>
-                <div className="font-mono text-[10px] tracking-[.14em] uppercase text-ink-soft mt-[3px]">AI agent · answers on her behalf</div>
+                <div className="font-mono text-[10px] tracking-[.14em] uppercase text-ink-soft mt-[3px]">
+                  AI agent · answers on her behalf
+                </div>
               </div>
             </div>
             <button
@@ -112,11 +115,13 @@ export function AskYiYun() {
           <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-2.5 bg-paper-bright" ref={bodyRef}>
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[82%] px-3.5 py-2.5 rounded-[14px] text-sm leading-[1.5] ${
-                  m.role === "user"
-                    ? "bg-accent text-white rounded-br-[4px] whitespace-pre-wrap"
-                    : "bg-paper border border-ink/14 rounded-bl-[4px] text-ink prose prose-sm"
-                }`}>
+                <div
+                  className={`max-w-[82%] px-3.5 py-2.5 rounded-[14px] text-sm leading-[1.5] ${
+                    m.role === "user"
+                      ? "bg-accent text-white rounded-br-[4px] whitespace-pre-wrap"
+                      : "bg-paper border border-ink/14 rounded-bl-[4px] text-ink prose prose-sm"
+                  }`}
+                >
                   {m.role === "assistant" ? (
                     <ReactMarkdown
                       components={{
@@ -126,7 +131,9 @@ export function AskYiYun() {
                         li: ({ children }) => <li className="mb-1">{children}</li>,
                         strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
                         em: ({ children }) => <em className="italic">{children}</em>,
-                        code: ({ children }) => <code className="bg-ink/10 px-1.5 py-0.5 rounded text-xs font-mono">{children}</code>,
+                        code: ({ children }) => (
+                          <code className="bg-ink/10 px-1.5 py-0.5 rounded text-xs font-mono">{children}</code>
+                        ),
                       }}
                     >
                       {m.content}
@@ -189,7 +196,9 @@ export function AskYiYun() {
               </svg>
             </button>
           </form>
-          <div className="font-mono text-[9px] tracking-[.12em] uppercase text-mute text-center px-3 py-1.5 pb-2.5">Powered by Claude · may not be 100% accurate</div>
+          <div className="font-mono text-[9px] tracking-[.12em] uppercase text-mute text-center px-3 py-1.5 pb-2.5">
+            Powered by Claude · may not be 100% accurate
+          </div>
         </div>
       )}
     </>

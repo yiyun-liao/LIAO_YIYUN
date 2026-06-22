@@ -56,7 +56,9 @@ export function Card({ project: p, onOpen, idx = 0, headIn = false }: CardProps)
       <p className="m-0 text-ink-soft text-sm leading-[1.55]">{p.tagline}</p>
 
       <div className="flex gap-1.5 flex-wrap">
-        {p.tags.slice(0, 5).map((t) => <Pill key={t}>{t}</Pill>)}
+        {p.tags.slice(0, 5).map((t) => (
+          <Pill key={t}>{t}</Pill>
+        ))}
         {p.tags.length > 5 && <Pill>+{p.tags.length - 5}</Pill>}
       </div>
 
@@ -64,7 +66,9 @@ export function Card({ project: p, onOpen, idx = 0, headIn = false }: CardProps)
         <span className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft">{p.year}</span>
         <span className="card-hint font-mono text-[10px] tracking-[.16em] uppercase text-ink-soft flex items-center gap-1.5">
           Open case{" "}
-          <span className="card-arrow transition-transform duration-200"><ArrowIcon /></span>
+          <span className="card-arrow transition-transform duration-200">
+            <ArrowIcon />
+          </span>
         </span>
       </div>
     </article>

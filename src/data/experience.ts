@@ -3,8 +3,8 @@ import { type ReactNode } from "react";
 interface ExperienceRow {
   when: string;
   company: string;
-  url:string;
-  logo:string;
+  url: string;
+  logo: string;
   role: string;
   bullets: string[];
   note: ReactNode;
@@ -15,8 +15,8 @@ export const EXPERIENCE: ExperienceRow[] = [
   {
     when: "2025.08 — 2026.03",
     company: "AmazingTalker",
-    url:"https://tw.amazingtalker.com/",
-    logo:"assets/logo/at.png",
+    url: "https://tw.amazingtalker.com/",
+    logo: "assets/logo/at.png",
     role: "Front-End Engineer",
     bullets: [
       "Shipped screen-share permission control, stream reactions, and Electron desktop features end-to-end",
@@ -32,8 +32,8 @@ export const EXPERIENCE: ExperienceRow[] = [
   {
     when: "2024 — 2025",
     company: "WeHelp Bootcamp",
-    url:"https://wehelp.tw/",
-    logo:"assets/logo/wehelp.png",
+    url: "https://wehelp.tw/",
+    logo: "assets/logo/wehelp.png",
     role: "Full-stack training",
     bullets: [
       "Shipped Splitly as capstone — full-stack expense splitting app with three real-time split modes",
@@ -49,8 +49,8 @@ export const EXPERIENCE: ExperienceRow[] = [
   {
     when: "2022 — 2024",
     company: "AmazingTalker",
-    url:"https://tw.amazingtalker.com/",
-    logo:"assets/logo/at.png",
+    url: "https://tw.amazingtalker.com/",
+    logo: "assets/logo/at.png",
     role: "Lead UI/UX Designer",
     bullets: [
       "Led cart checkout redesign — +14% purchase conversion",

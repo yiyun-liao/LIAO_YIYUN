@@ -11,5 +11,9 @@ export function Pill({ vibe, children, ...props }: PillProps) {
     ? `${base} border-accent text-accent bg-accent/8`
     : `${base} border-ink/30 text-ink-soft bg-paper-white`;
 
-  return <span className={cls} {...props}>{children}</span>;
+  return (
+    <span className={cls} {...props}>
+      {children}
+    </span>
+  );
 }

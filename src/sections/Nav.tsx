@@ -59,7 +59,9 @@ export function Nav({ compact }: NavProps) {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-40 nav-blur transition-[padding] duration-[350ms]">
-      <div className={`wrap flex items-center justify-between transition-[padding] duration-[350ms] ${compact ? "py-2.5" : "py-[18px]"}`}>
+      <div
+        className={`wrap flex items-center justify-between transition-[padding] duration-[350ms] ${compact ? "py-2.5" : "py-[18px]"}`}
+      >
         <Link to="/" className="font-serif text-[22px] tracking-[.01em]">
           Yi<i className="text-accent">·</i>Yun<span className="text-accent">.</span>
         </Link>
@@ -74,7 +76,11 @@ export function Nav({ compact }: NavProps) {
                 <li
                   key={id}
                   className={animClass}
-                  style={{ "--d": phase === "exit" ? `${(SECTION_LINKS.length - 1 - i) * 30}ms` : `${i * 40}ms` } as React.CSSProperties}
+                  style={
+                    {
+                      "--d": phase === "exit" ? `${(SECTION_LINKS.length - 1 - i) * 30}ms` : `${i * 40}ms`,
+                    } as React.CSSProperties
+                  }
                 >
                   <NavLink id={id} onClick={handleSectionClick}>
                     {label}
@@ -83,7 +89,7 @@ export function Nav({ compact }: NavProps) {
               ))
             )}
           </ul>
-          <div className="w-[1px] h-[16px] bg-ink-soft mr-4 ml-4"/>
+          <div className="w-[1px] h-[16px] bg-ink-soft mr-4 ml-4" />
           <ul className="flex gap-4 list-none m-0 p-0 items-center">
             <li className="font-bold">
               <NavLink onClick={() => navigate("/demos")}>Demos</NavLink>
