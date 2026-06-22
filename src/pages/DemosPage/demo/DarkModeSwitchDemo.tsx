@@ -5,6 +5,7 @@ import { Footer } from "@/sections/Footer";
 import { Header } from "../components/Header";
 import { Views } from "../components/View";
 import { Emphasis } from "../components/Emphasis";
+import { CodeSection } from "../components/CodeSection";
 
 const DEMO = DEMOS.find((d) => d.title === "Dark Mode Switch")!;
 
@@ -49,6 +50,7 @@ export function DarkModeSwitchDemo() {
         </div>
       </Views>
       {DEMO.introduction?.emphasis && DEMO.introduction.emphasis.length > 0 && <Emphasis intros={DEMO.introduction}/>}
+      <CodeSection demo={DEMO} />
       <Footer />
     </div>
     </>

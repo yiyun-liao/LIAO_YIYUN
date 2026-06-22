@@ -5,6 +5,13 @@ export interface Introduction {
   body?: string;
 }
 
+export interface CodeEmbed {
+  /** CodeSandbox sandbox_id returned by the define API (scripts/push-to-codesandbox.mjs) */
+  sandboxId: string;
+  /** Embed view — "split" (default) shows code + live preview side by side, "editor" is code-only, "preview" is preview-only */
+  view?: "editor" | "split" | "preview";
+}
+
 export interface Demo {
   date: string;
   title: string;
@@ -14,6 +21,7 @@ export interface Demo {
   url: string;
   image?: string;
   introduction?: Introduction;
+  codeEmbed?: CodeEmbed;
 }
 
 export const DEMOS: Demo[] = [
@@ -24,6 +32,7 @@ export const DEMOS: Demo[] = [
     type: "demo",
     tags: ["React", "CSS", "A11y"],
     url: "/demos/dark-mode-switch",
+    codeEmbed: { sandboxId: "wqn6nn" },
     introduction: {
       body: "A toggle switch with a squish micro-interaction. Press and hold to see the knob compress before snapping to the other side.",
       emphasis: [
