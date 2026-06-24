@@ -1,0 +1,116 @@
+{
+  "lang": { "switch": "EN", "label": "中文" },
+  "nav": {
+    "work": "經歷",
+    "projects": "專案",
+    "about": "關於",
+    "contact": "聯繫",
+    "demos": "展示",
+    "cv": "履歷"
+  },
+  "hero": {
+    "label": "— 2026 / 作品集",
+    "firstName": "Yi-Yun",
+    "lastName": "Liao",
+    "description": "廖宜昀 -- 前端工程師，專注即時互動平台開發。曾任首席 UI/UX 設計師。",
+    "cta": "尋找 Design Engineer 職位",
+    "tagline": "串接設計系統與前端工程 · AI 輔助開發",
+    "downloadCv": "下載履歷",
+    "email": "信箱",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "sideLabel": "Code & Design",
+    "status": "求職中 · Design Engineer",
+    "botHint": "用 AI 機器人問問我 ➘"
+  },
+  "ticker": {
+    "phrase": "AI accelerates the output — architectural thinking doesn't get a discount."
+  },
+  "experience": {
+    "label": "001 · Experience",
+    "heading": "At",
+    "headingIt": "work",
+    "more": "More",
+    "collapse": "Collapse"
+  },
+  "projectsSection": {
+    "label": "002 · Selected Projects",
+    "heading": "Cases",
+    "headingIt": "& craft",
+    "paused": "已暫停 · 滑鼠移入閱讀",
+    "hoverToPause": "滑鼠移入暫停"
+  },
+  "about": {
+    "label": "003 · About",
+    "heading": "The",
+    "headingIt": "long",
+    "headingSuffix": "way round.",
+    "line1": "工業設計畢業於",
+    "ntust": "NTUST",
+    "line2": "三年網站產品設計師，",
+    "line3": "在全端工程訓練營後，",
+    "line4": "在即時互動平台上擔任前端工程師，",
+    "line5": "目前",
+    "line5It": "正在尋找下一個團隊。",
+    "paragraph": "有設計背景的工程師可以省去很多角色之間的來回——能在開始開發前就修正 UX 可能導致的問題",
+    "approach": "方法",
+    "approachText": "運用產品思維思考，提升使用體驗及思考程式結構。理解使用者意圖，再設計資料模型，最後是介面。",
+    "now": "現在",
+    "nowText": "深入",
+    "nowBold": "AI 輔助開發",
+    "nowSuffix": "——AI 加速了產出，但架構思維沒有折扣。",
+    "toolkit": "技術棧",
+    "toolkitText": "React / Next / TS、Node + FastAPI、Postgres + Firebase、Figma、Claude + agents。"
+  },
+  "askYiYun": {
+    "fab": "問問宜昀",
+    "title": "問問宜昀",
+    "subtitle": "AI 代理 · 代替她回答",
+    "prompt1": "為什麼從設計轉工程？",
+    "prompt2": "目前在找什麼職位？",
+    "prompt3": "介紹一下 Splitly。",
+    "initial": "嗨——我是宜昀的 AI 代理。可以問我任何問題：技術棧、工作方式、專案、可到職時間、設計師轉工程師的經歷。",
+    "placeholder": "問點什麼⋯",
+    "send": "送出",
+    "error": "抱歉——目前無法連線到模型。請稍後再試，或寄信至 yiyun.bian.design@gmail.com。",
+    "powered": "由 Claude 驅動 · 內容可能不完全準確"
+  },
+  "footer": {
+    "heading": "Let's",
+    "headingIt": "talk",
+    "email": "Email",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "copyright": "© 2026 Yi-Yun Liao · Taipei",
+    "built": "Built with React · Type set in Instrument Serif & IBM Plex"
+  },
+  "demos": {
+    "pageLabel": "Demos & Experiments",
+    "heading": "Small",
+    "headingIt": "demos",
+    "description": "實驗、設計片段與短文",
+    "all": "全部",
+    "codepen": "CodePen",
+    "article": "文章",
+    "demo": "展示",
+    "experiment": "實驗",
+    "comingSoon": "即將推出",
+    "comingSoonSub": "每週都有新展示加入",
+    "updatedWeekly": "每週更新",
+    "back": "Demos"
+  },
+  "modal": {
+    "escToClose": "按 Esc 關閉",
+    "tagline": "標語",
+    "overview": "概述",
+    "highlights": "亮點",
+    "stack": "技術棧",
+    "links": "連結",
+    "prevImage": "上一張圖片",
+    "nextImage": "下一張圖片"
+  },
+  "card": {
+    "openCase": "查看案例",
+    "vibeCoded": "⚡ Vibe-Coded"
+  }
+}

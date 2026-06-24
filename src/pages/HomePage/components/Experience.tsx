@@ -1,8 +1,9 @@
 import { useRef, useState, useEffect } from "react";
-
 import { EXPERIENCE } from "@/data/experience";
+import { useLanguage } from "@/i18n/LanguageContext";
+import type { L } from "@/i18n/types";
 
-function MoreNotePanel({ moreNote, hovered }: { moreNote: string[]; hovered: boolean }) {
+function MoreNotePanel({ moreNote, hovered, l }: { moreNote: L[]; hovered: boolean; l: (t: L) => string }) {
   return (
     <div
       className="hidden md:flex absolute top-0 right-0 bottom-0 m-4 md:left-[420px] lg:left-[520px] items-center md:border-l-2 md:border-accent md:pl-3.5 transition-all duration-500 ease-[cubic-bezier(.2,.7,.2,1)] pointer-events-none"
@@ -12,9 +13,9 @@ function MoreNotePanel({ moreNote, hovered }: { moreNote: string[]; hovered: boo
       }}
     >
       <ul className="m-0 pl-[14px] text-[13px] leading-[1.55] text-ink-soft list-disc flex-col">
-        {moreNote.map((m) => (
-          <li key={m} className="mb-1.5">
-            {m}
+        {moreNote.map((m, i) => (
+          <li key={i} className="mb-1.5">
+            {l(m)}
           </li>
         ))}
       </ul>
@@ -23,6 +24,7 @@ function MoreNotePanel({ moreNote, hovered }: { moreNote: string[]; hovered: boo
 }
 
 export function Experience() {
+  const { t, l } = useLanguage();
   const ref = useRef<HTMLElement>(null);
   const [visibleRows, setVisibleRows] = useState<Set<number>>(new Set());
   const [hoveredRow, setHoveredRow] = useState<number | null>(null);
@@ -64,9 +66,9 @@ export function Experience() {
       <div className="wrap">
         <div className="flex flex-col items-start gap-4 mb-8 md:flex-row md:items-end md:justify-between md:gap-6 md:mb-12">
           <div>
-            <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft">001 · Experience</div>
+            <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft">{t("experience.label")}</div>
             <h2 className="font-serif text-[clamp(42px,6vw,96px)] leading-[.95] tracking-[-.02em] mt-2 font-normal">
-              At <span className="italic">work</span>.
+              {t("experience.heading")} <span className="italic">{t("experience.headingIt")}</span>.
             </h2>
           </div>
         </div>
@@ -94,11 +96,11 @@ export function Experience() {
                     <img src={row.logo} alt={row.company} className="h-auto w-40 object-contain" />
                   </a>
                 </h3>
-                <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mb-4">{row.role}</div>
+                <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mb-4">{l(row.role)}</div>
                 <div className="md:hidden">
                   <ul className="m-0 pl-[18px] text-ink-soft text-sm leading-[1.6] list-disc">
-                    {row.bullets.map((b) => (
-                      <li key={b}>{b}</li>
+                    {row.bullets.map((b, bi) => (
+                      <li key={bi}>{l(b)}</li>
                     ))}
                   </ul>
                   <div
@@ -106,8 +108,8 @@ export function Experience() {
                     style={{ maxHeight: expandedRows.has(i) ? "600px" : "0" }}
                   >
                     <ul className="m-0 mt-2 pl-[18px] text-ink-soft text-sm leading-[1.6] list-disc">
-                      {row.moreNote.map((m) => (
-                        <li key={m}>{m}</li>
+                      {row.moreNote.map((m, mi) => (
+                        <li key={mi}>{l(m)}</li>
                       ))}
                     </ul>
                   </div>
@@ -118,7 +120,7 @@ export function Experience() {
                       toggleExpand(i);
                     }}
                   >
-                    {expandedRows.has(i) ? "Collapse" : "More"}
+                    {expandedRows.has(i) ? t("experience.collapse") : t("experience.more")}
                     <svg
                       width="12"
                       height="12"
@@ -140,13 +142,13 @@ export function Experience() {
                   }}
                 >
                   <ul className="m-0 pl-[18px] text-ink-soft text-sm leading-[1.6] list-disc">
-                    {row.bullets.map((b) => (
-                      <li key={b}>{b}</li>
+                    {row.bullets.map((b, bi) => (
+                      <li key={bi}>{l(b)}</li>
                     ))}
                   </ul>
                 </div>
               </div>
-              <MoreNotePanel moreNote={row.moreNote} hovered={hovered} />
+              <MoreNotePanel moreNote={row.moreNote} hovered={hovered} l={l} />
               <div
                 className="hidden md:block text-[13px] leading-[1.55] text-ink-soft border-t border-ink/15 pt-4 md:border-t-0 md:border-l-2 md:border-accent md:pl-3.5 md:pt-0 transition-all duration-500 ease-[cubic-bezier(.2,.7,.2,1)]"
                 style={{
@@ -154,7 +156,7 @@ export function Experience() {
                   opacity: hovered ? 0 : 1,
                 }}
               >
-                {row.note}
+                {l(row.note)}
               </div>
             </div>
           );

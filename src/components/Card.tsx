@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { ArrowRight } from "./Icon";
 import { Pill } from "./Pill";
 import type { Project } from "@/data/projects";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface CardProps {
   project: Project;
@@ -11,6 +12,7 @@ interface CardProps {
 }
 
 export function Card({ project: p, onOpen, idx = 0, headIn = false }: CardProps) {
+  const { t, l } = useLanguage();
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -42,7 +44,7 @@ export function Card({ project: p, onOpen, idx = 0, headIn = false }: CardProps)
     >
       <div className="flex justify-between items-center">
         <span className="font-mono text-[12px] tracking-[.16em] text-ink-soft">N° {p.idx}</span>
-        {p.vibe && <Pill vibe>⚡ Vibe-Coded</Pill>}
+        {p.vibe && <Pill vibe>{t("card.vibeCoded")}</Pill>}
       </div>
 
       <div className="aspect-[4/3] bg-[#EDECE6] relative overflow-hidden border border-ink/10">
@@ -53,11 +55,11 @@ export function Card({ project: p, onOpen, idx = 0, headIn = false }: CardProps)
         {p.titleIt ? <span className="italic">{p.name}</span> : p.name}
       </h3>
 
-      <p className="m-0 text-ink-soft text-sm leading-[1.55]">{p.tagline}</p>
+      <p className="m-0 text-ink-soft text-sm leading-[1.55]">{l(p.tagline)}</p>
 
       <div className="flex gap-1.5 flex-wrap">
-        {p.tags.slice(0, 5).map((t) => (
-          <Pill key={t}>{t}</Pill>
+        {p.tags.slice(0, 5).map((tag) => (
+          <Pill key={tag}>{tag}</Pill>
         ))}
         {p.tags.length > 5 && <Pill>+{p.tags.length - 5}</Pill>}
       </div>
@@ -65,7 +67,7 @@ export function Card({ project: p, onOpen, idx = 0, headIn = false }: CardProps)
       <div className="flex justify-between items-center mt-auto">
         <span className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft">{p.year}</span>
         <span className="card-hint font-mono text-[10px] tracking-[.16em] uppercase text-ink-soft flex items-center gap-1.5">
-          Open case{" "}
+          {t("card.openCase")}{" "}
           <span className="card-arrow transition-transform duration-200">
             <ArrowRight />
           </span>

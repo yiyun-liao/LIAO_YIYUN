@@ -1,6 +1,8 @@
 import { useRef, useState, useEffect } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function About() {
+  const { t } = useLanguage();
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -23,9 +25,9 @@ export function About() {
       <div className="wrap">
         <div className="flex flex-col items-start gap-4 mb-8 md:flex-row md:items-end md:justify-between md:gap-6 md:mb-14">
           <div>
-            <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft">003 · About</div>
+            <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft">{t("about.label")}</div>
             <h2 className="font-serif text-[clamp(42px,6vw,96px)] leading-[.95] tracking-[-.02em] mt-2 font-normal">
-              The <span className="italic">long</span> way round.
+              {t("about.heading")} <span className="italic">{t("about.headingIt")}</span> {t("about.headingSuffix")}
             </h2>
           </div>
         </div>
@@ -34,59 +36,50 @@ export function About() {
           <p className="font-serif text-[clamp(28px,3.2vw,46px)] leading-[1.18] tracking-[-.015em] m-0 flex flex-col gap-[2px]">
             <span className="about-line">
               <span>
-                Industrial design grad from <em className="text-accent italic">NTUST</em>,
+                {t("about.line1")} <em className="text-accent italic">{t("about.ntust")}</em>,
               </span>
             </span>
             <span className="about-line">
-              <span>three years as a website product designer,</span>
+              <span>{t("about.line2")}</span>
             </span>
             <span className="about-line">
-              <span>a full-stack bootcamp detour,</span>
+              <span>{t("about.line3")}</span>
             </span>
             <span className="about-line">
-              <span>shipping frontend code on real-time platforms,</span>
+              <span>{t("about.line4")}</span>
             </span>
             <span className="about-line">
               <span>
-                and <em className="text-accent italic">now looking for the next team.</em>
+                {t("about.line5")} <em className="text-accent italic">{t("about.line5It")}</em>
               </span>
             </span>
             <span className="about-line mt-6 pt-5 border-t border-ink/18">
               <span className="text-[.62em] text-ink-soft font-sans leading-[1.55] tracking-normal font-normal">
-                Design-trained engineers skip a lot of ping-pong between roles — I can read a spec and feel where the UX
-                cracks are before the first commit.
+                {t("about.paragraph")}
               </span>
             </span>
           </p>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-6">
             <div className="about-card-reveal">
               <h4 className="about-dash relative font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft m-0 mb-2 pl-[22px]">
-                Approach
+                {t("about.approach")}
               </h4>
               <p className="m-0 mb-5 ml-[22px] text-sm leading-[1.65] text-ink-soft">
-                I think in products, not tickets. User intent first, then data model, then interface.
+                {t("about.approachText")}
               </p>
               <h4 className="about-dash relative font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft m-0 mb-2 pl-[22px]">
-                Now
+                {t("about.now")}
               </h4>
               <p className="m-0 mb-5 ml-[22px] text-sm leading-[1.65] text-ink-soft">
-                Deep in <strong className="text-ink font-medium">AI-assisted development</strong> — AI accelerates
-                output, but architectural thinking doesn&apos;t get a discount.
+                {t("about.nowText")} <strong className="text-ink font-medium">{t("about.nowBold")}</strong> {t("about.nowSuffix")}
               </p>
             </div>
             <div className="about-card-reveal">
               <h4 className="about-dash relative font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft m-0 mb-2 pl-[22px]">
-                Toolkit
+                {t("about.toolkit")}
               </h4>
               <p className="m-0 mb-5 ml-[22px] text-sm leading-[1.65] text-ink-soft">
-                React / Next / TS. Node + FastAPI. Postgres + Firebase. Figma when it matters. Claude + agents for
-                leverage.
-              </p>
-              <h4 className="about-dash relative font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft m-0 mb-2 pl-[22px]">
-                Outside work
-              </h4>
-              <p className="m-0 mb-5 ml-[22px] text-sm leading-[1.65] text-ink-soft">
-                Reading on systems design & careers. Writing postmortems of my own side projects.
+                {t("about.toolkitText")}
               </p>
             </div>
           </div>

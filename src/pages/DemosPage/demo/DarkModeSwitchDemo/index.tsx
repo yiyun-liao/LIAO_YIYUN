@@ -17,9 +17,10 @@ import {
   ExternalIcon,
   QuoteIcon,
 } from "@/components/Icon";
+import { useLanguage } from "@/i18n/LanguageContext";
 import "./style.css";
 
-const DEMO = DEMOS.find((d) => d.title === "Dark Mode Switch")!;
+const DEMO = DEMOS.find((d) => d.url === "/demos/dark-mode-switch")!;
 
 function SunIcon() {
   return (
@@ -49,6 +50,7 @@ function MoonIcon() {
 }
 
 export function DarkModeSwitchDemo() {
+  const { l } = useLanguage();
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
@@ -58,7 +60,7 @@ export function DarkModeSwitchDemo() {
   return (
     <>
       <div className="flex flex-col gap-[24px] md:gap-[60px]">
-        <Header demo={DEMO} title={<>Dark Mode <span className="italic">Switch</span></>} />
+        <Header demo={DEMO} title={<>{l(DEMO.title)}</>} />
 
         <Views>
           <div
