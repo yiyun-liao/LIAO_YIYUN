@@ -3,6 +3,7 @@ import { CloseIcon, ExternalIcon } from "./Icon";
 import { Pill } from "./Pill";
 import { Button } from "./Button";
 import type { Project } from "@/data/projects";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface CarouselProps {
   images: string[];
@@ -100,6 +101,7 @@ interface ModalProps {
 }
 
 export function Modal({ project: p, onClose, onPrev, onNext }: ModalProps) {
+  const { t, l } = useLanguage();
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -132,10 +134,10 @@ export function Modal({ project: p, onClose, onPrev, onNext }: ModalProps) {
             </div>
             <div>
               <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mb-2.5">
-                {p.role} · {p.year} · {p.status}
+                {l(p.role)} · {p.year} · {l(p.status)}
                 {p.vibe && (
                   <Pill vibe className="ml-3">
-                    ⚡ Vibe-Coded
+                    {t("card.vibeCoded")}
                   </Pill>
                 )}
               </div>
@@ -144,47 +146,47 @@ export function Modal({ project: p, onClose, onPrev, onNext }: ModalProps) {
               </h2>
             </div>
             <div className="hidden md:block font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft text-right">
-              <div className="mt-2.5">Esc to close</div>
+              <div className="mt-2.5">{t("modal.escToClose")}</div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 gap-7 md:grid-cols-[1.2fr_.8fr] md:gap-14">
             <div>
               <Carousel images={p.images} name={p.name} />
-              <h4 className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mt-7 mb-2.5">Tagline</h4>
-              <p className="m-0 mb-3 font-serif text-[22px] leading-[1.35] text-ink">{p.tagline}</p>
-              <h4 className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mt-7 mb-2.5">Overview</h4>
-              <p className="m-0 mb-3 text-[15px] leading-[1.65] text-ink-soft">{p.overview}</p>
+              <h4 className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mt-7 mb-2.5">{t("modal.tagline")}</h4>
+              <p className="m-0 mb-3 font-serif text-[22px] leading-[1.35] text-ink">{l(p.tagline)}</p>
+              <h4 className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mt-7 mb-2.5">{t("modal.overview")}</h4>
+              <p className="m-0 mb-3 text-[15px] leading-[1.65] text-ink-soft">{l(p.overview)}</p>
             </div>
             <div>
-              <h4 className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mb-2.5">Highlights</h4>
+              <h4 className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mb-2.5">{t("modal.highlights")}</h4>
               <ul className="m-0 pl-[18px] text-ink-soft text-sm leading-[1.7] list-disc">
-                {p.highlights.map((h) => (
-                  <li key={h}>{h}</li>
+                {p.highlights.map((h, i) => (
+                  <li key={i}>{l(h)}</li>
                 ))}
               </ul>
-              <h4 className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mt-7 mb-2.5">Stack</h4>
+              <h4 className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mt-7 mb-2.5">{t("modal.stack")}</h4>
               <div className="flex flex-wrap gap-1.5">
-                {p.tags.map((t) => (
-                  <Pill key={t}>{t}</Pill>
+                {p.tags.map((tag) => (
+                  <Pill key={tag}>{tag}</Pill>
                 ))}
               </div>
-              <h4 className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mt-7 mb-2.5">Links</h4>
+              <h4 className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mt-7 mb-2.5">{t("modal.links")}</h4>
               <div className="flex gap-3 flex-wrap mt-7">
-                {p.links.map((l) =>
-                  l.disabled ? (
-                    <Button key={l.label} style={{ opacity: 0.4, cursor: "not-allowed" }}>
-                      {l.label}
+                {p.links.map((lnk, i) =>
+                  lnk.disabled ? (
+                    <Button key={i} style={{ opacity: 0.4, cursor: "not-allowed" }}>
+                      {l(lnk.label)}
                     </Button>
                   ) : (
-                    <Button key={l.label} href={l.href} target="_blank" rel="noopener">
-                      {l.label} <ExternalIcon />
+                    <Button key={i} href={lnk.href} target="_blank" rel="noopener">
+                      {l(lnk.label)} <ExternalIcon />
                     </Button>
                   ),
                 )}
               </div>
               {p.linkNote && (
-                <p className="m-0 mt-3 text-[12px] leading-[1.5] text-mute font-mono tracking-[.04em]">{p.linkNote}</p>
+                <p className="m-0 mt-3 text-[12px] leading-[1.5] text-mute font-mono tracking-[.04em]">{l(p.linkNote)}</p>
               )}
             </div>
           </div>

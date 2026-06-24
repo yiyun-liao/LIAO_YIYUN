@@ -3,13 +3,10 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import { DownloadIcon } from "@/components/Icon";
 import { NavLink } from "@/components/NavLink";
 import { RESUME_PATH } from "@/data/constants";
+import { useLanguage } from "@/i18n/LanguageContext";
+import { Switch } from "@/components/Switch";
 
-const SECTION_LINKS = [
-  { id: "work", label: "Work" },
-  { id: "projects", label: "Projects" },
-  { id: "about", label: "About" },
-  { id: "contact", label: "Contact" },
-];
+const SECTION_IDS = ["work", "projects", "about", "contact"] as const;
 
 const EXIT_MS = 200;
 
@@ -26,6 +23,7 @@ interface NavProps {
 }
 
 export function Nav({ compact }: NavProps) {
+  const { t, locale, setLocale } = useLanguage();
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
@@ -39,11 +37,11 @@ export function Nav({ compact }: NavProps) {
     prevHome.current = isHome;
 
     setPhase("exit");
-    const t = setTimeout(() => {
+    const timer = setTimeout(() => {
       setShowHome(isHome);
       setPhase("enter");
     }, EXIT_MS);
-    return () => clearTimeout(t);
+    return () => clearTimeout(timer);
   }, [isHome]);
 
   const handleSectionClick = (id?: string) => {
@@ -54,6 +52,9 @@ export function Nav({ compact }: NavProps) {
       navigate("/", { state: { scrollTo: id } });
     }
   };
+
+  const isZh = locale === "zh-TW";
+  const toggleLocale = () => setLocale(isZh ? "en" : "zh-TW");
 
   const animClass = phase === "exit" ? "nav-item-exit" : "nav-item-enter";
 
@@ -69,21 +70,21 @@ export function Nav({ compact }: NavProps) {
           <ul className="hidden md:flex gap-4 list-none m-0 p-0 items-center">
             {!showHome ? (
               <li className={`${animClass} font-bold`}>
-                <NavLink onClick={() => navigate("/")}>About</NavLink>
+                <NavLink onClick={() => navigate("/")}>{t("nav.about")}</NavLink>
               </li>
             ) : (
-              SECTION_LINKS.map(({ id, label }, i) => (
+              SECTION_IDS.map((id, i) => (
                 <li
                   key={id}
                   className={animClass}
                   style={
                     {
-                      "--d": phase === "exit" ? `${(SECTION_LINKS.length - 1 - i) * 30}ms` : `${i * 40}ms`,
+                      "--d": phase === "exit" ? `${(SECTION_IDS.length - 1 - i) * 30}ms` : `${i * 40}ms`,
                     } as React.CSSProperties
                   }
                 >
                   <NavLink id={id} onClick={handleSectionClick}>
-                    {label}
+                    {t(`nav.${id}`)}
                   </NavLink>
                 </li>
               ))
@@ -92,13 +93,16 @@ export function Nav({ compact }: NavProps) {
           <div className="w-[1px] h-[16px] bg-ink-soft mr-4 ml-4" />
           <ul className="flex gap-4 list-none m-0 p-0 items-center">
             <li className="font-bold">
-              <NavLink onClick={() => navigate("/demos")}>Demos</NavLink>
+              <NavLink onClick={() => navigate("/demos")}>{t("nav.demos")}</NavLink>
             </li>
           </ul>
         </div>
-        <NavLink underline icon={DownloadIcon} onClick={() => window.open(RESUME_PATH, "_blank")}>
-          CV
-        </NavLink>
+        <div className="flex items-center gap-4">
+          <NavLink underline icon={DownloadIcon} onClick={() => window.open(RESUME_PATH, "_blank")}>
+            {t("nav.cv")}
+          </NavLink>
+          <Switch leftText="EN" rightText="中" checked={isZh} onChange={() => toggleLocale()} />
+        </div>
       </div>
     </nav>
   );

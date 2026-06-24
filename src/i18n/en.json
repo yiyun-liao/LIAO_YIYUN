@@ -1,0 +1,116 @@
+{
+  "lang": { "switch": "中文", "label": "EN" },
+  "nav": {
+    "work": "Work",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact",
+    "demos": "Demos",
+    "cv": "CV"
+  },
+  "hero": {
+    "label": "— 2026 / PORTFOLIO",
+    "firstName": "Yi-Yun",
+    "lastName": "Liao",
+    "description": "Frontend Engineer working on real-time platforms. Former lead designer.",
+    "cta": "Open to design engineer roles",
+    "tagline": "Bridging design systems and frontend engineering · AI-Assisted Development",
+    "downloadCv": "Download CV",
+    "email": "Email",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "sideLabel": "Code & Design",
+    "status": "Currently seeking · Design Engineer",
+    "botHint": "ask about me by bot ➘"
+  },
+  "ticker": {
+    "phrase": "AI accelerates the output — architectural thinking doesn't get a discount."
+  },
+  "experience": {
+    "label": "001 · Experience",
+    "heading": "At",
+    "headingIt": "work",
+    "more": "More",
+    "collapse": "Collapse"
+  },
+  "projectsSection": {
+    "label": "002 · Selected Projects",
+    "heading": "Cases",
+    "headingIt": "& craft",
+    "paused": "Paused · hover to read",
+    "hoverToPause": "Hover to pause"
+  },
+  "about": {
+    "label": "003 · About",
+    "heading": "The",
+    "headingIt": "long",
+    "headingSuffix": "way round.",
+    "line1": "Industrial design grad from",
+    "ntust": "NTUST",
+    "line2": "three years as a website product designer,",
+    "line3": "a full-stack bootcamp detour,",
+    "line4": "shipping frontend code on real-time platforms,",
+    "line5": "and",
+    "line5It": "now looking for the next team.",
+    "paragraph": "Design-trained engineers skip a lot of ping-pong between roles — I can read a spec and feel where the UX cracks are before the first commit.",
+    "approach": "Approach",
+    "approachText": "I think in products, not tickets. User intent first, then data model, then interface.",
+    "now": "Now",
+    "nowText": "Deep in",
+    "nowBold": "AI-assisted development",
+    "nowSuffix": "— AI accelerates output, but architectural thinking doesn't get a discount.",
+    "toolkit": "Toolkit",
+    "toolkitText": "React / Next / TS. Node + FastAPI. Postgres + Firebase. Figma when it matters. Claude + agents for leverage."
+  },
+  "askYiYun": {
+    "fab": "Ask about Yi-Yun",
+    "title": "Ask about Yi-Yun",
+    "subtitle": "AI agent · answers on her behalf",
+    "prompt1": "Why designer → engineer?",
+    "prompt2": "Open to roles?",
+    "prompt3": "Tell me about Splitly.",
+    "initial": "Hi — I'm an agent briefed on Yi-Yun. Ask me anything: stack, ways of working, projects, availability, designer→engineer transition.",
+    "placeholder": "Ask something…",
+    "send": "Send",
+    "error": "Sorry — I couldn't reach the model just now. Try again in a moment, or email yiyun.bian.design@gmail.com.",
+    "powered": "Powered by Claude · may not be 100% accurate"
+  },
+  "footer": {
+    "heading": "Let's",
+    "headingIt": "talk",
+    "email": "Email",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "copyright": "© 2026 Yi-Yun Liao · Taipei",
+    "built": "Built with React · Type set in Instrument Serif & IBM Plex"
+  },
+  "demos": {
+    "pageLabel": "Demos & Experiments",
+    "heading": "Small",
+    "headingIt": "demos",
+    "description": "Experiments, design snippets, and short articles — the smaller things that don't fit a full case study.",
+    "all": "All",
+    "codepen": "CodePen",
+    "article": "Article",
+    "demo": "Demo",
+    "experiment": "Experiment",
+    "comingSoon": "Coming soon",
+    "comingSoonSub": "New demos added weekly",
+    "updatedWeekly": "updated weekly",
+    "back": "Demos"
+  },
+  "modal": {
+    "escToClose": "Esc to close",
+    "tagline": "Tagline",
+    "overview": "Overview",
+    "highlights": "Highlights",
+    "stack": "Stack",
+    "links": "Links",
+    "prevImage": "Previous image",
+    "nextImage": "Next image"
+  },
+  "card": {
+    "openCase": "Open case",
+    "vibeCoded": "⚡ Vibe-Coded"
+  }
+}

@@ -1,0 +1,77 @@
+/* ——— Language Switch ——— */
+.lang-switch {
+  position: relative;
+  width: 60px;
+  height: 32px;
+  border-radius: 16px;
+  cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--color-ink) 15%, transparent);
+  outline: none;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-ink) 6%, var(--color-paper));
+  transition: background 0.35s, border-color 0.35s;
+}
+.lang-switch:hover {
+  border-color: var(--color-ink-soft);
+}
+.lang-switch:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-ink-soft);
+}
+
+/* Labels */
+.lang-switch__label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s, color 0.3s;
+}
+.lang-switch__label--left {
+  left: 10px;
+  top:14px;
+  color: var(--color-paper);
+  opacity: 1;
+  z-index: 5;
+}
+.lang-switch__label--right {
+  right:10px;
+  top:14px;
+  color: var(--color-mute);
+  opacity: 1;
+  z-index: 5;
+}
+.lang-switch--on .lang-switch__label--left {
+  color: var(--color-mute);
+}
+.lang-switch--on .lang-switch__label--right {
+  color: var(--color-paper);
+}
+
+/* Knob */
+.lang-switch__knob {
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 28px;
+  height: 26px;
+  border-radius: 13px;
+  background: var(--color-ink);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--color-ink) 25%, transparent);
+  transition:
+    left 0.4s cubic-bezier(0.34, 1.4, 0.64, 1),
+    transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1),
+    background 0.35s;
+  z-index: 2;
+}
+.lang-switch--on .lang-switch__knob {
+  left: 28px;
+}
+.lang-switch:active .lang-switch__knob {
+  transform: scaleX(1.15) scaleY(0.92);
+}

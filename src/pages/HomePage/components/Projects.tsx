@@ -1,12 +1,14 @@
 import { useRef, useState, useEffect } from "react";
 import { Card } from "@/components/Card";
 import { PROJECTS } from "@/data/projects";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface ProjectsProps {
   onOpen: (id: string) => void;
 }
 
 export function Projects({ onOpen }: ProjectsProps) {
+  const { t } = useLanguage();
   const scrollRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
   const lastTsRef = useRef<number>(0);
@@ -80,10 +82,10 @@ export function Projects({ onOpen }: ProjectsProps) {
         >
           <div>
             <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft">
-              002 · Selected Projects
+              {t("projectsSection.label")}
             </div>
             <h2 className="font-serif text-[clamp(42px,6vw,96px)] leading-[.95] tracking-[-.02em] mt-2 font-normal">
-              Cases <span className="italic">&amp; craft</span>
+              {t("projectsSection.heading")} <span className="italic">{t("projectsSection.headingIt")}</span>
             </h2>
           </div>
           <div className="flex gap-2.5 items-center">
@@ -92,7 +94,7 @@ export function Projects({ onOpen }: ProjectsProps) {
                 className={`inline-block w-2 h-2 rounded-full bg-accent ${paused ? "" : "live-dot"}`}
                 style={paused ? { background: "var(--color-mute)" } : undefined}
               />
-              {paused ? "Paused · hover to read" : "Hover to pause"}
+              {paused ? t("projectsSection.paused") : t("projectsSection.hoverToPause")}
             </span>
           </div>
         </div>

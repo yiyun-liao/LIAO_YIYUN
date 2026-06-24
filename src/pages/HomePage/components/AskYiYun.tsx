@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
-
-const QUICK_PROMPTS = ["Why designer → engineer?", "Open to roles?", "Tell me about Splitly."];
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface Message {
   role: "user" | "assistant";
@@ -9,17 +8,20 @@ interface Message {
 }
 
 export function AskYiYun() {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [, setTeased] = useState(false);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "assistant",
-      content:
-        "Hi — I'm an agent briefed on Yi-Yun. Ask me anything: stack, ways of working, projects, availability, designer→engineer transition.",
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  const initialized = useRef(false);
+  useEffect(() => {
+    if (!initialized.current) {
+      initialized.current = true;
+      setMessages([{ role: "assistant", content: t("askYiYun.initial") }]);
+    }
+  }, [t]);
   const bodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -61,8 +63,7 @@ export function AskYiYun() {
         ...m,
         {
           role: "assistant",
-          content:
-            "Sorry — I couldn't reach the model just now. Try again in a moment, or email yiyun.bian.design@gmail.com.",
+          content: t("askYiYun.error"),
         },
       ]);
     } finally {
@@ -76,10 +77,10 @@ export function AskYiYun() {
         <button
           className="ask-fab ask-fab-shadow fixed right-3 bottom-3 sm:right-5 sm:bottom-5 z-75 flex items-center gap-2.5 px-3.5 py-2.5 sm:px-[18px] sm:py-3 rounded-full bg-ink text-paper font-mono text-[12px] tracking-[.12em] uppercase transition-all duration-[250ms]"
           onClick={() => setOpen(true)}
-          aria-label="Ask Yi-Yun"
+          aria-label={t("askYiYun.fab")}
         >
           <span className="ask-fab-dot w-2 h-2 rounded-full bg-accent" />
-          <span className="hidden sm:inline">Ask about Yi-Yun</span>
+          <span className="hidden sm:inline">{t("askYiYun.fab")}</span>
           <span className="ask-fab-arrow transition-transform duration-200">→</span>
         </button>
       )}
@@ -88,7 +89,7 @@ export function AskYiYun() {
         <div
           className="ask-enter ask-panel-shadow fixed right-2.5 bottom-2.5 sm:right-5 sm:bottom-5 z-75 w-[calc(100vw-20px)] h-[calc(100vh-20px)] sm:w-[min(380px,calc(100vw-40px))] sm:h-[min(560px,calc(100vh-40px))] bg-paper border border-ink flex flex-col overflow-hidden"
           role="dialog"
-          aria-label="Ask Yi-Yun"
+          aria-label={t("askYiYun.title")}
         >
           <div className="flex justify-between items-center px-4 py-3.5 border-b border-ink bg-paper">
             <div className="flex gap-3 items-center">
@@ -97,9 +98,9 @@ export function AskYiYun() {
                 Y·Y
               </div>
               <div>
-                <div className="font-serif text-lg leading-[1.1]">Ask about Yi-Yun</div>
+                <div className="font-serif text-lg leading-[1.1]">{t("askYiYun.title")}</div>
                 <div className="font-mono text-[10px] tracking-[.14em] uppercase text-ink-soft mt-[3px]">
-                  AI agent · answers on her behalf
+                  {t("askYiYun.subtitle")}
                 </div>
               </div>
             </div>
@@ -155,7 +156,7 @@ export function AskYiYun() {
             )}
             {messages.length <= 1 && !busy && (
               <div className="flex flex-wrap gap-1.5 mt-1">
-                {QUICK_PROMPTS.map((q) => (
+                {[t("askYiYun.prompt1"), t("askYiYun.prompt2"), t("askYiYun.prompt3")].map((q) => (
                   <button
                     key={q}
                     className="px-3 py-[7px] border border-ink/20 rounded-full font-mono text-[10px] tracking-[.1em] uppercase text-ink-soft bg-paper transition-all duration-150 hover:border-accent hover:text-accent"
@@ -182,14 +183,14 @@ export function AskYiYun() {
               className="flex-1 border border-ink/20 rounded-full px-3.5 py-2.5 font-sans text-base bg-paper text-ink outline-none transition-[border-color] duration-150 focus:border-accent"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask something…"
+              placeholder={t("askYiYun.placeholder")}
               disabled={busy}
             />
             <button
               type="submit"
               disabled={busy || !input.trim()}
               className="w-10 h-10 rounded-full bg-ink text-paper grid place-items-center transition-all duration-[180ms] hover:enabled:bg-accent disabled:opacity-35 disabled:cursor-not-allowed"
-              aria-label="Send"
+              aria-label={t("askYiYun.send")}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M5 12h14M13 5l7 7-7 7" />
@@ -197,7 +198,7 @@ export function AskYiYun() {
             </button>
           </form>
           <div className="font-mono text-[9px] tracking-[.12em] uppercase text-mute text-center px-3 py-1.5 pb-2.5">
-            Powered by Claude · may not be 100% accurate
+            {t("askYiYun.powered")}
           </div>
         </div>
       )}

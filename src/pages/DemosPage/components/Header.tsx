@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "@/components/Icon";
 import type { Demo } from "@/data/demos";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface HeaderProps {
   demo: Demo;
@@ -9,6 +10,7 @@ interface HeaderProps {
 }
 
 export function Header({ demo, title }: HeaderProps) {
+  const { t, l } = useLanguage();
   return (
     <section className="pt-[100px] md:pt-[120px]">
       <div className="wrap">
@@ -17,7 +19,7 @@ export function Header({ demo, title }: HeaderProps) {
           className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[.14em] uppercase text-mute hover:text-accent transition-colors mb-8"
         >
           <ArrowLeft />
-          Demos
+          {t("demos.back")}
         </Link>
 
         <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft">{demo.type}</div>
@@ -25,7 +27,7 @@ export function Header({ demo, title }: HeaderProps) {
             {title}
         </h1>
         {demo.introduction?.outline && (
-          <p className="text-ink-soft text-sm max-w-[520px] leading-[1.65] mb-12">{demo.introduction.outline}</p>
+          <p className="text-ink-soft text-sm max-w-[520px] leading-[1.65] mb-12">{l(demo.introduction.outline)}</p>
         )}
       </div>
     </section>
