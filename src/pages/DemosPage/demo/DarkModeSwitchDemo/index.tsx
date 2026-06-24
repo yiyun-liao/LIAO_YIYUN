@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import { DEMOS } from "@/data/demos";
-import { Footer } from "@/sections/Footer";
-import { Header } from "../../components/Header";
-import { Views } from "../../components/View";
-import { Emphasis } from "../../components/Emphasis";
-import { Sections } from "../../components/Sections";
-import { Motivation } from "../../components/Motivation";
-import { Refs } from "../../components/Refs";
+import { DemoLayout } from "../../components/DemoLayout";
+import { useLanguage } from "@/i18n/LanguageContext";
 import {
   ArrowRight,
   CloseIcon,
@@ -17,10 +12,20 @@ import {
   ExternalIcon,
   QuoteIcon,
 } from "@/components/Icon";
-import { useLanguage } from "@/i18n/LanguageContext";
 import "./style.css";
 
 const DEMO = DEMOS.find((d) => d.url === "/demos/dark-mode-switch")!;
+
+const ICONS = [
+  { Icon: ArrowRight, label: "Arrow" },
+  { Icon: CloseIcon, label: "Close" },
+  { Icon: GitHubIcon, label: "GitHub" },
+  { Icon: LinkedInIcon, label: "LinkedIn" },
+  { Icon: MailIcon, label: "Mail" },
+  { Icon: DownloadIcon, label: "Download" },
+  { Icon: ExternalIcon, label: "External" },
+  { Icon: QuoteIcon, label: "Quote" },
+];
 
 function SunIcon() {
   return (
@@ -58,87 +63,56 @@ export function DarkModeSwitchDemo() {
   }, []);
 
   return (
-    <>
-      <div className="flex flex-col gap-[24px] md:gap-[60px]">
-        <Header demo={DEMO} title={<>{l(DEMO.title)}</>} />
+    <DemoLayout demo={DEMO} title={l(DEMO.title)}>
+      <div
+        className={`dms-scene${dark ? " dms-dark" : ""}`}
+        style={{ padding: "48px 32px", width: "100%" }}
+      >
+        <span className="dms-label">{dark ? "Dark Mode" : "Light Mode"}</span>
 
-        <Views>
-          <div
-            className={`dms-scene${dark ? " dms-dark" : ""}`}
-            style={{ padding: "48px 32px", width: "100%" }}
-          >
-            <span className="dms-label">{dark ? "Dark Mode" : "Light Mode"}</span>
-
-            <button
-              className="dms-switch"
-              role="switch"
-              aria-checked={dark}
-              aria-label="Toggle dark mode"
-              onClick={() => setDark(!dark)}
-            >
-              <div className="dms-track-fill" />
-              <div className="dms-glow" />
-              <span className="dms-track-text day">Day</span>
-              <span className="dms-track-text night">Night</span>
-              <div className="dms-knob">
-                <div className="dms-icon">
-                  <SunIcon />
-                  <MoonIcon />
-                </div>
-              </div>
-            </button>
-
-            <span className="neu-faint">click · keyboard space · accessible</span>
-
-            {/* Mock text + skeleton */}
-            <div className="neu-card w-full max-w-[640px] rounded-lg p-6">
-              <div className="neu-heading ">What is Lorem Ipsum?</div>
-              <div className="neu-body leading-[1.65] ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              </div>
-              <div className="neu-skel " style={{ width: "70%" }} />
-              <div className="neu-skel " style={{ width: "100%" }} />
-              <div className="neu-skel " style={{ width: "85%" }} />
-              <div className="neu-skel " style={{ width: "45%" }} />
-            </div>
-
-            {/* Icon gallery */}
-            <div className="flex gap-5 flex-wrap justify-center" style={{ color: "var(--neu-accent)", transition: "color 0.5s" }}>
-              {[
-                { Icon: ArrowRight, label: "Arrow" },
-                { Icon: CloseIcon, label: "Close" },
-                { Icon: GitHubIcon, label: "GitHub" },
-                { Icon: LinkedInIcon, label: "LinkedIn" },
-                { Icon: MailIcon, label: "Mail" },
-                { Icon: DownloadIcon, label: "Download" },
-                { Icon: ExternalIcon, label: "External" },
-                { Icon: QuoteIcon, label: "Quote" },
-              ].map(({ Icon, label }) => (
-                <div key={label} className="flex flex-col items-center gap-1.5">
-                  <div className="neu-raised w-10 h-10 rounded-xl flex items-center justify-center" tabIndex={0} aria-label={label}>
-                    <Icon width={18} height={18} />
-                  </div>
-                  <span className="neu-faint tracking-[.08em] uppercase">{label}</span>
-                </div>
-              ))}
+        <button
+          className="dms-switch"
+          role="switch"
+          aria-checked={dark}
+          aria-label="Toggle dark mode"
+          onClick={() => setDark(!dark)}
+        >
+          <div className="dms-track-fill" />
+          <div className="dms-glow" />
+          <span className="dms-track-text day">Day</span>
+          <span className="dms-track-text night">Night</span>
+          <div className="dms-knob">
+            <div className="dms-icon">
+              <SunIcon />
+              <MoonIcon />
             </div>
           </div>
-        </Views>
+        </button>
 
-        {DEMO.introduction?.emphasis && DEMO.introduction.emphasis.length > 0 && (
-          <Emphasis intros={DEMO.introduction} />
-        )}
+        <span className="neu-faint">click · keyboard space · accessible</span>
 
-        {DEMO.introduction?.sections && DEMO.introduction.sections.length > 0 && (
-          <Sections sections={DEMO.introduction.sections} />
-        )}
+        <div className="neu-card w-full max-w-[640px] rounded-lg p-6">
+          <div className="neu-heading">What is Lorem Ipsum?</div>
+          <div className="neu-body leading-[1.65]">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          </div>
+          <div className="neu-skel" style={{ width: "70%" }} />
+          <div className="neu-skel" style={{ width: "100%" }} />
+          <div className="neu-skel" style={{ width: "85%" }} />
+          <div className="neu-skel" style={{ width: "45%" }} />
+        </div>
 
-        {DEMO.introduction?.motivation && <Motivation text={DEMO.introduction.motivation} />}
-
-        {DEMO.introduction?.refs && <Refs refs={DEMO.introduction.refs} />}
-
-        <Footer />
+        <div className="flex gap-5 flex-wrap justify-center" style={{ color: "var(--neu-accent)", transition: "color 0.5s" }}>
+          {ICONS.map(({ Icon, label }) => (
+            <div key={label} className="flex flex-col items-center gap-1.5">
+              <div className="neu-raised w-10 h-10 rounded-xl flex items-center justify-center" tabIndex={0} aria-label={label}>
+                <Icon width={18} height={18} />
+              </div>
+              <span className="neu-faint tracking-[.08em] uppercase">{label}</span>
+            </div>
+          ))}
+        </div>
       </div>
-    </>
+    </DemoLayout>
   );
 }
