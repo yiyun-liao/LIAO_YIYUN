@@ -103,6 +103,16 @@ For a portfolio site with low traffic, a per-instance Map is sufficient. It rese
 └── package.json
 ```
 
+## Shipping a New Demo
+
+`/demos` gets a new small design every ~3 days (`src/pages/DemosPage`). Each demo gets a CodePen-style "view code" panel via a CodeSandbox embed, rather than a custom syntax highlighter — keeps the bundle light since the panel is just an iframe.
+
+1. Build the demo as usual: component under `src/pages/DemosPage/demo/`, a `<Name>Demo.tsx` page (`Header` + `Views` + `Emphasis`), a route in `src/App.tsx`, an entry in `src/data/demos.ts`.
+2. Write a self-contained harness file next to it, `<Name>.sandbox.tsx` — one file, no local imports (only `react`/`react-dom`), `export default function App()`. Inline any one-off CSS via a `<style>` tag; Tailwind classes work automatically. See `DarkModeSwitch.sandbox.tsx` for the reference.
+3. Run `node scripts/push-to-codesandbox.mjs src/pages/DemosPage/demo/<Name>.sandbox.tsx --name "<Name>"` — posts to CodeSandbox's anonymous Define API and prints a `sandboxId`.
+4. Paste it into the demo's `src/data/demos.ts` entry: `codeEmbed: { sandboxId: "..." }`. The page's `<CodeSection demo={DEMO} />` (already wired into `DarkModeSwitchDemo.tsx`) picks it up automatically and renders nothing if it's unset.
+5. `npm run typecheck && npm run dev` to confirm, then ship.
+
 ## Setup
 
 ```bash

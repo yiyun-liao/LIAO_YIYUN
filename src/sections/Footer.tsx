@@ -1,4 +1,4 @@
-import { LINKS } from "../data/constants";
+import { LINKS } from "@/data/constants";
 
 export function Footer() {
   return (
@@ -10,18 +10,26 @@ export function Footer() {
           </h3>
           <div>
             <h5 className="font-mono text-[10px] tracking-[.16em] uppercase text-ink-soft m-0 mb-2.5">Email</h5>
-            <a href={LINKS.email} className="block text-sm py-1">yiyun.bian.design<br />@gmail.com</a>
+            <a href={LINKS.email} className="block text-sm py-1">
+              yiyun.bian.design
+              <br />
+              @gmail.com
+            </a>
           </div>
           <div>
             <h5 className="font-mono text-[10px] tracking-[.16em] uppercase text-ink-soft m-0 mb-2.5">GitHub</h5>
             <a href={LINKS.github} target="_blank" rel="noreferrer" className="block text-sm py-1">
-              github.com/<br />yiyun-liao
+              github.com/
+              <br />
+              yiyun-liao
             </a>
           </div>
           <div>
             <h5 className="font-mono text-[10px] tracking-[.16em] uppercase text-ink-soft m-0 mb-2.5">LinkedIn</h5>
             <a href={LINKS.linkedin} target="_blank" rel="noreferrer" className="block text-sm py-1">
-              linkedin.com/in/<br />liao-yi-yun
+              linkedin.com/in/
+              <br />
+              liao-yi-yun
             </a>
           </div>
         </div>

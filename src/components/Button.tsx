@@ -5,13 +5,11 @@ type ButtonVariant = "accent" | "ghost" | "default";
 type ButtonProps = {
   variant?: ButtonVariant;
   children: ReactNode;
-} & (
-  | ({ href: string } & AnchorHTMLAttributes<HTMLAnchorElement>)
-  | ButtonHTMLAttributes<HTMLButtonElement>
-);
+} & (({ href: string } & AnchorHTMLAttributes<HTMLAnchorElement>) | ButtonHTMLAttributes<HTMLButtonElement>);
 
 export function Button({ variant, children, ...props }: ButtonProps) {
-  const base = "inline-flex items-center gap-2.5 rounded-full font-mono text-[12px] tracking-[.12em] uppercase transition-all duration-200";
+  const base =
+    "inline-flex items-center gap-2.5 rounded-full font-mono text-[12px] tracking-[.12em] uppercase transition-all duration-200";
 
   let cls = base;
   if (variant === "accent") {
@@ -24,14 +22,14 @@ export function Button({ variant, children, ...props }: ButtonProps) {
 
   if ("href" in props && props.href) {
     return (
-      <a className={cls} {...props as AnchorHTMLAttributes<HTMLAnchorElement>}>
+      <a className={cls} {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}>
         {children}
       </a>
     );
   }
 
   return (
-    <button className={cls} {...props as ButtonHTMLAttributes<HTMLButtonElement>}>
+    <button className={cls} {...(props as ButtonHTMLAttributes<HTMLButtonElement>)}>
       {children}
     </button>
   );
@@ -43,7 +41,10 @@ interface UnderlineLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 
 export function UnderlineLink({ children, ...props }: UnderlineLinkProps) {
   return (
-    <a className="underline-link relative inline-block pb-[3px] font-mono text-[12px] tracking-[.12em] uppercase hover:text-accent" {...props}>
+    <a
+      className="underline-link relative inline-block pb-[3px] font-mono text-[12px] tracking-[.12em] uppercase hover:text-accent"
+      {...props}
+    >
       {children}
     </a>
   );

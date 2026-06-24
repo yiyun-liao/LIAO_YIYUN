@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-import { Card } from "../components/Card";
-import { PROJECTS } from "../data/projects";
+import { Card } from "@/components/Card";
+import { PROJECTS } from "@/data/projects";
 
 interface ProjectsProps {
   onOpen: (id: string) => void;
@@ -74,23 +74,35 @@ export function Projects({ onOpen }: ProjectsProps) {
   return (
     <section id="projects" className="py-[60px] md:py-20">
       <div className="wrap">
-        <div ref={headRef} className={`head-reveal flex flex-col items-start gap-4 mb-8 md:flex-row md:items-end md:justify-between md:gap-6 md:mb-12 ${headIn ? "in" : ""}`}>
+        <div
+          ref={headRef}
+          className={`head-reveal flex flex-col items-start gap-4 mb-8 md:flex-row md:items-end md:justify-between md:gap-6 md:mb-12 ${headIn ? "in" : ""}`}
+        >
           <div>
-            <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft">002 · Selected Projects</div>
+            <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft">
+              002 · Selected Projects
+            </div>
             <h2 className="font-serif text-[clamp(42px,6vw,96px)] leading-[.95] tracking-[-.02em] mt-2 font-normal">
               Cases <span className="italic">&amp; craft</span>
             </h2>
           </div>
           <div className="flex gap-2.5 items-center">
             <span className="hidden md:inline-flex items-center gap-2 font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft mr-3">
-              <span className={`inline-block w-2 h-2 rounded-full bg-accent ${paused ? "" : "live-dot"}`} style={paused ? { background: "var(--color-mute)" } : undefined} />
+              <span
+                className={`inline-block w-2 h-2 rounded-full bg-accent ${paused ? "" : "live-dot"}`}
+                style={paused ? { background: "var(--color-mute)" } : undefined}
+              />
               {paused ? "Paused · hover to read" : "Hover to pause"}
             </span>
           </div>
         </div>
 
         <div className="relative h-[480px] md:h-[640px]">
-          <div className="h-full flex gap-7 overflow-x-auto overflow-y-hidden proj-scroll-bleed" ref={scrollRef} style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+          <div
+            className="h-full flex gap-7 overflow-x-auto overflow-y-hidden proj-scroll-bleed"
+            ref={scrollRef}
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
             {PROJECTS.map((p, i) => (
               <Card key={p.id} project={p} onOpen={() => onOpen(p.id)} idx={i} headIn={headIn} />
             ))}

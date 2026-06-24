@@ -2,12 +2,20 @@ import type { SVGProps } from "react";
 
 type IconProps = SVGProps<SVGSVGElement>;
 
-export function ArrowIcon(props: IconProps) {
+export function ArrowRight(props: IconProps) {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
       <path d="M5 12h14M13 5l7 7-7 7" />
     </svg>
   );
+}
+
+export function ArrowLeft(props: IconProps){
+  return(
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+      <path  d="M21 12H3m0 0l8.5-8.5M3 12l8.5 8.5"/>
+    </svg>
+  )
 }
 
 export function CloseIcon(props: IconProps) {
@@ -62,7 +70,7 @@ export function ExternalIcon(props: IconProps) {
 export function QuoteIcon(props: IconProps) {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...props}>
-      <path d="M7 21a4 4 0 0 1-4-4q0-2.21 4-14h2L7 13a4 4 0 1 1 0 8m10 0a4 4 0 0 1-4-4q0-2.21 4-14h2l-2 10a4 4 0 1 1 0 8"/>
+      <path d="M7 21a4 4 0 0 1-4-4q0-2.21 4-14h2L7 13a4 4 0 1 1 0 8m10 0a4 4 0 0 1-4-4q0-2.21 4-14h2l-2 10a4 4 0 1 1 0 8" />
     </svg>
   );
 }
