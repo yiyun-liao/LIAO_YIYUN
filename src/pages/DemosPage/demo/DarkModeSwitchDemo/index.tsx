@@ -4,6 +4,9 @@ import { Footer } from "@/sections/Footer";
 import { Header } from "../../components/Header";
 import { Views } from "../../components/View";
 import { Emphasis } from "../../components/Emphasis";
+import { Sections } from "../../components/Sections";
+import { Motivation } from "../../components/Motivation";
+import { Refs } from "../../components/Refs";
 import {
   ArrowRight,
   CloseIcon,
@@ -123,6 +126,15 @@ export function DarkModeSwitchDemo() {
         {DEMO.introduction?.emphasis && DEMO.introduction.emphasis.length > 0 && (
           <Emphasis intros={DEMO.introduction} />
         )}
+
+        {DEMO.introduction?.sections && DEMO.introduction.sections.length > 0 && (
+          <Sections sections={DEMO.introduction.sections} />
+        )}
+
+        {DEMO.introduction?.motivation && <Motivation text={DEMO.introduction.motivation} />}
+
+        {DEMO.introduction?.refs && <Refs refs={DEMO.introduction.refs} />}
+
         <Footer />
       </div>
     </>

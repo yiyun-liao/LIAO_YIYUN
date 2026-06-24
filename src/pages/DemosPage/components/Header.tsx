@@ -24,8 +24,8 @@ export function Header({ demo, title }: HeaderProps) {
         <h1 className="font-serif text-[clamp(36px,5vw,72px)] leading-[.95] tracking-[-.02em] mt-2 mb-4 font-normal">
             {title}
         </h1>
-        {demo.introduction?.body && (
-          <p className="text-ink-soft text-sm max-w-[520px] leading-[1.65] mb-12">{demo.introduction.body}</p>
+        {demo.introduction?.outline && (
+          <p className="text-ink-soft text-sm max-w-[520px] leading-[1.65] mb-12">{demo.introduction.outline}</p>
         )}
       </div>
     </section>

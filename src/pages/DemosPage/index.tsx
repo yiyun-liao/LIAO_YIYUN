@@ -62,8 +62,7 @@ export function DemosPage() {
             Small <span className="italic">demos</span>.
           </h1>
           <p className="text-ink-soft text-sm max-w-[560px] leading-[1.65] mb-8">
-            CodePen experiments, design snippets, and short articles — the smaller things that don't fit a full case
-            study.
+            Experiments, design snippets, and short articles — the smaller things that don't fit a full case study.
           </p>
 
           <div className="flex gap-2 flex-wrap mb-10">
@@ -177,7 +176,7 @@ export function DemosPage() {
 
           <div className="mt-12 pt-8 border-t border-ink/10 text-center">
             <span className="font-mono text-[11px] tracking-[.12em] uppercase text-mute">
-              {DEMOS.length} demo{DEMOS.length !== 1 ? "s" : ""} · updated daily
+              {DEMOS.length} demo{DEMOS.length !== 1 ? "s" : ""} · updated weekly
             </span>
           </div>
         </div>
