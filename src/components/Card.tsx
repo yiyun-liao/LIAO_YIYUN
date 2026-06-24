@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { ArrowIcon } from "./Icon";
+import { ArrowRight } from "./Icon";
 import { Pill } from "./Pill";
 import type { Project } from "@/data/projects";
 
@@ -67,7 +67,7 @@ export function Card({ project: p, onOpen, idx = 0, headIn = false }: CardProps)
         <span className="card-hint font-mono text-[10px] tracking-[.16em] uppercase text-ink-soft flex items-center gap-1.5">
           Open case{" "}
           <span className="card-arrow transition-transform duration-200">
-            <ArrowIcon />
+            <ArrowRight />
           </span>
         </span>
       </div>

@@ -1,0 +1,285 @@
+/* ——— Neumorphic theme tokens ——— */
+.dms-scene {
+  --neu-bg: #e0e5ec;
+  --neu-shadow-dark: #b8bec7;
+  --neu-shadow-light: #ffffff;
+  --neu-surface: #d4d9e2;
+  --neu-surface-inset-dark: #b8bec7;
+  --neu-surface-inset-light: #ffffff;
+  --neu-text-heading: #4a5060;
+  --neu-text-body: #6a7080;
+  --neu-text-mute: #8a95a8;
+  --neu-text-faint: #a0aab8;
+  --neu-skeleton: #c0c6d0;
+  --neu-accent: #8a95a8;
+  --neu-focus: rgb(255, 196, 133);
+  --neu-glow: 251, 191, 64;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  background: var(--neu-bg);
+  transition: background 0.6s ease;
+}
+.dms-dark {
+  --neu-bg: #1a1f2e;
+  --neu-shadow-dark: #0d1017;
+  --neu-shadow-light: #272d3f;
+  --neu-surface: #232a3c;
+  --neu-surface-inset-dark: #181d2a;
+  --neu-surface-inset-light: #2e3750;
+  --neu-text-heading: #c0cce0;
+  --neu-text-body: #7a8aa8;
+  --neu-text-mute: #4a5a7a;
+  --neu-text-faint: #3a4a6a;
+  --neu-skeleton: #3a4560;
+  --neu-accent: #6080f8;
+  --neu-focus: #4a6cf7;
+  --neu-glow: 96, 128, 248;
+  background: var(--neu-bg);
+}
+
+/* ——— Switch ——— */
+.dms-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--neu-text-mute);
+  transition: color 0.4s;
+}
+
+.dms-switch {
+  position: relative;
+  width: 120px;
+  height: 56px;
+  border-radius: 28px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  background: var(--neu-bg);
+  box-shadow:
+    6px 6px 14px var(--neu-shadow-dark),
+    -6px -6px 14px var(--neu-shadow-light);
+  transition: background 0.5s, box-shadow 0.5s;
+}
+.dms-switch:focus-visible {
+  box-shadow:
+    6px 6px 14px var(--neu-shadow-dark),
+    -6px -6px 14px var(--neu-shadow-light),
+    0 0 0 3px var(--neu-focus);
+}
+
+.dms-track-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  opacity: 0;
+  background: linear-gradient(135deg, #1a2a5e 0%, #0d1535 100%);
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+.dms-dark .dms-track-fill {
+  opacity: 1;
+}
+
+/* soft gradient light bleeding inside the track, centered behind the knob */
+.dms-glow {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(var(--neu-glow), 0.6) 0%,
+    rgba(var(--neu-glow), 0.22) 45%,
+    rgba(var(--neu-glow), 0) 75%
+  );
+  filter: blur(8px);
+  pointer-events: none;
+  transition: left 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.5s;
+}
+.dms-dark .dms-glow {
+  top:90%;
+  left: 90%;
+}
+
+.dms-track-text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  transition: opacity 0.3s, color 0.4s;
+  z-index: 1;
+}
+.dms-track-text.day {
+  right: 16px;
+  color: var(--neu-text-mute);
+  opacity: 1;
+}
+.dms-track-text.night {
+  left: 16px;
+  color: var(--neu-accent);
+  opacity: 0;
+}
+.dms-dark .dms-track-text.day {
+  opacity: 0;
+}
+.dms-dark .dms-track-text.night {
+  opacity: 1;
+}
+
+/* ——— Knob ——— */
+.dms-knob {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+  border: 0.2px solid rgba(255, 150, 40, 0.4);
+  background: radial-gradient(circle at 38% 38%, #fbbf40, #f07020);
+  box-shadow:
+    4px 4px 10px rgba(0, 0, 0, 0.18),
+    -2px -2px 7px rgba(255, 255, 255, 0.85),
+    inset 1px 1px 3px rgba(255, 210, 100, 0.6),
+    0 0 18px rgba(255, 150, 40, 0.4);
+  transition:
+    left 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.5s,
+    box-shadow 0.5s;
+}
+.dms-dark .dms-knob {
+  left: 72px;
+  border: 0.2px solid rgba(60, 100, 255, 0.5);
+  background: radial-gradient(circle at 38% 38%, #6080f8, #1a30c0);
+  box-shadow:
+    4px 4px 10px rgba(0, 0, 0, 0.45),
+    -2px -2px 7px rgba(60, 80, 180, 0.25),
+    inset 1px 1px 3px rgba(120, 150, 255, 0.5),
+    0 0 20px rgba(60, 100, 255, 0.5);
+}
+.dms-switch:active .dms-knob {
+  transform: translateY(-50%) scaleX(1.18);
+}
+
+/* extra halo immediately ringing the knob, sitting just behind it */
+.dms-knob::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  z-index: -1;
+  background: radial-gradient(circle, rgba(var(--neu-glow), 0.5) 0%, rgba(var(--neu-glow), 0) 70%);
+  filter: blur(4px);
+  transition: background 0.5s;
+}
+
+/* ——— Icons ——— */
+.dms-icon {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+.sun-icon,
+.moon-icon {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.35s, transform 0.4s;
+}
+.moon-icon {
+  opacity: 0;
+  transform: rotate(-25deg) scale(0.75);
+}
+.dms-dark .sun-icon {
+  opacity: 0;
+  transform: rotate(25deg) scale(0.75);
+}
+.dms-dark .moon-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* ——— Shared neumorphic utilities ——— */
+.neu-card {
+  background: var(--neu-surface);
+  box-shadow:
+    inset 2px 2px 5px var(--neu-surface-inset-dark),
+    inset -2px -2px 5px var(--neu-surface-inset-light);
+  transition: background 0.5s, box-shadow 0.5s;
+}
+.neu-raised {
+  background: var(--neu-surface);
+  box-shadow:
+    3px 3px 8px var(--neu-shadow-dark),
+    -3px -3px 8px var(--neu-shadow-light);
+  transition: background 0.5s, box-shadow 0.5s, transform 0.25s ease;
+  cursor: pointer;
+  outline: none;
+}
+.neu-raised:hover {
+  transform: translateY(-2px);
+  background: var(--neu-surface-inset-light);
+  color: var(--neu-focus);
+  box-shadow:
+    5px 5px 24px rgba(var(--neu-glow), 0.6),
+    -5px -5px 24px rgba(var(--neu-glow), 0.22);
+}
+.neu-raised:active {
+  transform: translateY(0) scale(0.95);
+  box-shadow:
+    inset 2px 2px 12px rgba(var(--neu-glow), 0.6),
+    inset -2px -2px 12px rgba(var(--neu-glow), 0.22);
+}
+.neu-raised:focus-visible {
+  box-shadow:
+    3px 3px 8px var(--neu-shadow-dark),
+    -3px -3px 8px var(--neu-shadow-light),
+    0 0 0 3px var(--neu-focus);
+}
+.neu-heading {
+  color: var(--neu-text-heading);
+  transition: color 0.5s;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+.neu-body {
+  color: var(--neu-text-body);
+  transition: color 0.5s;
+  font-size: 12px;
+  margin-bottom: 12px;
+
+}
+.neu-mute {
+  color: var(--neu-text-mute);
+  transition: color 0.5s;
+}
+.neu-faint {
+  color: var(--neu-text-body);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  font-family: monospace;
+  transition: color 0.4s;
+}
+.neu-skel {
+  background: var(--neu-skeleton);
+  transition: background 0.5s;
+  height: 12px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}

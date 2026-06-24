@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ArrowIcon } from "@/components/Icon";
+import { ArrowLeft } from "@/components/Icon";
 import type { Demo } from "@/data/demos";
 
 interface HeaderProps {
@@ -16,7 +16,7 @@ export function Header({ demo, title }: HeaderProps) {
           to="/demos"
           className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[.14em] uppercase text-mute hover:text-accent transition-colors mb-8"
         >
-          <ArrowIcon />
+          <ArrowLeft />
           Demos
         </Link>
 
