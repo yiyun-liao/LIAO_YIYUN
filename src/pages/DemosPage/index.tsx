@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { DEMOS, type DemoType } from "@/data/demos";
+import { DEMOS } from "@/data/demos-registry";
+import type { DemoType } from "@/data/demos";
 import { ExternalIcon } from "@/components/Icon";
 import { Pill } from "@/components/Pill";
 import { Footer } from "@/sections/Footer";
