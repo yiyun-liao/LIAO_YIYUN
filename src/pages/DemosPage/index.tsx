@@ -87,7 +87,7 @@ export function DemosPage() {
             <div ref={gridRef} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((demo, i) => {
                 const isInternal = demo.url.startsWith("/");
-                const cardClass = `card-reveal group block border border-ink/14 bg-paper transition-all duration-300 hover:border-ink hover:-translate-y-1 ${visible.has(i) ? "in" : ""}`;
+                const cardClass = `card-reveal overflow-hidden rounded-xl group block border border-ink/14 bg-paper transition-all duration-300 hover:border-ink hover:-translate-y-1 ${visible.has(i) ? "in" : ""}`;
                 const cardStyle = { "--d": (i % 3) * 80 + "ms" } as React.CSSProperties;
                 const cardContent = (
                   <>
@@ -164,7 +164,7 @@ export function DemosPage() {
             </div>
           )}
 
-          <div className="mt-12 pt-8 border-t border-ink/10 text-center">
+          <div className="mt-12 pt-8 border-t border-ink/10 text-center ">
             <span className="font-mono text-[11px] tracking-[.12em] uppercase text-mute">
               {DEMOS.length} demo{DEMOS.length !== 1 ? "s" : ""} · {t("demos.updatedWeekly")}
             </span>
