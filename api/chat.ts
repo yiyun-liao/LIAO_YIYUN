@@ -3,6 +3,23 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
+async function notifyTelegram(question: string, ip: string) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return;
+
+  const text = `🔔 New AskYiYun question\n\nFrom: ${ip}\n\n"${question}"`;
+  try {
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text }),
+    });
+  } catch {
+    // silent fail — notification is best-effort
+  }
+}
+
 function loadSystemPrompt(): string {
   const base = process.cwd();
   const agent = readFileSync(join(base, ".claude/agents/portfolio-assistant.md"), "utf-8");
@@ -56,6 +73,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const client = new Anthropic({ apiKey });
+
+  const lastUserMsg = [...messages].reverse().find((m: { role: string }) => m.role === "user");
+  if (lastUserMsg) {
+    notifyTelegram(lastUserMsg.content, ip);
+  }
 
   try {
     const response = await client.messages.create({
