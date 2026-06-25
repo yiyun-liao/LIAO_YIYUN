@@ -3,6 +3,7 @@
 /* ——— Theme tokens ——— */
 @theme {
   --color-paper: #f5f4ef;
+  --color-paper-dark: #E9E8E2;
   --color-ink: #0e0e0c;
   --color-ink-soft: #2b2b28;
   --color-mute: #8a8a83;

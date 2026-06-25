@@ -14,11 +14,13 @@ import {
   DARKMODESWITCHDEMO,
   SWITCH_ANIMATION_SECTION,
   SWITCH_ANIMATION_CODE_SECTION,
-  SWITCH_ANIMATION_CODE_A_SECTION,
   CSS_THEME_SECTION,
+  CSS_THEME_CODE_HTML_SECTION,
   CSS_THEME_CODE_SECTION,
   GLOW_EFFECT_SECTION,
   GLOW_EFFECT_CODE_SECTION,
+  KNOB_EFFECT_SECTION,
+  KNOB_EFFECT_CODE_SECTION,
   NEUMORPHIC_SECTION,
   NEUMORPHIC_CODE_SECTION,
 } from "./content";
@@ -45,15 +47,18 @@ export function DarkModeSwitchDemo() {
 
       <Sections section={SWITCH_ANIMATION_SECTION} index={0} />
       <CodeBlockView block={SWITCH_ANIMATION_CODE_SECTION} />
-      <CodeBlockView block={SWITCH_ANIMATION_CODE_A_SECTION} />
 
       <Sections section={CSS_THEME_SECTION} index={1} />
+      <CodeBlockView block={CSS_THEME_CODE_HTML_SECTION} />
       <CodeBlockView block={CSS_THEME_CODE_SECTION} />
 
       <Sections section={GLOW_EFFECT_SECTION} index={2} />
       <CodeBlockView block={GLOW_EFFECT_CODE_SECTION} />
 
-      <Sections section={NEUMORPHIC_SECTION} index={3} />
+      <Sections section={KNOB_EFFECT_SECTION} index={3} />
+      <CodeBlockView block={KNOB_EFFECT_CODE_SECTION} />
+
+      <Sections section={NEUMORPHIC_SECTION} index={4} />
       <CodeBlockView block={NEUMORPHIC_CODE_SECTION} />
 
       {intro.motivation && <Motivation text={intro.motivation} />}
