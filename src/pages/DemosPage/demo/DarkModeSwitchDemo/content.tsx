@@ -10,7 +10,7 @@ export const DARKMODESWITCHDEMO: Demo = {
   type: "demo",
   tags: ["React", "CSS", "A11y"],
   url: "/demos/dark-mode-switch",
-  codeEmbed: { sandboxId: "wqn6nn" },
+  codeEmbed: { sandboxId: "skjy6h" },
   introduction: {
     outline: {
       en: "A neumorphic toggle switch built with gradients, shadows, and carefully crafted transform effects to create a tactile, physical interaction.",

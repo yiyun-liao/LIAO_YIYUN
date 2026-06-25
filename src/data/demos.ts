@@ -26,7 +26,8 @@ export interface Introduction {
 
 export interface CodeEmbed {
   sandboxId: string;
-  view?: "editor" | "split" | "preview";
+  view?: string;
+  module?: string;
 }
 
 export interface Demo {
