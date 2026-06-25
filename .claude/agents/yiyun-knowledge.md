@@ -13,9 +13,9 @@ Keep it updated — the agent can only answer what's documented here.
 - **Location:** Taipei, Taiwan
 - **Email:** yiyun.bian.design@gmail.com
 - **GitHub:** https://github.com/yiyun-liao/
-- **LinkedIn:** https://www.linkedin.com/in/yiyun-liao/
+- **LinkedIn:** https://www.linkedin.com/in/liao-yi-yun-119534221/
 - **Languages:** Chinese (native), English (professional/fluent)
-- **Status:** Currently seeking frontend engineer positions
+- **Status:** Currently seeking · Design Engineer
 - **Portfolio:** This website — built with Vite + React + TypeScript + Tailwind CSS v4
 
 ---
@@ -26,7 +26,15 @@ A Design Engineer with extensive design background spanning industrial design, U
 
 Previously drove UX improvements and cross-team collaboration at a growth-stage company and independently managed end-to-end design projects in a small studio. Maintains a strong passion for continuous learning, constantly honing skills and applying new technologies to real-world development.
 
-Self-description from portfolio site: "I think in products, not tickets. User intent first, then data model, then interface." Design-trained engineers skip a lot of ping-pong between roles — she can read a spec and feel where the UX cracks are before the first commit. Currently deep in AI-assisted development — AI accelerates output, but architectural thinking doesn't get a discount.
+### Hero Tagline
+"Bridging design systems and frontend engineering · AI-Assisted Development"
+
+### About — The long way round
+Industrial design grad from NTUST, three years as a website product designer, a full-stack bootcamp detour, shipping frontend code on real-time platforms, and now looking for the next team. Design-trained engineers skip a lot of ping-pong between roles — she can read a spec and feel where the UX cracks are before the first commit.
+
+- **Approach:** "I think in products, not tickets. User intent first, then data model, then interface."
+- **Now:** "Deep in AI-assisted development — AI accelerates output, but architectural thinking doesn't get a discount."
+- **Toolkit:** React / Next / TS. Node + FastAPI. Postgres + Firebase. Figma when it matters. Claude + agents for leverage.
 
 ---
 
@@ -55,10 +63,12 @@ The departure was due to company layoffs, not by choice.
 
 - 65+ merged PRs in 8 months
 - Tech stack: React, TypeScript, MobX, WebRTC / TRTC, NX monorepo
-- Broke down PM requirements into ordered prerequisites — e.g. screen-share-control: refactored participant panel and ChatProvider first to establish clean state boundaries, then designed and implemented ScreenShareRequestProvider's permission-state model; aligned backend API contracts directly without PM intermediary
-- Maintained reactive meeting state with MobX (observer / reaction) across SDK stores (RTC / attend / device) and app-layer UI — ensured consistent mute, camera, and permission behaviors through role transitions
-- Implemented whiteboard toolbar enhancements and Electron screenshot features (auto-save, save-as dialog, Document PiP) across web and desktop — resolved Windows-specific rendering issues and ensured consistent behavior across environments
-- Wired WebSocket-driven SDK events (reactions, participant state, view mode) through custom Providers and hooks to UI layer; built stream reaction system and mic-activity animation end-to-end
+- Shipped screen-share permission control, stream reactions, and Electron desktop features end-to-end
+- Owned meeting-state consistency across SDK layers — mute, camera, and role transitions behaved reliably
+- Decomposed PM requirements into ordered prerequisites — refactored participant panel and ChatProvider first, then built permission-state model on clean boundaries
+- Managed reactive state with MobX across RTC / attend / device SDK stores; wired WebSocket events through custom Providers and hooks to UI
+- Implemented whiteboard toolbar enhancements and Electron screenshot features (auto-save, save-as dialog, Document PiP) across web and desktop — resolved Windows-specific rendering issues
+- Note: VCaaS real-time classroom · returned as engineer after 2+ years as designer on the same team
 
 ### Full Stack Developer / Trainee | WeHelp (2025.01 - 2025.07)
 
@@ -67,13 +77,16 @@ The departure was due to company layoffs, not by choice.
 - Collaborated within a team on web deployment and Git workflows
 - Tech stack: React, Next.js, FastAPI, PostgreSQL, MySQL, AWS EC2
 
-### UI/UX Designer & Designer Mentor | AmazingTalker (2022.09 - 2024.12)
+### Lead UI/UX Designer | AmazingTalker (2022.09 - 2024.12)
 
-- Led UX reviews and partnered with the app team to optimize shopping cart flow — **+14% purchase conversion**
-- Assisted frontend team in adopting microservices; defined and maintained design guidelines for customer-support, sales, and announcement systems
-- Established company-wide design processes and organized regular design-sharing sessions
+- 70+ product design tasks over two years
+- Led cart checkout redesign — defined drop-off hypotheses with engineering, drove solution validation end-to-end — **+14% purchase conversion**
+- Established company-wide Design Guideline, component library, and design processes
+- Assisted frontend team in adopting microservices; defined design specs for customer-support, sales, and announcement systems
+- Designed AT classroom UI
 - Created initial Design Guideline and planned Design Guideline 2.0, delivering comprehensive documentation aligned with token-based design
 - Contributed to Storybook documentation and submitted PRs — first exposure to Git workflow and code
+- Note: Industrial Design grad, NTUST — the start of the designer → engineer pipeline
 
 ### Industrial Designer & Project Manager | HELLO Design (2020.03 - 2022.02)
 
@@ -214,6 +227,17 @@ Claude API, Claude agents, Telegram API, CalDAV, Recharts, yfinance, Finnhub, Al
 - **Website:** https://www.airpullution.site/
 - **GitHub:** https://github.com/yiyun-liao/WeHelp_Stage2_Week8_Group3_Air_Pollution_Observation_Station
 
+### AmazingTalker — Designer (Work Project, 2022 - 2024)
+- **Description:** Led UI/UX across cart checkout, design system, classroom UI, and 70+ product design tasks over two years
+- **Role:** Lead UI/UX Designer
+- **Status:** Archive
+- **Key Highlights:**
+  - Cart checkout redesign — +14% purchase conversion
+  - Company-wide Design Guideline and component library
+  - AT classroom UI design
+  - Assisted frontend in adopting microservices; design specs for customer-support, sales, and announcement systems
+- **Note:** This role is also shown as a standalone project card on the portfolio, separate from the work experience entry
+
 ### Designer Portfolio (Archive, 2015 - 2021)
 - **Description:** The chapter before engineering — product design, branding, TV drama graphics, and a BenQ collaboration
 - **Role:** Designer — Archive
@@ -235,7 +259,9 @@ Claude API, Claude agents, Telegram API, CalDAV, Recharts, yfinance, Finnhub, Al
 ## About This Portfolio Site
 
 - **Tech:** Vite + React + TypeScript + Tailwind CSS v4
-- **Sections:** Hero, Ticker, About, Experience, Projects, Ask Yi-Yun (AI chatbot), Footer
-- **Features:** Embedded AI agent for Q&A about Yiyun, modal carousel for project images, responsive design
-- **Tagline:** "I bring the full craft from sketch to ship."
+- **Sections:** Hero, Ticker, About, Experience, Projects, Demos, Ask Yi-Yun (AI chatbot), Footer
+- **Features:** Embedded AI agent for Q&A about Yiyun, modal carousel for project images, responsive design, bilingual (en / zh-TW)
+- **Hero description (en):** "Frontend Engineer working on real-time platforms. Former lead designer."
+- **Hero description (zh-TW):** "廖宜昀 -- 前端工程師，專注即時互動平台開發。曾任首席 UI/UX 設計師。"
+- **Ticker quote:** "AI accelerates the output — architectural thinking doesn't get a discount."
 - **Outside work:** Reading on systems design & careers. Writing postmortems of own side projects.
