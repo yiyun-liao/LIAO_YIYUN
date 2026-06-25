@@ -15,7 +15,7 @@ export function Emphasis({ intros }: EmphasisProps) {
           const [title, ...rest] = resolved.split(" — ");
           return (
             <div key={i}>
-              <div className="font-mono text-[10px] tracking-[.14em] uppercase text-accent mb-2 font-bold">{title}</div>
+              <div className="font-mono text-[12px] tracking-[.14em] uppercase text-accent mb-2 font-bold">{title}</div>
               {rest.length > 0 && <p className="text-sm text-ink-soft leading-[1.6]">{rest.join(" — ")}</p>}
             </div>
           );

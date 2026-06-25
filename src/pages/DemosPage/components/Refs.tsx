@@ -12,22 +12,26 @@ export function Refs({ refs }: RefsProps) {
 
   return (
     <section className="wrap">
-      <div className="font-mono text-[10px] tracking-[.14em] uppercase text-accent mb-3">{t("demoDetail.references")}</div>
-      <ul className="flex flex-col gap-2">
-        {refs.map((r, i) => (
-          <li key={i}>
-            <a
-              href={r.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-ink-soft hover:text-accent transition-colors"
-            >
-              {r.label}
-              <ExternalIcon width={12} height={12} />
-            </a>
-          </li>
-        ))}
-      </ul>
+      <div className="flex flex-col m-auto max-w-[800px] justify-center">
+        <div className="font-mono text-[10px] tracking-[.14em] uppercase text-accent mb-3">
+          {t("demoDetail.references")}
+        </div>
+        <ul className="flex flex-col gap-2">
+          {refs.map((r, i) => (
+            <li key={i}>
+              <a
+                href={r.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm text-ink-soft hover:text-accent transition-colors"
+              >
+                {r.label}
+                <ExternalIcon width={12} height={12} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

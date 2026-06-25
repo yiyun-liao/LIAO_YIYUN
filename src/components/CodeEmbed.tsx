@@ -12,15 +12,9 @@ interface CodeEmbedProps {
  * scripts/push-to-codesandbox.mjs — this component only renders the iframe.
  */
 export function CodeEmbed({ embed, title }: CodeEmbedProps) {
-  const params = new URLSearchParams({
-    view: embed.view ?? "split",
-    theme: "light",
-    fontsize: "13",
-    hidenavigation: "1",
-    codemirror: "1",
-    module: "/src/App.tsx",
-  });
-  const embedUrl = `https://codesandbox.io/embed/${embed.sandboxId}?${params.toString()}`;
+  const view = embed.view ?? "editor + preview";
+  const module = embed.module ?? "/public/index.html";
+  const embedUrl = `https://codesandbox.io/embed/${embed.sandboxId}?view=${encodeURIComponent(view)}&module=${encodeURIComponent(module)}`;
   const editorUrl = `https://codesandbox.io/s/${embed.sandboxId}`;
 
   return (
