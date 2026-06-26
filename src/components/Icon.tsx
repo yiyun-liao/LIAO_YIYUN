@@ -18,6 +18,14 @@ export function ArrowLeft(props: IconProps){
   )
 }
 
+export function ArrowUpRightIcon(props: IconProps){
+  return(
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+      <path d="M6 19L19 6m0 0v12.48M19 6H6.52"/>
+    </svg>
+  )
+}
+
 export function CloseIcon(props: IconProps) {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>

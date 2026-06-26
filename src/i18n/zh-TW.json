@@ -97,7 +97,9 @@
     "comingSoon": "即將推出",
     "comingSoonSub": "每週都有新展示加入",
     "updatedWeekly": "每週更新",
-    "back": "Demos"
+    "back": "Demos",
+    "previous": "建議閱讀",
+    "next": "延伸閱讀"
   },
   "modal": {
     "escToClose": "按 Esc 關閉",

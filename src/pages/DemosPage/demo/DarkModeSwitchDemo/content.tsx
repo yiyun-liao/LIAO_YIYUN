@@ -31,11 +31,6 @@ export const DARKMODESWITCHDEMO: Demo = {
         "zh-TW": "光暈效果 — 模糊的 radial-gradient 軌跡與光環跟著旋鈕移動，顏色隨主題自動切換",
       },
     ],
-    motivation: {
-      en: "Back when I was a designer, I used to joke with the engineers I worked with that I'd hand them the most absurdly over-specced switch component I could dream up. Their answer was always the same: go build it yourself, then. So when I sat down to actually start this project, that's exactly where I began.",
-      "zh-TW":
-        "還在做設計師的時候，我常跟前端工程師開玩笑說，總有一天要出一份誇張到不行的 switch 規格書整他們。他們的回答永遠一樣：那你自己做啊。所以這次真的要動手做點東西的時候，我就想，不然就從這顆 switch 開始吧。",
-    },
     refs: [
       {
         label: "MDN — Using CSS custom properties",
@@ -273,3 +268,13 @@ export const NEUMORPHIC_CODE_SECTION: CodeBlock = {
 }
   `,
 };
+
+
+export const MOVITATION_SECTION: BodySection= {
+  title:{en:"motivation", "zh-TW":"motivation"},
+  content: {
+   en: "Back when I was a designer, I used to joke with the engineers I worked with that I'd hand them the most absurdly over-specced switch component I could dream up. Their answer was always the same: go build it yourself, then. So when I sat down to actually start this project, that's exactly where I began.",
+  "zh-TW":
+    "還在做設計師的時候，我常跟前端工程師開玩笑說，總有一天要出一份誇張到不行的 switch 規格書整他們。他們的回答永遠一樣：那你自己做啊。所以這次真的要動手做點東西的時候，我就想，不然就從這顆 switch 開始吧。",
+}
+}

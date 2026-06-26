@@ -17,10 +17,10 @@ export interface Reference {
   url: string;
 }
 
+
 export interface Introduction {
   outline?: L;
   emphasis?: L[];
-  motivation?: L;
   refs?: Reference[];
 }
 
@@ -28,6 +28,11 @@ export interface CodeEmbed {
   sandboxId: string;
   view?: string;
   module?: string;
+}
+
+export interface RelativeArticle {
+  title: L;
+  url: string;
 }
 
 export interface Demo {
@@ -40,5 +45,7 @@ export interface Demo {
   image?: string;
   introduction?: Introduction;
   codeEmbed?: CodeEmbed;
+  previousArticle?: RelativeArticle;
+  nextArticle?:RelativeArticle;
 }
 
