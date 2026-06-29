@@ -12,18 +12,19 @@ import {
   REACTVIBEKICKOFFARTICLE,
   INTRO_SECTION,
   SKILL_SECTION,
-  SKILL_DESCRIPTION_CODE_SECTION,
-  SKILL_CODE_SECTION,
-  SKILL_FLOW_SECTION,
-  SKILL_FLOW_CODE_SECTION,
-  SKILL_TECHSTACK_SECTION,
-  SKILL_TECHSTACK_CODE_SECTION,
-  SKILL_CONVENTION_SECTION,
-  SKILL_CONVENTION_CODE_SECTION,
-  SKILL_TIPS_SECTION,
-  SKILL_TIPS_CODE_SECTION,
-  SKILL_PRINCIPLES_SECTION,
-  SKILL_PRINCIPLES_CODE_SECTION,
+  SKILL_FRONTMATTER_CODE,
+  FLOW_SECTION,
+  FLOW_CODE,
+  TECHSTACK_SECTION,
+  TECHSTACK_CODE,
+  CONVENTION_SECTION,
+  CONVENTION_CODE,
+  TIPS_SECTION,
+  TIPS_CODE,
+  PRINCIPLES_SECTION,
+  PRINCIPLES_CODE,
+  FULL_SKILL_SECTION,
+  FULL_SKILL_CODE,
 } from "./content";
 
 const demo = REACTVIBEKICKOFFARTICLE;
@@ -41,29 +42,30 @@ export function ReactVibeKickoffArticle() {
       <Header demo={demo} title={l(demo.title)} />
 
       <Motivation section={INTRO_SECTION} />
-      {demo.previousArticle && <RelativeBlock previous={true} rel={demo.previousArticle}/>}
+      {demo.previousArticle && <RelativeBlock previous={true} rel={demo.previousArticle} />}
       <Sections section={SKILL_SECTION} />
       <Emphasis intros={intro} />
+      <CodeBlockView block={SKILL_FRONTMATTER_CODE} />
 
-      <Sections section={SKILL_FLOW_SECTION} index={0} />
-      <CodeBlockView block={SKILL_FLOW_CODE_SECTION} />
+      <Sections section={FLOW_SECTION} index={1} />
+      <CodeBlockView block={FLOW_CODE} />
 
-      <Sections section={SKILL_TECHSTACK_SECTION} index={1} />
-      <CodeBlockView block={SKILL_TECHSTACK_CODE_SECTION} />
+      <Sections section={TECHSTACK_SECTION} index={2} />
+      <CodeBlockView block={TECHSTACK_CODE} />
 
-      <Sections section={SKILL_CONVENTION_SECTION} index={2} />
-      <CodeBlockView block={SKILL_CONVENTION_CODE_SECTION} />
+      <Sections section={CONVENTION_SECTION} index={3} />
+      <CodeBlockView block={CONVENTION_CODE} />
 
-      <Sections section={SKILL_TIPS_SECTION} index={3} />
-      <CodeBlockView block={SKILL_TIPS_CODE_SECTION} />
+      <Sections section={TIPS_SECTION} index={4} />
+      <CodeBlockView block={TIPS_CODE} />
 
-      <Sections section={SKILL_PRINCIPLES_SECTION} index={4} />
-      <CodeBlockView block={SKILL_PRINCIPLES_CODE_SECTION} />
+      <Sections section={PRINCIPLES_SECTION} index={5} />
+      <CodeBlockView block={PRINCIPLES_CODE} />
 
-      <CodeBlockView block={SKILL_DESCRIPTION_CODE_SECTION} />
-      <CodeBlockView block={SKILL_CODE_SECTION} />
+      <Sections section={FULL_SKILL_SECTION} />
+      <CodeBlockView block={FULL_SKILL_CODE} />
 
-      {demo.nextArticle && <RelativeBlock previous={false} rel={demo.nextArticle}/>}
+      {demo.nextArticle && <RelativeBlock previous={false} rel={demo.nextArticle} />}
       {intro.refs && <Refs refs={intro.refs} />}
 
       <Footer />
