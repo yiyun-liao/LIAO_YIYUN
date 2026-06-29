@@ -97,7 +97,9 @@
     "comingSoon": "Coming soon",
     "comingSoonSub": "New demos added weekly",
     "updatedWeekly": "updated weekly",
-    "back": "Demos"
+    "back": "Demos",
+    "previous": "Before this article",
+    "next": "next"
   },
   "modal": {
     "escToClose": "Esc to close",

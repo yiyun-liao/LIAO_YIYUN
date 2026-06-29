@@ -10,6 +10,8 @@ import { Motivation } from "../../components/Motivation";
 import { Refs } from "../../components/Refs";
 import { CodeSection } from "../../components/CodeSection";
 import { DarkModeSwitchScene } from "./components";
+import { RelativeBlock } from "../../components/RelativeBlock";
+
 import {
   DARKMODESWITCHDEMO,
   SWITCH_ANIMATION_SECTION,
@@ -23,6 +25,7 @@ import {
   KNOB_EFFECT_CODE_SECTION,
   NEUMORPHIC_SECTION,
   NEUMORPHIC_CODE_SECTION,
+  MOVITATION_SECTION,
 } from "./content";
 
 const demo = DARKMODESWITCHDEMO;
@@ -42,8 +45,9 @@ export function DarkModeSwitchDemo() {
       <Views>
         <DarkModeSwitchScene />
       </Views>
-
+      {demo.previousArticle && <RelativeBlock previous={true} rel={demo.previousArticle}/>}
       <Emphasis intros={intro} />
+    
 
       <Sections section={SWITCH_ANIMATION_SECTION} index={0} />
       <CodeBlockView block={SWITCH_ANIMATION_CODE_SECTION} />
@@ -61,11 +65,13 @@ export function DarkModeSwitchDemo() {
       <Sections section={NEUMORPHIC_SECTION} index={4} />
       <CodeBlockView block={NEUMORPHIC_CODE_SECTION} />
 
-      {intro.motivation && <Motivation text={intro.motivation} />}
+      <Motivation section={MOVITATION_SECTION} />
 
-      {intro.refs && <Refs refs={intro.refs} />}
 
       <CodeSection demo={demo} />
+
+      {demo.nextArticle && <RelativeBlock previous={false} rel={demo.nextArticle}/>}
+      {intro.refs && <Refs refs={intro.refs} />}
 
       <Footer />
     </div>
