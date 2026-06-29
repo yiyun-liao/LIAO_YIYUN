@@ -46,8 +46,8 @@ export function DarkModeSwitchDemo() {
         <DarkModeSwitchScene />
       </Views>
       {demo.previousArticle && <RelativeBlock previous={true} rel={demo.previousArticle}/>}
+      <Motivation section={MOVITATION_SECTION} />
       <Emphasis intros={intro} />
-    
 
       <Sections section={SWITCH_ANIMATION_SECTION} index={0} />
       <CodeBlockView block={SWITCH_ANIMATION_CODE_SECTION} />
@@ -64,9 +64,6 @@ export function DarkModeSwitchDemo() {
 
       <Sections section={NEUMORPHIC_SECTION} index={4} />
       <CodeBlockView block={NEUMORPHIC_CODE_SECTION} />
-
-      <Motivation section={MOVITATION_SECTION} />
-
 
       <CodeSection demo={demo} />
 
