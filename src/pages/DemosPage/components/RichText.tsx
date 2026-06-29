@@ -1,8 +1,11 @@
 import type { ReactNode } from "react";
 
 function parseInlineCode(text: string, keyPrefix: string): ReactNode[] {
-  const segments = text.split(/(`[^`]+`)/g);
+  const segments = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
   return segments.map((segment, i) => {
+    if (segment.startsWith("**") && segment.endsWith("**")) {
+      return <strong key={`${keyPrefix}-${i}`}>{segment.slice(2, -2)}</strong>;
+    }
     if (segment.startsWith("`") && segment.endsWith("`")) {
       return (
         <code

@@ -17,9 +17,11 @@ export function Sections({ section, index }: SectionsProps) {
             {String(index).padStart(2, "0")}
           </div>
         )}
-        <h3 className="font-serif text-[clamp(20px,3vw,32px)] leading-[1.1] tracking-[-.01em] mb-4">
-          {l(section.title)}
-        </h3>
+        {l(section.title) && (
+          <h3 className="font-serif text-[clamp(20px,3vw,32px)] leading-[1.1] tracking-[-.01em] mb-4">
+            {l(section.title)}
+          </h3>
+        )}
         <p className="text-ink-soft text-sm leading-[1.7] mb-6">{renderRichText(l(section.content))}</p>
       </div>
     </div>
