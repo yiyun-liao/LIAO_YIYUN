@@ -110,6 +110,6 @@ IA in the Five Elements
 ---
 
 *References:*
-- 【Day 02】設計流程（一）：IA 資訊架構
-- IA 資訊架構 (Information Architecture) 是什麼？
+- [【Day 02】設計流程（一）：IA 資訊架構](https://ithelp.ithome.com.tw/articles/10238163)
+- [IA 資訊架構 (Information Architecture) 是什麼？](https://www.kingman.idv.tw/internet-genaration/ia/179-what-is-ia-information-architecture.html)
 - [How to Create Information Architecture for Web Design](https://xd.adobe.com/ideas/process/information-architecture/information-ux-architect/)
