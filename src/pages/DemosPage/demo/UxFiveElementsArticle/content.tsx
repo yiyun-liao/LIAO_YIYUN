@@ -57,9 +57,9 @@ export const UXFIVEELEMENTSARTICLE_DATA: Demo[] = [UXFIVEELEMENTSARTICLE];
 export const MOTIVATION_SECTION: BodySection = {
   title: { en: "motivation", "zh-TW": "motivation" },
   content: {
-    en: "When I first joined a product team as a designer, the questions that kept tripping me up weren't about pixels — they were about scope. Am I supposed to define the user flow, or does the PM own that? Should I deliver an information architecture document, or just jump straight to wireframes? The five-element model didn't answer every question, but it gave me a shared vocabulary to have those conversations — and more importantly, a checklist to make sure nothing fell through the cracks between roles.",
+    en: "This is knowledge I shared when I was working as a design leader. The boundaries between PM, designer, and engineer responsibilities have no absolute standard — a complete product thinking framework isn't just something designers should understand, it's a shared language for those conversations. More importantly, it's a checklist to make sure nothing falls through the cracks between roles.",
     "zh-TW":
-      "剛進產品團隊做設計的時候，最讓我卡住的問題不是像素層面的——而是範圍。User flow 是我要定義的，還是 PM 負責？我應該交出一份資訊架構文件，還是直接跳到 wireframe？五要素模型沒有回答所有問題，但它給了我一套共同語言去進行那些對話——更重要的是，一張清單，確保沒有東西在角色之間的縫隙裡被漏掉。",
+      "這是一份我在作為 design leader 時分享的相關知識。PM、設計師、工程師在職責的界線上並沒有絕對的標準——一份完整的產品思考方向不只是設計師該了解的內容，也是一套共同語言去進行那些對話——更重要的是，一張清單，確保沒有東西在角色之間的縫隙裡被漏掉。",
   },
 };
 
