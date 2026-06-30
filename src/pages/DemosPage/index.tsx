@@ -7,7 +7,7 @@ import { Pill } from "@/components/Pill";
 import { Footer } from "@/sections/Footer";
 import { useLanguage } from "@/i18n/LanguageContext";
 
-const FILTER_KEYS: (DemoType | "all")[] = ["all", "codepen", "article", "demo", "experiment"];
+const FILTER_KEYS: (DemoType | "all")[] = ["all", "codepen", "article", "design", "demo", "experiment", "AI"];
 
 export function DemosPage() {
   const { t, l } = useLanguage();
@@ -15,7 +15,7 @@ export function DemosPage() {
   const gridRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState<Set<number>>(new Set());
 
-  const filtered = filter === "all" ? DEMOS : DEMOS.filter((d) => d.type === filter);
+  const filtered = filter === "all" ? DEMOS : DEMOS.filter((d) => d.type.includes(filter));
 
   useEffect(() => {
     const els = gridRef.current?.querySelectorAll("[data-demo]") ?? [];
@@ -68,7 +68,7 @@ export function DemosPage() {
               >
                 {t(`demos.${key}`)}
                 {key !== "all" && (
-                  <span className="ml-1.5 opacity-60">{DEMOS.filter((d) => d.type === key).length}</span>
+                  <span className="ml-1.5 opacity-60">{DEMOS.filter((d) => d.type.includes(key)).length}</span>
                 )}
               </button>
             ))}
@@ -94,7 +94,7 @@ export function DemosPage() {
                     {demo.image ? (
                       <div className="aspect-[16/10] bg-[#EDECE6] overflow-hidden border-b border-ink/10">
                         <img
-                          src={demo.image}
+                          src={demo.image.url}
                           alt={l(demo.title)}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                         />
@@ -102,7 +102,7 @@ export function DemosPage() {
                     ) : (
                       <div className="aspect-[16/10] bg-[#EDECE6] border-b border-ink/10 grid place-items-center">
                         <span className="font-mono text-[11px] tracking-[.16em] uppercase text-mute">
-                          {t(`demos.${demo.type}`)}
+                          {demo.type.map((tp) => t(`demos.${tp}`)).join(" · ")}
                         </span>
                       </div>
                     )}
@@ -111,7 +111,7 @@ export function DemosPage() {
                       <div className="flex justify-between items-center mb-3">
                         <span className="font-mono text-[10px] tracking-[.14em] uppercase text-mute">{demo.date}</span>
                         <span className="font-mono text-[10px] tracking-[.1em] uppercase text-accent">
-                          {t(`demos.${demo.type}`)}
+                          {demo.type.map((tp) => t(`demos.${tp}`)).join(" · ")}
                         </span>
                       </div>
 

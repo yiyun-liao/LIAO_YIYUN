@@ -9,10 +9,10 @@ export const DARKMODESWITCHDEMO: Demo = {
     en: "Neumorphic toggle with CSS custom-property theming, knob glow.",
     "zh-TW": "擬物化切換開關，搭配 CSS 自訂屬性主題與旋鈕光暈效果。",
   },
-  type: "experiment",
+  type: ["experiment"],
   tags: ["React", "CSS", "A11y"],
   url: "/demos/dark-mode-switch",
-  image: "/assets/demos/DarkModeSwitchDemo.png",
+  image: {url: "/assets/demos/DarkModeSwitchDemo.png"},
   codeEmbed: { sandboxId: "skjy6h" },
   introduction: {
     outline: {

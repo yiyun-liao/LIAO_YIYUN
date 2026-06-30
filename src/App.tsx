@@ -6,6 +6,7 @@ import { DemosPage } from "./pages/DemosPage/index";
 import { DarkModeSwitchDemo } from "./pages/DemosPage/demo/DarkModeSwitchDemo";
 import { ClaudeFolderArticle } from "./pages/DemosPage/demo/ClaudeFolderArticle";
 import { ReactVibeKickoffArticle } from "./pages/DemosPage/demo/ReactVibeKickoffArticle";
+import { UxFiveElementsArticle } from "./pages/DemosPage/demo/UxFiveElementsArticle";
 
 export default function App() {
   const [compact, setCompact] = useState(false);
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/demos/dark-mode-switch" element={<DarkModeSwitchDemo />} />
         <Route path="/demos/claude-folder-guide" element={<ClaudeFolderArticle />} />
         <Route path="/demos/react-vibe-kickoff" element={<ReactVibeKickoffArticle />} />
+        <Route path="/demos/ux-five-elements" element={<UxFiveElementsArticle />} />
       </Routes>
     </>
   );
