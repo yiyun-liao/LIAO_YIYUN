@@ -15,7 +15,7 @@ export const UXFIVEELEMENTSARTICLE: Demo = {
   tags: ["UX", "Design", "Product"],
   url: "/demos/ux-five-elements",
   image: {
-    url: "/assets/demos/InformationArchitecture.png",
+    url: "/assets/demos/UxFiveElementsArticle.png",
     source: `Photo by <a href="https://unsplash.com/@theshubhamdhage?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Shubham Dhage</a> on <a href="https://unsplash.com/photos/a-group-of-white-cubes-sitting-on-top-of-a-orange-surface-pIfbjoX4DV0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>`,
   },
   introduction: {
@@ -48,6 +48,13 @@ export const UXFIVEELEMENTSARTICLE: Demo = {
       },
     ],
   },
+  nextArticle: {
+    title: {
+      en: "Information Architecture",
+      "zh-TW": "資訊架構 Information Architecture",
+    },
+    url: "/demos/information-architecture",
+  },
 };
 
 export const UXFIVEELEMENTSARTICLE_DATA: Demo[] = [UXFIVEELEMENTSARTICLE];
@@ -68,7 +75,7 @@ export const MOTIVATION_SECTION: BodySection = {
 export const BRIEF_SECTION: BodySection = {
   title: { en: "", "zh-TW": "" },
   content: {
-    en: "\"User Experience\" is not just the UX designer's responsibility. Every decision in the design process — from goal-setting to visual implementation — affects the user's experience: how information is delivered, whether behavior feels consistent, whether the interface flows naturally. Different companies and teams also define the same job title differently. So the real question isn't \"what is UX?\" — it's \"which layers am I responsible for completing?\"",
+    en: "\"User Experience\" is not just the UX designer's responsibility. Every decision in the design process — from goal-setting to visual implementation — affects the user's experience: how information is delivered, whether behavior feels consistent, whether the interface flows naturally. Different companies and teams define the same job title differently. So the real question isn't \"what is UX?\" — it's \"which layers am I responsible for completing?\"",
     "zh-TW":
       "「User Experience」並不只是 UX 設計師的職責——從目標設定到畫面實作，整個設計流程中的所有決定都會影響到用戶體驗：資訊如何傳遞、行為是否連貫一致、畫面是否自然延續。不同公司、部門對於相同職稱也會有不同的定義及工作分配。所以真正要問的不是「什麼是 UX」，而是「我需要完成到哪幾層的任務？」",
   },
@@ -103,7 +110,7 @@ export const STRATEGY_IMAGE: Img = {
 export const STRATEGY_SECTION: BodySection = {
   title: { en: "Strategy", "zh-TW": "策略層 Strategy" },
   content: {
-    en: "**What it asks:** What do users need? What are the product's goals?\nStrategy is where you analyze product goals against user needs, find the product's positioning and highlight, and identify which needs you're actually going to satisfy. In a typical workflow, this maps to the Project Initiation phase in project management and the design research phase (convergence maps, SWOT, trend matrices) in design.\n**Deliverables:** market research, design research.\nStrategy sits closest to decision-making and project management. In the design workflow, it's usually the layer you don't linger on as a designer — but the one you need to understand, because every layer above it inherits whatever was decided here.",
+    en: "**What it asks:** What do users need? What are the product's goals?\nStrategy is where you weigh product goals against user needs, find the product's positioning and differentiator, and decide which needs you're actually going to satisfy. In a typical workflow, this maps to the Project Initiation phase in project management and the design research phase (convergence maps, SWOT, trend matrices) in design.\n**Deliverables:** market research, design research.\nStrategy sits closest to decision-making and project management. In the design workflow, it's usually the layer you don't linger on as a designer — but the one you need to understand, because every layer above it inherits whatever was decided here.",
     "zh-TW":
       "**問的問題：**使用者的需求是什麼？產品的目標又是什麼？\n策略層是分析產品目標與使用者需求的地方——找到產品定位和特色，確認實際要滿足哪些需求。在流程上對應到專案管理的 Project Initiation，以及設計階段的設計研究（收斂圖、SWOT、趨勢矩陣）。\n**交付物：**市場研究、設計研究。\n策略層最靠近決策面和專案管理前期任務。在設計流程裡，它通常不是設計師會花最多時間的一層——但你必須理解它，因為上面每一層都繼承了這裡做出的決定。",
   },
@@ -128,7 +135,7 @@ export const SCOPE_IMAGE: Img = {
 export const SCOPE_SECTION: BodySection = {
   title: { en: "Scope", "zh-TW": "範圍層 Scope" },
   content: {
-    en: "**What it asks:** What features do we build? What content do we provide?\nScope is where you generate requirements, define priorities, and set constraints. You pick out the main scenarios and tasks, map out the corresponding features, and use User Flow to analyze the interactions. This is also where you evaluate the scale and timeline — because you can't estimate effort without knowing what you're building.\nIn a typical workflow, this maps to the Project Planning phase (WBS, SoW, Risk Management, Schedule, RACI) and the second phase of design research (CJM and similar).\n**Deliverables:** Functional Map.\nScope has a deeper article in this series — it covers requirement generation, prioritization, and spec writing in detail.",
+    en: "**What it asks:** What features do we build? What content do we provide?\nScope is where you generate requirements, define priorities, and set constraints. You identify the main scenarios and tasks, map out the corresponding features, and use User Flow to analyze the interactions. This is also where you evaluate scale and timeline — because you can't estimate effort without knowing what you're building.\nIn a typical workflow, this maps to the Project Planning phase (WBS, SoW, Risk Management, Schedule, RACI) and the second phase of design research (CJM and similar).\n**Deliverables:** Functional Map.\nScope has a deeper article in this series — it covers requirement generation, prioritization, and spec writing in detail.",
     "zh-TW":
       "**問的問題：**要做哪些功能？要提供什麼內容？\n範圍層是生成需求、定義優先序和限制的地方。從產品功能與服務層面分析，挑出幾個主要場景和任務、對應出產品功能，可以用 User Flow 輔助分析。這一層也是評估所需規模或時間的依據——因為不知道要做什麼，就沒辦法估工。\n在流程上對應到專案管理的 Project Planning（WBS、SoW、Risk Management、Schedule、RACI）和設計階段的第二階段研究（CJM 等）。\n**交付物：**Functional Map。\n範圍層在這個系列裡有更深入的文章——詳細介紹需求生成、優先序和規格書的寫法。",
   },
@@ -205,7 +212,7 @@ export const SURFACE_IMAGE: Img = {
 export const SURFACE_SECTION: BodySection = {
   title: { en: "Surface", "zh-TW": "表現層 Surface" },
   content: {
-    en: "**What it asks:** What does the product look like? How does it feel?\nSurface is the sum of all the work and decisions from every layer below. It determines the product's visual appearance — layout, typography, color, and all the sensory design choices that give users cues about what they can do and how to interact. It should make things easier to understand and improve the user's ability to absorb what's on screen.\nIn a typical workflow, this maps to Project Execution and design execution.\n**Deliverables:** UI, prototype.\nHow to complete this layer involves all UI knowledge, tool proficiency, brand, and design system work. The details are covered in the dedicated UI articles in this series.",
+    en: "**What it asks:** What does the product look like? How does it feel?\nSurface is the sum of all the work and decisions from every layer below. It determines the product's visual appearance — layout, typography, color, and all the sensory design choices that give users cues about what they can do and how to interact. It should make things easier to understand and help users absorb what's on screen.\nIn a typical workflow, this maps to Project Execution and design execution.\n**Deliverables:** UI, prototype.\nCompleting this layer draws on UI knowledge, tool proficiency, brand identity, and design system work. The details are covered in the dedicated UI articles in this series.",
     "zh-TW":
       "**問的問題：**產品視覺看起來如何？給人什麼感受？\n表現層是下面所有層級工作和決定的總和。它決定產品的外觀——版面、排版、配色，以及所有感官設計的選擇，讓使用者知道可以做什麼、如何互動。它應該讓事情更容易理解、提高使用者吸收畫面資訊的能力。\n在流程上對應到 Project Execution 和設計執行。\n**交付物：**UI、prototype。\n這一層的完成方式涉及所有 UI 知識、工具的應用、品牌和設計系統的設計，細節在這個系列的 UI 專文中介紹。",
   },

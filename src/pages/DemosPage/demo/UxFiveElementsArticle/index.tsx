@@ -8,6 +8,7 @@ import { ImageSection } from "../../components/ImageSection";
 import { Motivation } from "../../components/Motivation";
 import { Emphasis } from "../../components/Emphasis";
 import { Refs } from "../../components/Refs";
+import { RelativeBlock } from "../../components/RelativeBlock";
 import {
   UXFIVEELEMENTSARTICLE,
   MOTIVATION_SECTION,
@@ -83,6 +84,8 @@ export function UxFiveElementsArticle() {
 
       <Sections section={DUAL_LENS_SECTION} />
       <CodeBlockView block={DUAL_LENS_CODE} />
+
+      {demo.nextArticle && <RelativeBlock previous={false} rel={demo.nextArticle} />}
       {intro.refs && <Refs refs={intro.refs} imageSource={demo.image?.source} />}
 
       <Footer />
