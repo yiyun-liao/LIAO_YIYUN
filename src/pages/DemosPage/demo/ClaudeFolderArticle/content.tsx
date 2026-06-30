@@ -14,6 +14,7 @@ export const CLAUDEFOLDERARTICLE: Demo = {
   type: "article",
   tags: ["Claude Code", "AI", "DX"],
   url: "/demos/claude-folder-guide",
+  image: "/assets/demos/ClaudeFolderArticle.png",
   introduction: {
     outline: {
       en: "A walkthrough of Claude Code's project configuration layer, organized around one question for each piece: who is it written for, and when does Claude actually read it? Illustrated with a real side project — an AI-powered US stock monitoring system — to show how each configuration piece plays out in practice.",
@@ -46,20 +47,27 @@ export const CLAUDEFOLDERARTICLE: Demo = {
 
 export const CLAUDEFOLDERARTICLE_DATA: Demo[] = [CLAUDEFOLDERARTICLE];
 
+// ─── Motivation ───
+
 export const MOTIVATION_SECTION: BodySection = {
   title: { en: "Previously on...", "zh-TW": "前情提要" },
   content: {
-    en: "",
+    en: "This is a personal learning journal — some passages may be excerpted from other articles. If I've used a snippet without proper attribution, please DM me and I'll add the source as soon as possible. The AI stock monitoring system was built mainly as a vibe-coding exercise, so there are no real realized P&L numbers to show for it yet — the focus here is entirely on the .claude architecture.",
     "zh-TW":
-      "這篇是自己的學習筆記，內容可能節錄了許多文章的片段，如果有任何使用片段沒有標明出處的地方，還請 dm 我，我會儘速補上來源。AI 美股監控系統目標是拿來練習做 vibe coding，所以其實目前沒有實質的「實現損益」🤣，所以還是專注在 .claude 的架構上啦。"  },
+      "這篇是自己的學習筆記，內容可能節錄了許多文章的片段，如果有任何使用片段沒有標明出處的地方，還請 dm 我，我會儘速補上來源。AI 美股監控系統目標是拿來練習做 vibe coding，所以其實目前沒有實質的「實現損益」🤣，所以還是專注在 .claude 的架構上啦。",
+  },
 };
 
 export const BRIEF_SECTION: BodySection = {
-  title:{en:"", "zh-TW":"簡述專案"},
-  content:{
-    en:"", 
-    "zh-TW":"主要功能：追蹤美股即時股價、AI 新聞摘要、複合評分引擎和 Telegram 通知。分析標準讀取自八本經典股票書籍的投資哲學、應用五個專職的 AI Agent、四個可重複使用的工作流，加上一份讓 context 浪費減少 67% 的規則載入清單。"},
-}
+  title: { en: "About the Project", "zh-TW": "簡述專案" },
+  content: {
+    en: "Key features: real-time US stock price tracking, AI-powered news summaries, a composite scoring engine, and Telegram notifications. The analysis criteria are drawn from an investment philosophy distilled from eight classic stock-market books, powered by five dedicated AI Agents, four reusable workflows, and a rule-loading manifest that cuts wasted context by 67%.",
+    "zh-TW":
+      "主要功能：追蹤美股即時股價、AI 新聞摘要、複合評分引擎和 Telegram 通知。分析標準讀取自八本經典股票書籍的投資哲學、應用五個專職的 AI Agent、四個可重複使用的工作流，加上一份讓 context 浪費減少 67% 的規則載入清單。",
+  },
+};
+
+// ─── Overview ───
 
 export const OVERVIEW_SECTION: BodySection = {
   title: { en: "The .claude Folder at a Glance", "zh-TW": ".claude 資料夾一覽" },
@@ -70,49 +78,51 @@ export const OVERVIEW_SECTION: BodySection = {
   },
 };
 
-export const OVERVIEW_CODE_SECTION: CodeBlock = {
+export const OVERVIEW_CODE: CodeBlock = {
   codeType: "text",
   code: `.claude/
-├── agents/               # 定義專屬的 AI 子代理
-├── commands/             # 建立自訂快捷指令
-├── hooks/                # 設定自動化工作流程觸發器
-├── rules/                # 細分主題的行為規則
-├── skills/               # 可複用的進階工作腳本
-└── settings.json         # 權限控制與全域設定
+├── agents/               # Custom AI sub-agents
+├── commands/             # Custom slash commands
+├── hooks/                # Automation workflow triggers
+├── rules/                # Topic-specific behavior rules
+├── skills/               # Reusable advanced workflow scripts
+└── settings.json         # Permissions and global settings
 
-CLAUDE.md                 # 專案說明與開發規範
-docs/                     # 給人類看的參考文件（Claude 預設不讀）`,
+CLAUDE.md                 # Project readme and dev conventions
+docs/                     # Reference docs for humans (Claude doesn't auto-read)`,
 };
 
-export const SAMPLE_CODE_SECTION: CodeBlock = {
+export const OVERVIEW_SAMPLE_CODE: CodeBlock = {
   codeType: "text",
-  code: ` //美股監控專案的實際配置（The actual layout from the stock monitoring project）
+  code: `// The actual layout from the stock monitoring project
 
-  .claude/
-├── rules/               
-│   ├── _manifest.md          # 規則載入策略（節省 67% context）
-│   ├── agent-guidelines.md   # React 反模式庫、代碼審查清單
-│   ├── code-style.md         # 命名規範、Git 流程
-│   ├── frontend-architecture.md  # 組件分類、Hook 規範
-│   ├── api-conventions.md    # API 設計、快取策略
-│   ├── investment-philosophy.md  # 選股哲學（8 本經典萃取）
-│   └── scoring-reference.md  # 評分系統權重與標準
-├── agents/               # 五位專家
-│   ├── scraper-agent.md      # 資料爬蟲專家
-│   ├── analyzer-agent.md     # AI 分析專家
-│   ├── frontend-agent.md     # 前端專家
-│   ├── merge-agent.md        # 分支整合專家
-│   └── memory-agent.md       # 記憶管理專家
-├── skills/             
+.claude/
+├── rules/
+│   ├── _manifest.md          # Rule-loading strategy (saves 67% context)
+│   ├── agent-guidelines.md   # React anti-pattern library, code review checklist
+│   ├── code-style.md         # Naming conventions, Git workflow
+│   ├── frontend-architecture.md  # Component taxonomy, Hook conventions
+│   ├── api-conventions.md    # API design, caching strategy
+│   ├── investment-philosophy.md  # Stock-picking philosophy (distilled from 8 classics)
+│   └── scoring-reference.md  # Scoring system weights and criteria
+├── agents/               # Five specialists
+│   ├── scraper-agent.md      # Data collection expert
+│   ├── analyzer-agent.md     # AI analysis expert
+│   ├── frontend-agent.md     # Frontend expert
+│   ├── merge-agent.md        # Branch integration expert
+│   └── memory-agent.md       # Knowledge persistence expert
+├── skills/
 │   ├── review-day.md         # /project:review-day
 │   ├── analyze-stock.md      # /project:analyze-stock AAPL
 │   ├── debug-api.md          # /project:debug-api
 │   └── pre-merge.md          # /project:pre-merge
-└── settings.local.json   
+└── settings.local.json
 
-CLAUDE.md                
-docs/                     
-`};
+CLAUDE.md
+docs/`,
+};
+
+// ─── 01 CLAUDE.md ───
 
 export const CLAUDE_MD_SECTION: BodySection = {
   title: { en: "CLAUDE.md — First Impressions", "zh-TW": "CLAUDE.md — 專案的第一印象" },
@@ -123,34 +133,37 @@ export const CLAUDE_MD_SECTION: BodySection = {
   },
 };
 
-export const CLAUDE_MD_CODE_SECTION: CodeBlock = {
+export const CLAUDE_MD_CODE: CodeBlock = {
   codeType: "markdown",
-  code: `//path: CLAUDE.md
-# AI 美股監控系統
+  code: `// path: CLAUDE.md
+# AI US Stock Monitoring System
 
-## 專案概覽
-自動追蹤美股的監控系統，整合即時股價、AI 新聞摘要、自動警報通知與視覺化 Dashboard。
+## Project Overview
+An automated stock-monitoring system integrating real-time prices,
+AI news summaries, alert notifications, and a visual dashboard.
 
-**技術棧**
-- 後端：FastAPI + yfinance + NewsAPI + Guardian + Finnhub + Alpha Vantage
-- 前端：Next.js + TailwindCSS
-- AI：Claude API（並行分析）
-- 通知：Telegram Bot
+**Tech Stack**
+- Backend: FastAPI + yfinance + NewsAPI + Guardian + Finnhub + Alpha Vantage
+- Frontend: Next.js + TailwindCSS
+- AI: Claude API (parallel analysis)
+- Notifications: Telegram Bot
 
-## AI 規則索引（.claude/rules/）
+## AI Rule Index (.claude/rules/)
 
-**【CRITICAL】每次都載入：**
-- @.claude/rules/agent-guidelines.md — React 反模式庫、代碼審查清單
-- @.claude/rules/code-style.md — 命名規範、Git 流程、協作約定
+**[CRITICAL] Always load:**
+- @.claude/rules/agent-guidelines.md — React anti-patterns, code review checklist
+- @.claude/rules/code-style.md — Naming conventions, Git workflow
 
-**【CONDITIONAL】按情景載入：**
-- @.claude/rules/frontend-architecture.md — 組件分類、Hook 規範（編輯 frontend/* 時）
-- @.claude/rules/api-conventions.md — API 設計、快取策略（編輯 backend/* 時）
-- @.claude/rules/investment-philosophy.md — 選股哲學（股票分析任務時）
-- @.claude/rules/scoring-reference.md — 評分系統權重（評分計算時）
+**[CONDITIONAL] Load by context:**
+- @.claude/rules/frontend-architecture.md — Component taxonomy (when editing frontend/*)
+- @.claude/rules/api-conventions.md — API design, caching (when editing backend/*)
+- @.claude/rules/investment-philosophy.md — Stock-picking philosophy (during stock analysis)
+- @.claude/rules/scoring-reference.md — Scoring weights (during score calculations)
 
-詳細的規則載入策略見 @.claude/rules/_manifest.md（預期節省 ~67% context）`,
+See @.claude/rules/_manifest.md for the full loading strategy (~67% context savings)`,
 };
+
+// ─── 02 Rules ───
 
 export const RULES_SECTION: BodySection = {
   title: { en: ".claude/rules/ — AI's Work Rules (Auto-Effective)", "zh-TW": ".claude/rules/ — AI 的工作守則（自動生效）" },
@@ -161,29 +174,29 @@ export const RULES_SECTION: BodySection = {
   },
 };
 
-export const RULES_CODE_SECTION: CodeBlock = {
+export const RULES_CODE: CodeBlock = {
   codeType: "markdown",
-  code: ` // path:.claude/rules/investment-philosophy.md
-# 投資哲學知識庫
-> 整合 8 本投資經典，萃取核心選股心法，供 AI 分析工具參考使用
-> 來源：Howard Marks、Peter Lynch、Benjamin Graham、Morgan Housel、Peter Thiel 等
+  code: `// path: .claude/rules/investment-philosophy.md
+# Investment Philosophy Knowledge Base
+> Distilled from 8 investment classics for AI analysis reference
+> Sources: Howard Marks, Peter Lynch, Benjamin Graham, Morgan Housel, Peter Thiel, etc.
 
-## 一、選股框架（Stock Selection Framework）
+## 1. Stock Selection Framework
 
-### 1.1 以盈餘為核心指標（Peter Lynch）
-- 股價跟著盈餘走：長期來看，股價的漲跌最終反映的是公司盈餘的成長
-- 每天或每週的股價變動通常只會讓人分心，建議每六個月才檢視一次
+### 1.1 Earnings as the Core Metric (Peter Lynch)
+- Stock prices follow earnings: long-term price movement ultimately reflects earnings growth
+- Daily or weekly price swings are usually just noise — review every six months at most
 
-### 1.2 安全邊際（Benjamin Graham）
-- 以低於內在價值的價格買進，是投資者的核心保護機制
-- 折扣越大，安全邊際越高，虧損風險越低
+### 1.2 Margin of Safety (Benjamin Graham)
+- Buying below intrinsic value is the investor's core protection mechanism
+- The larger the discount, the higher the margin of safety, the lower the loss risk
 
-## AI 分析工具使用指引
+## AI Analysis Guidelines
 
-首要分析維度：
-1. 盈餘趨勢：最近幾季的每股盈餘是否持續成長？
-2. 估值合理性：目前 P/E 是否超過合理範圍？
-3. 競爭地位：公司在其行業是否具有難以複製的優勢？`,
+Primary analysis dimensions:
+1. Earnings trend: is EPS growing consistently over recent quarters?
+2. Valuation reasonableness: is the current P/E within a sensible range?
+3. Competitive position: does the company have a hard-to-replicate advantage in its industry?`,
 };
 
 export const RULES_TABLE_SECTION: BodySection = {
@@ -195,36 +208,38 @@ export const RULES_TABLE_SECTION: BodySection = {
   },
 };
 
-export const RULES_TABLE_CODE_SECTION: CodeBlock = {
+export const RULES_TABLE_CODE: CodeBlock = {
   codeType: "text",
-  code: `檔案                          自動生效的場景
+  code: `File                          When it auto-fires
 ──────────────────────────────────────────────
-investment-philosophy.md     AI 給投資建議時
-code-style.md                 AI 寫程式時
-api-conventions.md            AI 設計 API 端點時
-frontend-architecture.md      AI 寫前端組件時
-agent-guidelines.md           AI 做 code review 時
-scoring-reference.md          AI 解釋評分系統時
+investment-philosophy.md      When AI gives investment advice
+code-style.md                 When AI writes code
+api-conventions.md            When AI designs API endpoints
+frontend-architecture.md      When AI writes frontend components
+agent-guidelines.md           When AI does code review
+scoring-reference.md          When AI explains the scoring system
 
-規則                         行數    載入方式    何時觸發
+Rule                         Lines   Loading     Trigger
 ──────────────────────────────────────────────────────────
-agent-guidelines.md         224     自動       始終
-code-style.md                40     自動       始終
-─── 小計（CRITICAL）         264 ──────────────────────────
-frontend-architecture.md    372     條件       編輯 frontend/* 時
-api-conventions.md           56     條件       編輯 backend/* 時
-investment-philosophy.md    238     條件       股票分析任務時
-scoring-reference.md        227     條件       評分計算任務時
-─── 小計（CONDITIONAL）      893 ──────────────────────────
+agent-guidelines.md          224     Always      Every session
+code-style.md                 40     Always      Every session
+─── Subtotal (CRITICAL)      264 ──────────────────────────
+frontend-architecture.md     372     Conditional Editing frontend/*
+api-conventions.md            56     Conditional Editing backend/*
+investment-philosophy.md     238     Conditional Stock analysis tasks
+scoring-reference.md         227     Conditional Score calculation tasks
+─── Subtotal (CONDITIONAL)   893 ──────────────────────────
 
-場景                載入行數    節省
+Scenario            Lines loaded    Savings
 ─────────────────────────────────────────
-一般代碼審查         264 行      ⬇️ 77%
-前端開發             636 行      ⬇️ 45%
-後端開發             320 行      ⬇️ 72%
-股票分析             729 行      ⬇️ 37%
-平均                ~487 行      ⬇️ 67%`,
+General code review  264            ⬇️ 77%
+Frontend dev         636            ⬇️ 45%
+Backend dev          320            ⬇️ 72%
+Stock analysis       729            ⬇️ 37%
+Average             ~487            ⬇️ 67%`,
 };
+
+// ─── 03 Commands ───
 
 export const COMMANDS_SECTION: BodySection = {
   title: { en: ".claude/commands/ — Reusable Workflows", "zh-TW": ".claude/commands/ — 可重複使用的工作流" },
@@ -235,13 +250,114 @@ export const COMMANDS_SECTION: BodySection = {
   },
 };
 
-export const COMMANDS_CODE_SECTION: CodeBlock = {
+export const COMMANDS_CODE: CodeBlock = {
   codeType: "text",
-  code: `/project:review-day           ← 整理今天做了什麼（自動讀 git log）
-/project:analyze-stock AAPL  ← 按投資哲學框架分析 AAPL
-/project:debug-api           ← 六步驟 API 診斷（連線、快取、速率限制）
-/project:pre-merge           ← 合併前品質檢查（型別、lint、測試、建置）`,
+  code: `/project:review-day           ← Summarize today's work (auto-reads git log)
+/project:analyze-stock AAPL   ← Analyze AAPL using the investment philosophy framework
+/project:debug-api            ← Six-step API diagnosis (connection, cache, rate limits)
+/project:pre-merge            ← Pre-merge quality check (types, lint, tests, build)`,
 };
+
+// ─── 04 Skills ───
+
+export const SKILLS_SECTION: BodySection = {
+  title: { en: ".claude/skills/ — Loaded Only When Relevant", "zh-TW": ".claude/skills/ — 可複用的進階工作腳本" },
+  content: {
+    en: "Reusable advanced workflow scripts — like commands, but smarter about when they load.\n**Who reads it:** Claude reads them automatically when relevant work comes up.\n**Purpose:** Define callable workflows that Claude Code loads only when needed, and skips entirely — zero token cost — when the work doesn't match.\n**How to use:** Each Skill is a folder with `SKILL.md` as the main config, plus optional templates and examples alongside it. Claude Code automatically reads the relevant content when the work actually calls for it. This is the officially recommended modern pattern.\n**In the stock project:** `analyze-stock` is a Skill that defines the full output format (composite score, three-dimension breakdown, earnings analysis, valuation assessment), the data sources to pull from, and how different stock types (growth, value, cyclical) should shift the analysis emphasis.",
+    "zh-TW":
+      "和 commands 類似，但更聰明地決定何時載入。\n**給誰看：** Claude 在做相關工作時自動讀取。\n**目的：** 定義可呼叫的工作流程，Claude Code 會在做相關工作時自動讀取對應內容，做不相關工作就完全不讀——不佔用任何 token。這也是 Claude Code 官方推薦的現代寫法。\n**怎麼用：** 每個 Skill 是一個資料夾，裡面放著 `SKILL.md` 作為主要設定檔，還可以附上範本、範例等補充資料。Claude Code 會在做相關工作時自動讀取。\n**美股專案怎麼用：** `analyze-stock` 是一個 Skill，定義了完整的輸出格式（綜合評分、三維度分布、盈餘分析、估值評估）、該從哪些資料源取得數據，以及不同類型的股票（成長股、價值股、周期股）該怎麼調整分析重點。",
+  },
+};
+
+export const SKILLS_CODE: CodeBlock = {
+  codeType: "text",
+  code: `// path: .claude/skills/analyze-stock.md
+
+# Skill: Analyze Stock
+
+## Invocation
+/project:analyze-stock AAPL
+
+## Output Format (excerpt)
+
+📊 Stock Analysis Report — AAPL
+
+[Composite Score]
+  Score  8.2 / 10
+  Rating 🟢 Strong Buy
+
+[Three-Dimension Breakdown]
+  Dimension            Score      Rating
+  ─────────────────────────────────
+  📊 Technical (35%)   75/100     Bullish
+  💰 Fundamental (45%) 85/100     Excellent
+  📰 Sentiment (20%)   70/100     Slightly positive
+
+[Stock-Type Adjustments]
+  Scenario              Analysis emphasis
+  ─────────────────────────────────
+  Growth (NVDA)         EPS growth rate, competitive moat
+  Value (JNJ)           P/E, dividends, cash flow
+  Cyclical (XLE)        Economic indicators, supply-demand balance`,
+};
+
+export const SKILLS_TABLE_SECTION: BodySection = {
+  title: { en: "Four Skills, Each with Its Own Job", "zh-TW": "專案舉例：四個 Skill 各自的角色" },
+  content: {
+    en: "The stock project has four skills, each covering a distinct workflow. Like rules, none of these need to be manually loaded — Claude reads the relevant skill only when the task matches.",
+    "zh-TW":
+      "美股專案有四個 Skill，各自負責一個獨立的工作流。跟 rules 一樣，這些都不需要手動載入——Claude 只在任務符合時才讀取對應的 skill。",
+  },
+};
+
+export const SKILLS_TABLE_CODE: CodeBlock = {
+  codeType: "text",
+  code: `Skill                    Invocation                          Purpose
+──────────────────────────────────────────────────────────────────────────
+review-day.md            /project:review-day                 Summarize the day's dev work (auto-reads git log)
+analyze-stock.md         /project:analyze-stock AAPL         Analyze a stock using the investment philosophy
+debug-api.md             /project:debug-api                  Six-step API diagnosis (connection, cache, rate limits)
+pre-merge.md             /project:pre-merge                  Pre-merge quality check (types, lint, tests, build)`,
+};
+
+export const SKILLS_VS_CLAUDE_SECTION: BodySection = {
+  title: { en: "CLAUDE.md vs. Skill", "zh-TW": "CLAUDE.md V.S. skill" },
+  content: {
+    en: "`CLAUDE.md` always applies and covers project-wide background; a Skill only gets consulted for the one task it describes.",
+    "zh-TW":
+      "`CLAUDE.md` 永遠生效、涵蓋整個專案的背景；Skill 只在它描述的那個任務上才會被參考。",
+  },
+};
+
+export const SKILLS_VS_CLAUDE_CODE: CodeBlock = {
+  codeType: "text",
+  code: `                CLAUDE.md                          Skill
+───────────────────────────────────────────────────────────────────────────────
+Purpose         Tell Claude the project's background    Tell Claude how to execute a specific task
+Scope           Global, always active                   Task-oriented, consulted on demand
+Content         Architecture, conventions, tech choices Steps, instructions, output format`,
+};
+
+export const SKILLS_VS_COMMANDS_SECTION: BodySection = {
+  title: { en: "Command vs. Skill", "zh-TW": "command V.S. skill" },
+  content: {
+    en: "A Command is a lightweight `.md` prompt that only works in this repo. A Skill packages as a `.skill` bundle that can carry actual code and be installed into any environment.",
+    "zh-TW":
+      "Command 是輕量的 `.md` prompt，只能在這個 repo 裡用；Skill 則包裝成 `.skill` 壓縮包，可以帶著實際程式碼，安裝到任何環境。",
+  },
+};
+
+export const SKILLS_VS_COMMANDS_CODE: CodeBlock = {
+  codeType: "text",
+  code: `                Command                    Skill
+─────────────────────────────────────────────────────────
+Format          .md file                    .skill bundle
+Executor        Claude interprets & acts    Claude interprets + bundled scripts
+Portability     This repo only              Installable anywhere
+Complexity      Lightweight prompt          Heavyweight, with code`,
+};
+
+// ─── 05 Hooks ───
 
 export const HOOKS_SECTION: BodySection = {
   title: { en: ".claude/hooks/ — Automating the Workflow", "zh-TW": ".claude/hooks/ — 自動化工作流程觸發器" },
@@ -252,26 +368,23 @@ export const HOOKS_SECTION: BodySection = {
   },
 };
 
-export const HOOKS_CODE_SECTION: CodeBlock = {
+export const HOOKS_EVENTS_CODE: CodeBlock = {
   codeType: "text",
-  code: ` 
-事件               觸發時機
+  code: `Event              When it fires
 ─────────────────────────────────
-PreToolUse         Claude 執行工具之前
-PostToolUse        Claude 執行工具之後
-SubagentStart      Claude 啟動子代理時
-SubagentStop       Claude 結束子代理時
-Stop               Claude 完成回覆時
-SessionStart       對話開始時
-Notification       Claude 需要你輸入時
-FileChanged        被監看的檔案發生變化時
-// ref: https://www.thisweb.dev/articles/claude-code-structure
-`,
+PreToolUse         Before Claude executes a tool
+PostToolUse        After Claude executes a tool
+SubagentStart      When Claude launches a sub-agent
+SubagentStop       When a sub-agent finishes
+Stop               When Claude finishes a response
+SessionStart       When a conversation begins
+Notification       When Claude needs your input
+FileChanged        When a watched file changes`,
 };
 
-export const HOOKS_WIRING_CODE_SECTION: CodeBlock = {
+export const HOOKS_WIRING_CODE: CodeBlock = {
   codeType: "json",
-  code: `// .claude/settings.local.json（美股專案實際設定）
+  code: `// .claude/settings.local.json
 {
   "permissions": {
     "allow": [
@@ -296,6 +409,8 @@ export const HOOKS_WIRING_CODE_SECTION: CodeBlock = {
 }`,
 };
 
+// ─── 06 Docs ───
+
 export const DOCS_SECTION: BodySection = {
   title: { en: "docs/ — Reference Material for Humans", "zh-TW": "docs/ — 給人類看的參考文件" },
   content: {
@@ -305,45 +420,47 @@ export const DOCS_SECTION: BodySection = {
   },
 };
 
-export const DOCS_CODE_SECTION: CodeBlock = {
+export const DOCS_CODE: CodeBlock = {
   codeType: "text",
-  code: `rules/investment-philosophy.md  ← AI 工作時的「守則版」，精簡、指令式
-  → 「以盈餘為核心指標，P/E < 合理範圍才買」
+  code: `rules/investment-philosophy.md  ← AI's "work rules" version — condensed, instruction-style
+  → "Use earnings as the core metric, only buy when P/E < reasonable range"
 
-docs/investment-philosophy.md   ← 你閱讀用的「完整版」，有說明、有例子
-  → 「Peter Lynch 認為...Benjamin Graham 主張...
-     整合 8 本經典：投資最重要的事、致富心態、
-     從 0 到 1、彼得林區選股戰略...」`,
+docs/investment-philosophy.md   ← Your "full version" — with explanations and examples
+  → "Peter Lynch argues... Benjamin Graham insists...
+     Distilled from 8 classics: The Most Important Thing, The Psychology of Money,
+     Zero to One, One Up on Wall Street..."`,
 };
+
+// ─── 07 Agents ───
 
 export const AGENTS_SECTION: BodySection = {
   title: { en: ".claude/agents/ — A Team of Specialists", "zh-TW": ".claude/agents/ — 連接 MCP Server，讓 Agent 有能力做事" },
   content: {
-    en: "Custom sub-agents that specialize in distinct parts of the project. Often wired to an MCP server, which gives them the ability to act on the outside world instead of just reading and editing files.\n**Who reads it:** Claude reads agent definitions to decide when and how to delegate.\n**Purpose:** Turn Claude from a single generalist into a team of specialists, each with its own expertise, dependency rules, and code patterns.\n**How to use:** Three ways to trigger a sub-agent:\n• Automatic — Claude reads the agent's `description` and decides on its own that the current task matches.\n• Direct mention — naming it in conversation, e.g. \"use `analyzer-agent` for this.\"\n• @-mention — typing `@\"analyzer-agent (agent)\"` to hand off immediately.\n**In the stock project:** Five agents — ScraperAgent for data collection across six APIs, AnalyzerAgent for investment analysis with Claude API, FrontendAgent for React component quality, MergeAgent for branch integration, and MemoryAgent for knowledge persistence.",
+    en: "Custom sub-agents that specialize in distinct parts of the project. Often wired to an MCP server, which gives them the ability to act on the outside world instead of just reading and editing files.\n**Who reads it:** Claude reads agent definitions to decide when and how to delegate.\n**Purpose:** Turn Claude from a single generalist into a team of specialists, each with its own expertise, dependency rules, and code patterns.\n**How to use:** Three ways to trigger a sub-agent:\n• **Automatic** — Claude reads the agent's `description` and decides on its own that the current task matches.\n• **Direct mention** — naming it in conversation, e.g. \"use `analyzer-agent` for this.\"\n• **@-mention** — typing `@\"analyzer-agent (agent)\"` to hand off immediately.\n**In the stock project:** Five agents — ScraperAgent for data collection across six APIs, AnalyzerAgent for investment analysis with Claude API, FrontendAgent for React component quality, MergeAgent for branch integration, and MemoryAgent for knowledge persistence.",
     "zh-TW":
       "定義專屬的 AI 子代理，值得花心力打造的那些通常會連接一個 MCP Server，讓它們有能力對外部世界真正做事，而不只是讀寫檔案。\n**給誰看：** Claude 讀取 Agent 定義，決定什麼時候該委派以及怎麼委派。\n**目的：** 讓 Claude 從一個通才變成一個專家團隊，每個 Agent 有自己的專長、自己依賴的規則檔、自己的程式碼模式。\n**怎麼用：** 子代理常見有三種觸發方式：\n• 自動觸發 — Claude 根據 `description` 的描述，自己判斷什麼時候該交給這個 Agent。\n• 直接指定 — 在對話中說「請用 `analyzer-agent` 處理這個」。\n• @ 提及 — 手動輸入 `@\"analyzer-agent (agent)\"` 直接交辦。\n**美股專案怎麼用：** 五個 Agent——ScraperAgent 負責跨六個 API 的資料收集、AnalyzerAgent 負責用 Claude API 做投資分析、FrontendAgent 負責 React 組件品質、MergeAgent 負責分支整合、MemoryAgent 負責知識持久化。",
   },
 };
 
-export const AGENTS_CODE_SECTION: CodeBlock = {
+export const AGENTS_CODE: CodeBlock = {
   codeType: "markdown",
-  code: `# Analyzer Agent（AI 分析專家）
+  code: `# Analyzer Agent (AI Analysis Expert)
 
-## 角色與責任
-AI 分析與投資決策專家。負責用 Claude API 進行股票分析、
-生成投資建議、撰寫新聞摘要、計算綜合評分。
+## Role & Responsibilities
+AI analysis and investment decision expert. Uses Claude API for stock analysis,
+generates investment recommendations, writes news summaries, calculates composite scores.
 
-## 專長領域
-- 投資分析 — 按投資哲學框架分析個股（盈餘趨勢、估值、競爭力）
-- AI 提示工程 — 設計高品質的 system prompt，注入財務指標
-- 並行 API 呼叫 — 同時分析多支股票，優化 token 使用
-- 評分系統 — 計算技術面 35% + 基本面 45% + 情緒面 20%
+## Expertise
+- Investment analysis — analyze individual stocks using the investment philosophy framework
+- AI prompt engineering — design high-quality system prompts, inject financial metrics
+- Parallel API calls — analyze multiple stocks concurrently, optimize token usage
+- Scoring system — calculate Technical 35% + Fundamental 45% + Sentiment 20%
 
-## 依賴規則
-必讀：
-- @.claude/rules/investment-philosophy.md — 選股哲學
-- @.claude/rules/scoring-reference.md — 評分系統權重
-- @.claude/rules/code-style.md — 代碼組織`,
+## Required Rules
+Must read:
+- @.claude/rules/investment-philosophy.md — Stock-picking philosophy
+- @.claude/rules/scoring-reference.md — Scoring system weights
+- @.claude/rules/code-style.md — Code organization`,
 };
 
 export const AGENTS_COMPARE_SECTION: BodySection = {
@@ -355,14 +472,15 @@ export const AGENTS_COMPARE_SECTION: BodySection = {
   },
 };
 
-export const AGENTS_COMPARE_CODE_SECTION: CodeBlock = {
+export const AGENTS_COMPARE_CODE: CodeBlock = {
   codeType: "text",
-  code: `                傳統開發                Agent
+  code: `                Traditional Dev            Agent
 ──────────────────────────────────────────────────
-邏輯由誰決定      工程師事先寫死           AI 執行時自己判斷
-遇到新情況        照原本邏輯走，可能出錯    自己決定怎麼處理
-流程              固定的                  動態的
-維護方式          改程式碼                改 prompt 或目標`,
+Who decides     Engineer writes rules       AI decides at runtime
+New situation   Follows existing logic       Decides how to handle it
+                (may break)
+Flow            Fixed                       Dynamic
+Maintenance     Change code                 Change prompt or goal`,
 };
 
 export const AGENTS_EXAMPLE_SECTION: BodySection = {
@@ -374,119 +492,22 @@ export const AGENTS_EXAMPLE_SECTION: BodySection = {
   },
 };
 
-export const AGENTS_EXAMPLE_CODE_SECTION: CodeBlock = {
+export const AGENTS_EXAMPLE_CODE: CodeBlock = {
   codeType: "text",
-  code: `# 傳統開發：規則要事先窮舉
-如果價格變化 > 5%              → 發 Telegram 通知
-如果是收盤時間                 → 發每日報告
-如果有新聞                     → 摘要後發送
-如果 RSI > 70                  → 標記超買
-如果 P/E > 同業 2 倍           → 標記高估
-...每多一種情況，就多一個 if
+  code: `# Traditional dev: rules must be enumerated upfront
+if price_change > 5%            → send Telegram alert
+if market_close_time            → send daily report
+if new_article                  → summarize and send
+if RSI > 70                     → flag overbought
+if P/E > 2x industry average    → flag overvalued
+...every new case = another if
 
-# Agent：只給目標，細節由 AI 根據投資哲學判斷
-目標：監控這些股票，依照 investment-philosophy.md 的框架，
-      有重要變化就透過 Telegram 通知我`,
+# Agent: give the goal, let AI decide details using the investment philosophy
+Goal: monitor these stocks, following the framework in investment-philosophy.md,
+      and notify me via Telegram whenever something important changes`,
 };
 
-export const SKILLS_SECTION: BodySection = {
-  title: { en: ".claude/skills/ — Loaded Only When Relevant", "zh-TW": ".claude/skills/ - 可複用的進階工作腳本" },
-  content: {
-    en: "Reusable advanced workflow scripts — like commands, but smarter about when they load.\n**Who reads it:** Claude reads them automatically when relevant work comes up.\n**Purpose:** Define callable workflows that Claude Code loads only when needed, and skips entirely — zero token cost — when the work doesn't match.\n**How to use:** Each Skill is a folder with `SKILL.md` as the main config, plus optional templates and examples alongside it. Claude Code automatically reads the relevant content when the work actually calls for it. This is the officially recommended modern pattern.\n**In the stock project:** `analyze-stock` is a Skill that defines the full output format (composite score, three-dimension breakdown, earnings analysis, valuation assessment), the data sources to pull from, and how different stock types (growth, value, cyclical) should shift the analysis emphasis.",
-    "zh-TW":
-      "和 commands 類似，但更聰明地決定何時載入。\n**給誰看：** Claude 在做相關工作時自動讀取。\n**目的：** 定義可呼叫的工作流程，Claude Code 會在做相關工作時自動讀取對應內容，做不相關工作就完全不讀——不佔用任何 token。這也是 Claude Code 官方推薦的現代寫法。\n**怎麼用：** 每個 Skill 是一個資料夾，裡面放著 `SKILL.md` 作為主要設定檔，還可以附上範本、範例等補充資料。Claude Code 會在做相關工作時自動讀取。\n**美股專案怎麼用：** `analyze-stock` 是一個 Skill，定義了完整的輸出格式（綜合評分、三維度分布、盈餘分析、估值評估）、該從哪些資料源取得數據，以及不同類型的股票（成長股、價值股、周期股）該怎麼調整分析重點。",
-  },
-};
-
-export const SKILLS_CODE_SECTION: CodeBlock = {
-  codeType: "text",
-  code: `// path: .claude/skills/analyze-stock.md
-
-# Skill: Analyze Stock（個股投資分析）
-
-## 調用方式
-/project:analyze-stock AAPL
-
-## 輸出格式（節錄）
-
-📊 股票分析報告 — AAPL
-
-【綜合評分】
-  評分 8.2 / 10
-  評級 🟢 強烈買入
-
-【三維度分布】
-  維度              得分       評級
-  ─────────────────────────────────
-  📊 技術面（35%）  75/100     看漲
-  💰 基本面（45%）  85/100     優秀
-  📰 情緒面（20%）  70/100     中性偏強
-
-【常見變化】
-  場景              分析重點
-  ─────────────────────────────────
-  成長股（NVDA）    強調 EPS 成長率、競爭優勢
-  價值股（JNJ）     強調 P/E、股息、現金流
-  周期股（XLE）     強調景氣指標、供需平衡`,
-};
-
-export const SKILLS_TABLE_SECTION: BodySection = {
-  title: { en: "Four Skills, Each with Its Own Job", "zh-TW": "專案舉例：四個 Skill 各自的角色" },
-  content: {
-    en: "The stock project has four skills, each covering a distinct workflow. Like rules, none of these need to be manually loaded — Claude reads the relevant skill only when the task matches.",
-    "zh-TW":
-      "美股專案有四個 Skill，各自負責一個獨立的工作流。跟 rules 一樣，這些都不需要手動載入——Claude 只在任務符合時才讀取對應的 skill。",
-  },
-};
-
-export const SKILLS_TABLE_CODE_SECTION: CodeBlock = {
-  codeType: "text",
-  code: `Skill                    呼叫方式                           用途
-──────────────────────────────────────────────────────────────────────────
-review-day.md           /project:review-day                整理今日開發成果（自動讀 git log）
-analyze-stock.md        /project:analyze-stock AAPL        按投資哲學框架分析個股
-debug-api.md            /project:debug-api                 六步驟 API 診斷（連線、快取、速率限制）
-pre-merge.md            /project:pre-merge                 合併前品質檢查（型別、lint、測試、建置）`,
-};
-
-export const SKILLS_VS_CLAUDE_SECTION: BodySection = {
-  title: { en: "CLAUDE.md V.S. skill", "zh-TW": "CLAUDE.md V.S. skill" },
-  content: {
-    en: "`CLAUDE.md` always applies and covers project-wide background; a Skill only gets consulted for the one task it describes.",
-    "zh-TW":
-      " `CLAUDE.md` 永遠生效、涵蓋整個專案的背景；Skill 只在它描述的那個任務上才會被參考。",
-  },
-};
-
-export const SKILLS_VS_CLAUDE_CODE_SECTION: CodeBlock = {
-  codeType: "text",
-  code: `
-.             CLAUDE.md                          Skill
-───────────────────────────────────────────────────────────────────────────────
-用途           告訴 Claude 整個專案的背景和規範       告訴 Claude 某個特定任務怎麼執行
-範圍           全域、每次都生效                     任務導向、需要時才參考
-內容           專案架構、慣例、技術選型               步驟、指令、輸出格式`,
-};
-
-export const SKILLS_VS_COMMANDS_SECTION: BodySection = {
-  title: { en: "command V.S. skill", "zh-TW": "command V.S. skill" },
-  content: {
-    en: " `A Command is a lightweight `.md` prompt that only works in this repo. A Skill packages as a `.skill` bundle that can carry actual code and be installed into any environment.",
-    "zh-TW":
-      "跟 Commands 的差別：** Command 是輕量的 `.md` prompt，只能在這個 repo 裡用；Skill 則包裝成 `.skill` 壓縮包，可以帶著實際程式碼，安裝到任何環境。",
-  },
-};
-
-export const SKILLS_VS_COMMANDS_CODE_SECTION: CodeBlock = {
-  codeType: "text",
-  code: `
-.               Command                    Skill
-─────────────────────────────────────────────────────────
-形式           .md 檔案                    .skill 壓縮包
-執行者         Claude 解讀後操作            Claude 解讀 + 附帶腳本
-可攜性         只在這個 repo 裡用           可安裝到任何環境
-複雜度         輕量 prompt                 重量，帶程式碼`,
-};
+// ─── 08 Settings ───
 
 export const SETTINGS_SECTION: BodySection = {
   title: { en: "settings.json — Permissions and Behavior", "zh-TW": "settings.json — 專案權限與行為設定" },
@@ -497,9 +518,9 @@ export const SETTINGS_SECTION: BodySection = {
   },
 };
 
-export const SETTINGS_CODE_SECTION: CodeBlock = {
+export const SETTINGS_CODE: CodeBlock = {
   codeType: "json",
-  code: `// .claude/settings.local.json（美股專案實際設定）
+  code: `// .claude/settings.local.json
 {
   "permissions": {
     "allow": [
@@ -524,15 +545,16 @@ export const SETTINGS_CODE_SECTION: CodeBlock = {
 }`,
 };
 
-export const SETTINGS_LOCATIONS_CODE_SECTION: CodeBlock = {
+export const SETTINGS_LOCATIONS_CODE: CodeBlock = {
   codeType: "text",
-  code: `
-位置                             適用範圍
+  code: `Location                          Scope
 ────────────────────────────────────────────────────
-~/.claude/settings.json         你個人的所有專案
-.claude/settings.json           當前資料夾的專案（可提交到 git 共享）
-.claude/settings.local.json     當前資料夾的專案（本機私用，不提交）`,
+~/.claude/settings.json           Your personal settings for all projects
+.claude/settings.json             This project (committable, shareable via git)
+.claude/settings.local.json       This project, local only (not committed)`,
 };
+
+// ─── Summary ───
 
 export const SUMMARY_SECTION: BodySection = {
   title: { en: "One Diagram to Sum It Up", "zh-TW": "一張圖總結" },
@@ -543,28 +565,33 @@ export const SUMMARY_SECTION: BodySection = {
   },
 };
 
-export const SUMMARY_CODE_SECTION: CodeBlock = {
+export const SUMMARY_CODE: CodeBlock = {
   codeType: "text",
-  code: `你每天互動的 ↓
+  code: `You interact with daily ↓
 ┌──────────────────────────────────────────────────┐
-│  CLAUDE.md              ← 你和 AI 的共同地圖        │
-│  .claude/skills/        ← /project:analyze-stock │
-│  .claude/commands/      ← /project:review-day.   │
+│  CLAUDE.md              ← Shared map for you & AI │
+│  .claude/skills/        ← /project:analyze-stock   │
+│  .claude/commands/      ← /project:review-day      │
 └──────────────────────────────────────────────────┘
 
-AI 自動運作的 ↓
-┌──────────────────────────────────────────────────────────┐
-│  .claude/rules/         ← 投資哲學、代碼風格（你不需要管）    │
-│  .claude/agents/        ← 五個專家各司其職                  │
-│  settings.local.json    ← 權限 + hooks                    │
-└──────────────────────────────────────────────────────────┘
+AI runs automatically ↓
+┌────────────────────────────────────────────────────────┐
+│  .claude/rules/         ← Investment philosophy, code   │
+│                            style (you don't manage it)  │
+│  .claude/agents/        ← Five specialists, each with   │
+│                            their own job                │
+│  settings.local.json    ← Permissions + hooks           │
+└────────────────────────────────────────────────────────┘
 
-你需要時才看的 ↓
+You check when needed ↓
 ┌──────────────────────────────────────────────┐
-│  docs/                  ← 投資哲學完整版       │
-│  _manifest.md           ← 載入策略（偶爾調整）  │
+│  docs/                  ← Full investment philosophy  │
+│  _manifest.md           ← Loading strategy (tweak     │
+│                            occasionally)              │
 └──────────────────────────────────────────────┘`,
 };
+
+// ─── Bonus: MCP ───
 
 export const MCP_SECTION: BodySection = {
   title: { en: "MCP — A Standard Way for AI to Call Services", "zh-TW": "MCP (Model Context Protocol)" },
@@ -575,13 +602,12 @@ export const MCP_SECTION: BodySection = {
   },
 };
 
-export const MCP_CODE_SECTION: CodeBlock = {
+export const MCP_CODE: CodeBlock = {
   codeType: "text",
-  code: `
-.              傳統 API                MCP
+  code: `                Traditional API            MCP
 ──────────────────────────────────────────────────
-呼叫方式       工程師寫程式碼呼叫          AI 用自然語言呼叫
-使用者         人類開發者                AI Agent
-格式           REST、GraphQL 等         統一的 MCP 格式
-需要懂什麼      endpoint、參數、認證      只要描述想做什麼`,
+Called by       Engineer writing code       AI using natural language
+User            Human developer             AI Agent
+Format          REST, GraphQL, etc.         Unified MCP format
+Requires        Endpoints, params, auth     Just describe what you want`,
 };
