@@ -4,6 +4,7 @@ import { Footer } from "@/sections/Footer";
 import { Header } from "../../components/Header";
 import { Sections } from "../../components/Sections";
 import { CodeBlockView } from "../../components/CodeBlockView";
+import { ImageSection } from "../../components/ImageSection";
 import { Motivation } from "../../components/Motivation";
 import { Emphasis } from "../../components/Emphasis";
 import { Refs } from "../../components/Refs";
@@ -18,6 +19,7 @@ import {
   STRATEGY_CODE,
   SCOPE_SECTION,
   SCOPE_CODE,
+  SCOPE_IMAGE,
   STRUCTURE_SECTION,
   STRUCTURE_CODE,
   SKELETON_SECTION,
@@ -56,6 +58,7 @@ export function UxFiveElementsArticle() {
 
       <Sections section={SCOPE_SECTION} index={2} />
       <CodeBlockView block={SCOPE_CODE} />
+      <ImageSection image={SCOPE_IMAGE} />
 
       <Sections section={STRUCTURE_SECTION} index={3} />
       <CodeBlockView block={STRUCTURE_CODE} />

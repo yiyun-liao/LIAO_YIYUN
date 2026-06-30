@@ -1,4 +1,4 @@
-import type { Demo, BodySection, CodeBlock } from "@/data/demos";
+import type { Demo, BodySection, CodeBlock, Img } from "@/data/demos";
 
 export const UXFIVEELEMENTSARTICLE: Demo = {
   date: "2026-06-30",
@@ -14,7 +14,10 @@ export const UXFIVEELEMENTSARTICLE: Demo = {
   type: ["article", "design"],
   tags: ["UX", "Design", "Product"],
   url: "/demos/ux-five-elements",
-  image: {url: "/assets/demos/UxFiveElementsArticle.png", source:"Photo by Glen Carrie on Unsplash"},
+  image: {
+    url: "/assets/demos/InformationArchitecture.png",
+    source: `Photo by <a href="https://unsplash.com/@theshubhamdhage?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Shubham Dhage</a> on <a href="https://unsplash.com/photos/a-group-of-white-cubes-sitting-on-top-of-a-orange-surface-pIfbjoX4DV0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>`,
+  },
   introduction: {
     outline: {
       en: "The Elements of User Experience describes the building blocks of UX across five layers. This article walks through each layer — what it defines, what gets delivered, and where it fits in a real development workflow — so you can identify exactly which layers you own and which deliverables you're responsible for.",
@@ -45,13 +48,6 @@ export const UXFIVEELEMENTSARTICLE: Demo = {
       },
     ],
   },
-  nextArticle: {
-    title: {
-      en: "Scope Layer",
-      "zh-TW": "範圍層 Scope",
-    },
-    url: "/demos/ux-scope",
-  },
 };
 
 export const UXFIVEELEMENTSARTICLE_DATA: Demo[] = [UXFIVEELEMENTSARTICLE];
@@ -80,6 +76,14 @@ export const BRIEF_SECTION: BodySection = {
 
 // ─── Overview ───
 
+export const OVERVIEW_IMAGE: Img = {
+  url: "/assets/demos/design/UxFiveElementsArticle-a.png",
+};
+
+export const OVERVIEW_B_IMAGE: Img = {
+  url: "/assets/demos/design/UxFiveElementsArticle-b.png",
+};
+
 export const OVERVIEW_SECTION: BodySection = {
   title: { en: "The Five Layers", "zh-TW": "五層架構" },
   content: {
@@ -89,25 +93,12 @@ export const OVERVIEW_SECTION: BodySection = {
   },
 };
 
-export const OVERVIEW_CODE: CodeBlock = {
-  codeType: "text",
-  code: `┌─────────────────────────────────────────────────────┐
-│                    Surface                          │  ← Visual design, UI
-├─────────────────────────────────────────────────────┤
-│                    Skeleton                         │  ← Wireframe, layout
-├─────────────────────────────────────────────────────┤
-│                    Structure                        │  ← IA, interaction design
-├─────────────────────────────────────────────────────┤
-│                    Scope                            │  ← Features, content spec
-├─────────────────────────────────────────────────────┤
-│                    Strategy                         │  ← User needs, product goals
-└─────────────────────────────────────────────────────┘
-
-  abstract ──────────────────────────────────── concrete
-  (why)                                         (what)`,
-};
 
 // ─── 01 Strategy ───
+
+export const STRATEGY_IMAGE: Img = {
+  url: "/assets/demos/design/UxFiveElementsArticle-g.png",
+};
 
 export const STRATEGY_SECTION: BodySection = {
   title: { en: "Strategy", "zh-TW": "策略層 Strategy" },
@@ -130,6 +121,10 @@ export const STRATEGY_CODE: CodeBlock = {
 
 // ─── 02 Scope ───
 
+export const SCOPE_IMAGE: Img = {
+  url: "/assets/demos/design/UxFiveElementsArticle-f.png",
+};
+
 export const SCOPE_SECTION: BodySection = {
   title: { en: "Scope", "zh-TW": "範圍層 Scope" },
   content: {
@@ -150,6 +145,10 @@ export const SCOPE_CODE: CodeBlock = {
 };
 
 // ─── 03 Structure ───
+
+export const STRUCTURE_IMAGE: Img = {
+  url: "/assets/demos/design/UxFiveElementsArticle-e.png",
+};
 
 export const STRUCTURE_SECTION: BodySection = {
   title: { en: "Structure", "zh-TW": "結構層 Structure" },
@@ -173,6 +172,10 @@ export const STRUCTURE_CODE: CodeBlock = {
 
 // ─── 04 Skeleton ───
 
+export const SKELETON_IMAGE: Img = {
+  url: "/assets/demos/design/UxFiveElementsArticle-d.png",
+};
+
 export const SKELETON_SECTION: BodySection = {
   title: { en: "Skeleton", "zh-TW": "框架層 Skeleton" },
   content: {
@@ -194,6 +197,10 @@ export const SKELETON_CODE: CodeBlock = {
 };
 
 // ─── 05 Surface ───
+
+export const SURFACE_IMAGE: Img = {
+  url: "/assets/demos/design/UxFiveElementsArticle-c.png",
+};
 
 export const SURFACE_SECTION: BodySection = {
   title: { en: "Surface", "zh-TW": "表現層 Surface" },
@@ -227,7 +234,8 @@ export const DELIVERABLE_SECTION: BodySection = {
 
 export const DELIVERABLE_CODE: CodeBlock = {
   codeType: "text",
-  code: `Layer          Deliverables                       Phase
+  code: `
+Layer          Deliverables                       Phase
 ──────────────────────────────────────────────────────────────
 Strategy       Market research · Design research   Initiation
 Scope          Functional Map                      Planning
@@ -249,8 +257,9 @@ export const DUAL_LENS_SECTION: BodySection = {
 
 export const DUAL_LENS_CODE: CodeBlock = {
   codeType: "text",
-  code: `              Functional Product          Information Carrier
-              (tasks & features)         (content & structure)
+  code: `
+.             Functional Product          Information Carrier
+.             (tasks & features)         (content & structure)
 ───────────────────────────────────────────────────────────────
 Strategy      User needs                 Content goals
 Scope         Feature specs              Content specs

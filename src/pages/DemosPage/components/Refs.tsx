@@ -32,9 +32,10 @@ export function Refs({ refs, imageSource }: RefsProps) {
             </li>
           ))}
           {imageSource && (
-            <li className="text-sm text-ink-soft">
-              Cover: {imageSource}
-            </li>
+            <li
+              className="text-sm text-ink-soft [&_a]:text-ink-soft [&_a]:underline [&_a]:hover:text-accent [&_a]:transition-colors"
+              dangerouslySetInnerHTML={{ __html: `Cover: ${imageSource}` }}
+            />
           )}
         </ul>
       </div>
