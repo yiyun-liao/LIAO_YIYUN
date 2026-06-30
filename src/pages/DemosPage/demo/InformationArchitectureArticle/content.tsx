@@ -46,15 +46,15 @@ export const INFORMATIONARCHITECTUREARTICLE: Demo = {
     refs: [
       {
         label: "【Day 02】設計流程（一）：IA 資訊架構",
-        url: "#",
+        url: "https://ithelp.ithome.com.tw/articles/10238163",
       },
       {
         label: "IA 資訊架構 (Information Architecture) 是什麼？",
-        url: "#",
+        url: "https://www.kingman.idv.tw/internet-genaration/ia/179-what-is-ia-information-architecture.html",
       },
       {
         label: "How to Create Information Architecture for Web Design",
-        url: "#",
+        url: "https://xd.adobe.com/ideas/process/information-architecture/information-ux-architect/",
       },
     ],
   },
