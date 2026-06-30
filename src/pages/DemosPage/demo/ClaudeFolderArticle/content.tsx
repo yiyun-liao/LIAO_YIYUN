@@ -14,6 +14,7 @@ export const CLAUDEFOLDERARTICLE: Demo = {
   type: "article",
   tags: ["Claude Code", "AI", "DX"],
   url: "/demos/claude-folder-guide",
+  image: "/assets/demos/ClaudeFolderArticle.png",
   introduction: {
     outline: {
       en: "A walkthrough of Claude Code's project configuration layer, organized around one question for each piece: who is it written for, and when does Claude actually read it? Illustrated with a real side project — an AI-powered US stock monitoring system — to show how each configuration piece plays out in practice.",

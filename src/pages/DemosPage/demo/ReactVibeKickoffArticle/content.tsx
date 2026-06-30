@@ -14,6 +14,7 @@ export const REACTVIBEKICKOFFARTICLE: Demo = {
   type: "article",
   tags: ["Claude Code", "AI", "React", "DX"],
   url: "/demos/react-vibe-kickoff",
+  image: "/assets/demos/ReactVibeKickoffArticle.png",
   introduction: {
     outline: {
       en: "A walkthrough of building a Claude Code skill that bootstraps React projects — choosing the right tech stack for the project type, then delivering copy-pasteable prompts for environment setup, coding conventions, and per-feature kickoffs.",
