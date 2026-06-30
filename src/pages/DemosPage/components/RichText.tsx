@@ -4,13 +4,20 @@ function parseInlineCode(text: string, keyPrefix: string): ReactNode[] {
   const segments = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
   return segments.map((segment, i) => {
     if (segment.startsWith("**") && segment.endsWith("**")) {
-      return <strong key={`${keyPrefix}-${i}`}>{segment.slice(2, -2)}</strong>;
+      return (
+        <strong 
+          key={`${keyPrefix}-${i}`} 
+          className="text-accent"
+        >
+          {segment.slice(2, -2)}
+        </strong>
+      );
     }
     if (segment.startsWith("`") && segment.endsWith("`")) {
       return (
         <code
           key={`${keyPrefix}-${i}`}
-          className="text-[0.88em] px-1.5 py-[2px] bg-ink/[.06] rounded font-mono"
+          className="text-[0.88em] px-1.5 py-[2px] bg-accent-light-hover rounded font-mono"
         >
           {segment.slice(1, -1)}
         </code>

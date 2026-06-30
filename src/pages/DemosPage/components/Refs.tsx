@@ -4,11 +4,12 @@ import { useLanguage } from "@/i18n/LanguageContext";
 
 interface RefsProps {
   refs: Reference[];
+  imageSource?: string;
 }
 
-export function Refs({ refs }: RefsProps) {
+export function Refs({ refs, imageSource }: RefsProps) {
   const { t } = useLanguage();
-  if (refs.length === 0) return null;
+  if (refs.length === 0 && !imageSource) return null;
 
   return (
     <section className="wrap">
@@ -30,6 +31,12 @@ export function Refs({ refs }: RefsProps) {
               </a>
             </li>
           ))}
+          {imageSource && (
+            <li
+              className="text-sm text-ink-soft [&_a]:text-ink-soft [&_a]:underline [&_a]:hover:text-accent [&_a]:transition-colors"
+              dangerouslySetInnerHTML={{ __html: `Cover: ${imageSource}` }}
+            />
+          )}
         </ul>
       </div>
     </section>

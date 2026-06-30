@@ -1,6 +1,6 @@
 import type { L } from "@/i18n/types";
 
-export type DemoType = "codepen" | "article" | "demo" | "experiment";
+export type DemoType = "codepen" | "article" | "demo" | "experiment" | "design" | "AI";
 
 export interface BodySection {
   title: L;
@@ -17,6 +17,10 @@ export interface Reference {
   url: string;
 }
 
+export interface Img {
+  url: string;
+  source?: string;
+}
 
 export interface Introduction {
   outline?: L;
@@ -39,10 +43,10 @@ export interface Demo {
   date: string;
   title: L;
   description: L;
-  type: DemoType;
+  type: DemoType[];
   tags: string[];
   url: string;
-  image?: string;
+  image?: Img;
   introduction?: Introduction;
   codeEmbed?: CodeEmbed;
   previousArticle?: RelativeArticle;

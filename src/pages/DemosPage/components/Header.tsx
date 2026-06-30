@@ -22,7 +22,7 @@ export function Header({ demo, title }: HeaderProps) {
           {t("demos.back")}
         </Link>
 
-        <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft">{demo.type}</div>
+        <div className="font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft">{demo.type.join(" · ")}</div>
         <h1 className="font-serif text-[clamp(36px,5vw,72px)] leading-[.95] tracking-[-.02em] mt-2 mb-4 font-normal">
             {title}
         </h1>

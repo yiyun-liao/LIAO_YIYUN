@@ -11,10 +11,10 @@ export const CLAUDEFOLDERARTICLE: Demo = {
     "zh-TW":
       "完整走一遍 .claude/ 和 CLAUDE.md——每個檔案是誰在看、什麼時候被讀取，以及 agents、rules、commands、hooks、skills 和 MCP 伺服器如何讓一個通用 AI 變成懂專案脈絡的隊友。",
   },
-  type: "article",
+  type: ["article", "AI"],
   tags: ["Claude Code", "AI", "DX"],
   url: "/demos/claude-folder-guide",
-  image: "/assets/demos/ClaudeFolderArticle.png",
+  image: {url: "/assets/demos/ClaudeFolderArticle.png"},
   introduction: {
     outline: {
       en: "A walkthrough of Claude Code's project configuration layer, organized around one question for each piece: who is it written for, and when does Claude actually read it? Illustrated with a real side project — an AI-powered US stock monitoring system — to show how each configuration piece plays out in practice.",

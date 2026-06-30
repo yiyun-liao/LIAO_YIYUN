@@ -66,7 +66,7 @@ export function ReactVibeKickoffArticle() {
       <CodeBlockView block={FULL_SKILL_CODE} />
 
       {demo.nextArticle && <RelativeBlock previous={false} rel={demo.nextArticle} />}
-      {intro.refs && <Refs refs={intro.refs} />}
+      {intro.refs && <Refs refs={intro.refs} imageSource={demo.image?.source} />}
 
       <Footer />
     </div>
