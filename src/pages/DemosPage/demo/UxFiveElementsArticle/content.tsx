@@ -15,7 +15,7 @@ export const UXFIVEELEMENTSARTICLE: Demo = {
   tags: ["UX", "Design", "Product"],
   url: "/demos/ux-five-elements",
   image: {
-    url: "/assets/demos/InformationArchitecture.png",
+    url: "/assets/demos/UxFiveElementsArticle.png",
     source: `Photo by <a href="https://unsplash.com/@theshubhamdhage?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Shubham Dhage</a> on <a href="https://unsplash.com/photos/a-group-of-white-cubes-sitting-on-top-of-a-orange-surface-pIfbjoX4DV0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>`,
   },
   introduction: {
