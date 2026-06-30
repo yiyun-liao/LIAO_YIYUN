@@ -48,6 +48,13 @@ export const UXFIVEELEMENTSARTICLE: Demo = {
       },
     ],
   },
+  nextArticle: {
+    title: {
+      en: "Information Architecture",
+      "zh-TW": "資訊架構 Information Architecture",
+    },
+    url: "/demos/information-architecture",
+  },
 };
 
 export const UXFIVEELEMENTSARTICLE_DATA: Demo[] = [UXFIVEELEMENTSARTICLE];

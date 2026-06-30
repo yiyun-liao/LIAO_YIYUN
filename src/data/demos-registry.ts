@@ -3,8 +3,10 @@ import { DARKMODESWITCHDEMO_DATA } from "@/pages/DemosPage/demo/DarkModeSwitchDe
 import { CLAUDEFOLDERARTICLE_DATA } from "@/pages/DemosPage/demo/ClaudeFolderArticle/content";
 import { REACTVIBEKICKOFFARTICLE_DATA } from "@/pages/DemosPage/demo/ReactVibeKickoffArticle/content";
 import { UXFIVEELEMENTSARTICLE_DATA } from "@/pages/DemosPage/demo/UxFiveElementsArticle/content";
+import { INFORMATIONARCHITECTUREARTICLE_DATA } from "@/pages/DemosPage/demo/InformationArchitectureArticle/content";
 
 export const DEMOS: Demo[] = [
+  ...INFORMATIONARCHITECTUREARTICLE_DATA,
   ...UXFIVEELEMENTSARTICLE_DATA,
   ...REACTVIBEKICKOFFARTICLE_DATA,
   ...CLAUDEFOLDERARTICLE_DATA,
