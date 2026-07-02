@@ -4,7 +4,7 @@ type IconProps = SVGProps<SVGSVGElement>;
 
 export function ArrowRight(props: IconProps) {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>
       <path d="M5 12h14M13 5l7 7-7 7" />
     </svg>
   );
@@ -12,7 +12,7 @@ export function ArrowRight(props: IconProps) {
 
 export function ArrowLeft(props: IconProps){
   return(
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>
       <path  d="M21 12H3m0 0l8.5-8.5M3 12l8.5 8.5"/>
     </svg>
   )
@@ -20,7 +20,7 @@ export function ArrowLeft(props: IconProps){
 
 export function ArrowUpRightIcon(props: IconProps){
   return(
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>
       <path d="M6 19L19 6m0 0v12.48M19 6H6.52"/>
     </svg>
   )
@@ -28,7 +28,7 @@ export function ArrowUpRightIcon(props: IconProps){
 
 export function CloseIcon(props: IconProps) {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>
       <path d="M6 6l12 12M18 6L6 18" />
     </svg>
   );
@@ -52,7 +52,7 @@ export function LinkedInIcon(props: IconProps) {
 
 export function MailIcon(props: IconProps) {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" {...props}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>
       <rect x="3" y="5" width="18" height="14" rx="1.5" />
       <path d="M3 7l9 6 9-6" />
     </svg>
@@ -61,7 +61,7 @@ export function MailIcon(props: IconProps) {
 
 export function DownloadIcon(props: IconProps) {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>
       <path d="M12 3v12M7 10l5 5 5-5M5 21h14" />
     </svg>
   );
@@ -69,15 +69,23 @@ export function DownloadIcon(props: IconProps) {
 
 export function ExternalIcon(props: IconProps) {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...props}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>
       <path d="M7 17L17 7M9 7h8v8" />
+    </svg>
+  );
+}
+
+export function MenuIcon(props: IconProps) {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>
+      <path d="M4 7h16M4 12h16M4 17h16" />
     </svg>
   );
 }
 
 export function QuoteIcon(props: IconProps) {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" {...props}>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" {...props}>
       <path d="M7 21a4 4 0 0 1-4-4q0-2.21 4-14h2L7 13a4 4 0 1 1 0 8m10 0a4 4 0 0 1-4-4q0-2.21 4-14h2l-2 10a4 4 0 1 1 0 8" />
     </svg>
   );

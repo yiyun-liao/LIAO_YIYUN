@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import { DownloadIcon } from "@/components/Icon";
+import { DownloadIcon, MenuIcon, CloseIcon } from "@/components/Icon";
 import { NavLink } from "@/components/NavLink";
 import { RESUME_PATH } from "@/data/constants";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -32,6 +32,9 @@ export function Nav({ compact }: NavProps) {
   const [phase, setPhase] = useState<"enter" | "exit">("enter");
   const prevHome = useRef(isHome);
 
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (isHome === prevHome.current) return;
     prevHome.current = isHome;
@@ -44,14 +47,29 @@ export function Nav({ compact }: NavProps) {
     return () => clearTimeout(timer);
   }, [isHome]);
 
-  const handleSectionClick = (id?: string) => {
-    if (!id) return;
-    if (isHome) {
-      scrollTo(id);
-    } else {
-      navigate("/", { state: { scrollTo: id } });
+  useEffect(() => {
+    if (!menuOpen) return;
+    function onClickOutside(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
     }
-  };
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, [menuOpen]);
+
+  const handleSectionClick = useCallback(
+    (id?: string) => {
+      if (!id) return;
+      setMenuOpen(false);
+      if (isHome) {
+        scrollTo(id);
+      } else {
+        navigate("/", { state: { scrollTo: id } });
+      }
+    },
+    [isHome, navigate],
+  );
 
   const isZh = locale === "zh-TW";
   const toggleLocale = () => setLocale(isZh ? "en" : "zh-TW");
@@ -66,8 +84,10 @@ export function Nav({ compact }: NavProps) {
         <Link to="/" className="font-serif text-[22px] tracking-[.01em]">
           Yi<i className="text-accent">·</i>Yun<span className="text-accent">.</span>
         </Link>
-        <div className="flex items-center justify-center">
-          <ul className="hidden md:flex gap-4 list-none m-0 p-0 items-center">
+
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center justify-center">
+          <ul className="flex gap-4 list-none m-0 p-0 items-center">
             {!showHome ? (
               <li className={`${animClass} font-bold`}>
                 <NavLink onClick={() => navigate("/")}>{t("nav.about")}</NavLink>
@@ -97,12 +117,68 @@ export function Nav({ compact }: NavProps) {
             </li>
           </ul>
         </div>
+
         <div className="flex items-center gap-4">
           <NavLink underline icon={DownloadIcon} onClick={() => window.open(RESUME_PATH, "_blank")}>
             {t("nav.cv")}
           </NavLink>
           <Switch leftText="EN" rightText="中" checked={isZh} onChange={() => toggleLocale()} />
+          {/* Mobile hamburger */}
+          <div className="flex md:hidden items-center gap-3" ref={menuRef}>
+            <button
+              onClick={() => setMenuOpen((v) => !v)}
+              className="p-2 opacity-75 hover:opacity-100 transition-opacity"
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? <CloseIcon /> : <MenuIcon />}
+            </button>
+
+            {/* Dropdown */}
+            {menuOpen && (
+              <div className="absolute top-full right-0 mt-1 mr-[var(--pad)] min-w-[180px] bg-paper border border-ink-soft/15 rounded-lg shadow-lg mobile-menu-enter overflow-hidden">
+                <ul className="list-none m-0 p-2 flex flex-col">
+                  {showHome ? (
+                    SECTION_IDS.map((id) => (
+                      <li key={id}>
+                        <button
+                          onClick={() => handleSectionClick(id)}
+                          className="w-full text-left px-3 py-2.5 font-mono text-[12px] font-medium tracking-[.12em] uppercase opacity-75 hover:opacity-100 hover:text-accent hover:bg-accent-light rounded-md transition-colors"
+                        >
+                          {t(`nav.${id}`)}
+                        </button>
+                      </li>
+                    ))
+                  ) : (
+                    <li>
+                      <button
+                        onClick={() => {
+                          setMenuOpen(false);
+                          navigate("/");
+                        }}
+                        className="w-full text-left px-3 py-2.5 font-mono text-[12px] font-bold tracking-[.12em] uppercase opacity-75 hover:opacity-100 hover:text-accent hover:bg-accent-light rounded-md transition-colors"
+                      >
+                        {t("nav.about")}
+                      </button>
+                    </li>
+                  )}
+                  <li className="my-1 mx-3 h-[1px] bg-ink-soft/15" />
+                  <li>
+                    <button
+                      onClick={() => {
+                        setMenuOpen(false);
+                        navigate("/demos");
+                      }}
+                      className="w-full text-left px-3 py-2.5 font-mono text-[12px] font-bold tracking-[.12em] uppercase opacity-75 hover:opacity-100 hover:text-accent hover:bg-accent-light rounded-md transition-colors"
+                    >
+                      {t("nav.demos")}
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
+
       </div>
     </nav>
   );
