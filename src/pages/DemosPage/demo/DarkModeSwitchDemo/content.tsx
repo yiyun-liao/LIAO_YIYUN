@@ -12,7 +12,7 @@ export const DARKMODESWITCHDEMO: Demo = {
   type: ["experiment"],
   tags: ["React", "CSS", "A11y"],
   url: "/demos/dark-mode-switch",
-  image: {url: "/assets/demos/DarkModeSwitchDemo.png"},
+  image: {url: "/assets/demos/DarkModeSwitchDemo.gif"},
   codeEmbed: { sandboxId: "skjy6h" },
   introduction: {
     outline: {
