@@ -8,6 +8,7 @@ import { ClaudeFolderArticle } from "./pages/DemosPage/demo/ClaudeFolderArticle"
 import { ReactVibeKickoffArticle } from "./pages/DemosPage/demo/ReactVibeKickoffArticle";
 import { UxFiveElementsArticle } from "./pages/DemosPage/demo/UxFiveElementsArticle";
 import { InformationArchitectureArticle } from "./pages/DemosPage/demo/InformationArchitectureArticle";
+import { TypeScaleGenerator } from "./pages/DemosPage/demo/TypeScaleGenerator";
 
 export default function App() {
   const [compact, setCompact] = useState(false);
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/demos/react-vibe-kickoff" element={<ReactVibeKickoffArticle />} />
         <Route path="/demos/ux-five-elements" element={<UxFiveElementsArticle />} />
         <Route path="/demos/information-architecture" element={<InformationArchitectureArticle />} />
+        <Route path="/demos/type-scale-generator" element={<TypeScaleGenerator />} />
       </Routes>
     </>
   );
