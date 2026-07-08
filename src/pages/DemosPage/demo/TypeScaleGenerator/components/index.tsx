@@ -24,8 +24,20 @@ const PRESETS = [
   { name: "Golden Ratio",     r: 1.618 },
 ] as const;
 
+const FONTS = [
+  { name: "Inter",      family: "'Inter', system-ui, sans-serif",                          type: "sans" },
+  { name: "System UI",  family: "system-ui, -apple-system, sans-serif",                    type: "sans" },
+  { name: "Georgia",    family: "Georgia, 'Times New Roman', serif",                       type: "serif" },
+  { name: "Palatino",   family: "'Palatino Linotype', 'Book Antiqua', Palatino, serif",    type: "serif" },
+  { name: "Charter",    family: "Charter, 'Bitstream Charter', 'Iowan Old Style', serif",  type: "serif" },
+] as const;
+
 const round    = (n: number) => Math.round(n * 100) / 100;
-const stepSize = (exp: number, base: number, ratio: number) => round(base * Math.pow(ratio, exp));
+const snapEven = (n: number) => Math.round(n / 2) * 2;
+const stepSize = (exp: number, base: number, ratio: number) => {
+  const raw = round(base * Math.pow(ratio, exp));
+  return snapEven(raw);
+};
 const readable = (px: number) => px >= 14 && px <= 20;
 
 export function TypeScaleScene() {
@@ -35,9 +47,12 @@ export function TypeScaleScene() {
   const [customVal, setCustomVal] = useState("");
   const [copied, setCopied]       = useState(false);
   const [showExp, setShowExp] = useState(false);
+  const [fontIdx, setFontIdx]     = useState(0);
 
+  const font = FONTS[fontIdx] ?? FONTS[0];
   const cssText = STEPS.map(s => `  --text-${s.key}: ${stepSize(s.exp, base, ratio)}px;`).join("\n");
-  const fullCss = `:root {\n${cssText}\n}`;
+  const fontLine = `  --font-body: ${font.family};`;
+  const fullCss = `:root {\n${fontLine}\n${cssText}\n}`;
 
   const handleBaseInput = useCallback((v: number) => {
     const clamped = Math.max(10, Math.min(24, v || 16));
@@ -59,9 +74,12 @@ export function TypeScaleScene() {
     }
   }, []);
 
-  const constReset = (()=>{
+  const constReset = (() => {
     setBase(16);
-    setRatio(1.25)
+    setRatio(1.25);
+    setActive(1.25);
+    setCustomVal("");
+    setFontIdx(0);
   })
 
   const handleCopy = useCallback(async () => {
@@ -136,6 +154,22 @@ export function TypeScaleScene() {
               />
             </div>
           </div>
+
+          <div>
+            <div className="tsg-ctrl-label">Font Family</div>
+            <div className="tsg-presets">
+              {FONTS.map((f, i) => (
+                <button
+                  key={f.name}
+                  className={`tsg-preset${fontIdx === i ? " on" : ""}`}
+                  onClick={() => setFontIdx(i)}
+                >
+                  <span className="tsg-pname" style={{ fontFamily: f.family }}>{f.name}</span>
+                  <span className="tsg-pval">{f.type}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </aside>
 
 
@@ -144,10 +178,10 @@ export function TypeScaleScene() {
         <main className="tsg-preview">
 
           <div>
-            <div className="tsg-rnote">Formula: base × ratio^exp</div>
+            <div className="tsg-rnote">Formula: base × ratio<sup>exp</sup>, snapped to nearest even</div>
             <div className="tsg-top">
               <div className="tsg-current">
-                <p>{base} × {ratio}<sup>exp</sup></p>
+                <p>{base} × {ratio}<sup>exp</sup> {font.name} </p>
                 <button
                   className={`tsg-copy-btn`}
                   onClick={constReset}
@@ -173,7 +207,7 @@ export function TypeScaleScene() {
               return (
                 <div key={s.key} className={`tsg-scale-row${isBody ? " body-zone" : ""}${showExp ? " exp-one" : ""}`}>
                   <span className="tsg-rkey">--text-{s.key}</span>
-                  <span className="tsg-rtext" style={{ fontSize: sz }}>{s.text}</span>
+                  <span className="tsg-rtext" style={{ fontSize: sz, fontFamily: font.family }}>{s.text}</span>
                   {!!showExp && (
                     <span className="tsg-rexp">{base} × {ratio}<sup>{s.exp}</sup> = </span>
                   )}
@@ -200,6 +234,8 @@ export function TypeScaleScene() {
             </div>
             <div className="tsg-out-code">
               <span className="tsg-t-sel">:root</span>{" {\n"}
+              {"  "}<span className="tsg-t-prop">--font-body</span>:{" "}
+              <span className="tsg-t-val">{font.family}</span>;{"\n"}
               {STEPS.map(s => {
                 const sz = stepSize(s.exp, base, ratio);
                 return (

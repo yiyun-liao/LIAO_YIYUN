@@ -223,7 +223,7 @@
 .tsg-rnote {
   font-size: 11px; font-family: var(--neu-mono); font-weight: 500;
   color: var(--neu-text-mute); white-space: nowrap;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
 }
 
 .tsg-rkey {
