@@ -19,6 +19,7 @@ import {
   FORMULA_SNAP,
   RATIO_SECTION,
   RATIO_CODE,
+  RATIO_USAGE,
   CONTROLS_SECTION,
   CONTROLS_CODE,
   CONTROLS_PRESET,
@@ -57,6 +58,7 @@ export function TypeScaleGenerator() {
 
       <Sections section={RATIO_SECTION} index={2} />
       <CodeBlockView block={RATIO_CODE} />
+      <Sections section={RATIO_USAGE} />
 
       <Sections section={CONTROLS_SECTION} index={3} />
       <CodeBlockView block={CONTROLS_CODE} />

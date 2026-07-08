@@ -105,6 +105,27 @@ export const RATIO_CODE: CodeBlock = {
 ] as const;`,
 };
 
+// ─── Ratio × Scenario mapping ───
+
+export const RATIO_SCENARIOS = [
+  { ratio: 1.067, name: "Minor Second",     contrast: "極緊湊",  usage: { en: "Dashboard, data-dense UI, admin panels",           "zh-TW": "儀表板、數據密集 UI、後台管理" },         scene: "dashboard" },
+  { ratio: 1.125, name: "Major Second",     contrast: "緊湊",    usage: { en: "Documentation, long-form, multi-level content",    "zh-TW": "技術文件、長篇閱讀、多層級內容" },         scene: "dashboard" },
+  { ratio: 1.200, name: "Minor Third",      contrast: "適中",    usage: { en: "Blog, news sites, CMS",                           "zh-TW": "部落格、新聞網站、CMS" },                 scene: "blog" },
+  { ratio: 1.250, name: "Major Third",      contrast: "平衡",    usage: { en: "Corporate sites, product pages, general web apps", "zh-TW": "企業官網、產品頁、通用 Web App" },          scene: "blog" },
+  { ratio: 1.333, name: "Perfect Fourth",   contrast: "明顯",    usage: { en: "Editorial, magazine-style, marketing pages",       "zh-TW": "編輯排版、雜誌風、行銷頁面" },             scene: "editorial" },
+  { ratio: 1.414, name: "Aug. Fourth (√2)", contrast: "強烈",    usage: { en: "Portfolio, presentations, creative studios",        "zh-TW": "作品集、簡報、創意工作室" },               scene: "editorial" },
+  { ratio: 1.500, name: "Perfect Fifth",    contrast: "戲劇化",  usage: { en: "Landing pages, event pages, promotions",           "zh-TW": "Landing Page、活動頁、促銷單頁" },         scene: "landing" },
+  { ratio: 1.618, name: "Golden Ratio",     contrast: "極大膽",  usage: { en: "Hero-heavy, fashion, luxury, art galleries",       "zh-TW": "Hero 主視覺、時尚精品、藝廊" },            scene: "landing" },
+] as const;
+
+export const RATIO_USAGE: BodySection = {
+  title: _,
+  content: {
+    en: "Smaller ratios like Minor Second (1.067) and Major Second (1.125) keep sizes close together — ideal for dashboards, admin panels, and documentation where you need many distinct levels without dramatic jumps. Mid-range ratios like Minor Third (1.200) through Perfect Fourth (1.333) suit blogs, corporate sites, and editorial layouts where headings need to clearly separate from body text. The largest ratios — Perfect Fifth (1.500) and Golden Ratio (1.618) — create bold, dramatic contrast that works best on landing pages, hero-heavy designs, and luxury brand sites where a single headline needs to dominate the viewport.",
+    "zh-TW": "較小的比例如 Minor Second（1.067）和 Major Second（1.125）讓字級彼此接近——適合儀表板、後台管理和技術文件，需要多種區分層級但跳躍不能太大。中間比例如 Minor Third（1.200）到 Perfect Fourth（1.333）適合部落格、企業官網和編輯排版，標題需要和內文有清楚的區隔。最大的比例——Perfect Fifth（1.500）和 Golden Ratio（1.618）——製造大膽、戲劇化的對比，最適合 Landing Page、Hero 主視覺和精品品牌網站，讓單一標題就能主導整個畫面。",
+  },
+};
+
 // ─── 03 Bidirectional Controls ───
 
 export const CONTROLS_SECTION: BodySection = {

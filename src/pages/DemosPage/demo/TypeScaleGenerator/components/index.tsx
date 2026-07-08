@@ -14,15 +14,57 @@ const STEPS = [
 ] as const;
 
 const PRESETS = [
-  { name: "Minor Second",     r: 1.067 },
-  { name: "Major Second",     r: 1.125 },
-  { name: "Minor Third",      r: 1.200 },
-  { name: "Major Third",      r: 1.250 },
-  { name: "Perfect Fourth",   r: 1.333 },
-  { name: "Aug. Fourth (√2)", r: 1.414 },
-  { name: "Perfect Fifth",    r: 1.500 },
-  { name: "Golden Ratio",     r: 1.618 },
+  { name: "Minor Second",     r: 1.067, hint: "儀表板、數據密集 UI",    scene: 0 },
+  { name: "Major Second",     r: 1.125, hint: "技術文件、多層級內容",    scene: 0 },
+  { name: "Minor Third",      r: 1.200, hint: "部落格、新聞網站",       scene: 1 },
+  { name: "Major Third",      r: 1.250, hint: "企業官網、通用 Web App", scene: 1 },
+  { name: "Perfect Fourth",   r: 1.333, hint: "編輯排版、雜誌風",       scene: 2 },
+  { name: "Aug. Fourth (√2)", r: 1.414, hint: "作品集、創意工作室",     scene: 2 },
+  { name: "Perfect Fifth",    r: 1.500, hint: "Landing Page、活動頁",  scene: 3 },
+  { name: "Golden Ratio",     r: 1.618, hint: "Hero 主視覺、精品",     scene: 3 },
 ] as const;
+
+const SCENES = [
+  {
+    key: "dashboard", label: "Dashboard",
+    lines: [
+      { exp: 3,  text: "Monthly Revenue", bold: true },
+      { exp: 1,  text: "Q2 2026 Performance Overview" },
+      { exp: 0,  text: "Total revenue across all channels for this quarter, including direct sales, subscriptions, and partner referrals." },
+      { exp: -1, text: "+11.1% vs last quarter · $128,340 → $142,580" },
+      { exp: -2, text: "Updated 5 min ago · Source: Analytics API" },
+    ],
+  },
+  {
+    key: "blog", label: "Blog",
+    lines: [
+      { exp: 4,  text: "Design Systems at Scale", bold: true },
+      { exp: 2,  text: "How we built a type hierarchy that works" },
+      { exp: 0,  text: "Typography is the foundation of any design system. Before choosing colors, spacing, or components, you need a type scale that creates clear visual hierarchy without relying on arbitrary numbers." },
+      { exp: -1, text: "June 2026 · 8 min read" },
+      { exp: -2, text: "Photo by Unsplash · CC BY 4.0" },
+    ],
+  },
+  {
+    key: "editorial", label: "Editorial",
+    lines: [
+      { exp: 5,  text: "The Future of Type", bold: true },
+      { exp: 1,  text: "\"Good typography is invisible. Bad typography is everywhere.\"" },
+      { exp: 0,  text: "Every design decision starts with choosing how text looks on screen. The right type scale turns a wall of words into a readable, scannable page." },
+      { exp: -1, text: "By Yiyun Liao · Design Essays" },
+    ],
+  },
+  {
+    key: "landing", label: "Landing",
+    lines: [
+      { exp: 6,  text: "Build Better.", bold: true },
+      { exp: 3,  text: "Design tools for the modern web" },
+      { exp: 0,  text: "Start with a type scale that makes sense. Generate production-ready CSS variables in seconds." },
+      { exp: 1,  text: "Get Started →", bold: true },
+      { exp: -2, text: "Free forever · No credit card required" },
+    ],
+  },
+];
 
 const FONTS = [
   { name: "Inter",      family: "'Inter', system-ui, sans-serif",                          type: "sans" },
@@ -48,6 +90,7 @@ export function TypeScaleScene() {
   const [copied, setCopied]       = useState(false);
   const [showExp, setShowExp] = useState(false);
   const [fontIdx, setFontIdx]     = useState(0);
+  const [activeScene, setScene]   = useState(1);
 
   const font = FONTS[fontIdx] ?? FONTS[0];
   const cssText = STEPS.map(s => `  --text-${s.key}: ${stepSize(s.exp, base, ratio)}px;`).join("\n");
@@ -59,10 +102,11 @@ export function TypeScaleScene() {
     setBase(clamped);
   }, []);
 
-  const handlePreset = useCallback((r: number) => {
+  const handlePreset = useCallback((r: number, scene: number) => {
     setRatio(r);
     setActive(r);
     setCustomVal("");
+    setScene(scene);
   }, []);
 
   const handleCustom = useCallback((v: string) => {
@@ -80,6 +124,7 @@ export function TypeScaleScene() {
     setActive(1.25);
     setCustomVal("");
     setFontIdx(0);
+    setScene(1);
   })
 
   const handleCopy = useCallback(async () => {
@@ -133,9 +178,12 @@ export function TypeScaleScene() {
                 <button
                   key={p.r}
                   className={`tsg-preset${activePreset === p.r ? " on" : ""}`}
-                  onClick={() => handlePreset(p.r)}
+                  onClick={() => handlePreset(p.r, p.scene)}
                 >
-                  <span className="tsg-pname">{p.name}</span>
+                  <div className="tsg-pleft">
+                    <span className="tsg-pname">{p.name}</span>
+                    <span className="tsg-phint">{p.hint}</span>
+                  </div>
                   <span className="tsg-pval">{p.r.toFixed(3)}</span>
                 </button>
               ))}
@@ -218,6 +266,36 @@ export function TypeScaleScene() {
                 </div>
               );
             })}
+          </div>
+
+          <hr className="tsg-sep" />
+
+          <div className="tsg-scene-box">
+            <div className="tsg-scene-tabs">
+              {SCENES.map((s, i) => (
+                <button
+                  key={s.key}
+                  className={`tsg-scene-tab${activeScene === i ? " on" : ""}`}
+                  onClick={() => setScene(i)}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+            <div className="tsg-scene-content" style={{ fontFamily: font.family }}>
+              {SCENES[activeScene]?.lines.map((line, i) => (
+                <p
+                  key={i}
+                  className="tsg-scene-line"
+                  style={{
+                    fontSize: stepSize(line.exp, base, ratio),
+                    fontWeight: line.bold ? 700 : 400,
+                  }}
+                >
+                  {line.text}
+                </p>
+              ))}
+            </div>
           </div>
 
           <hr className="tsg-sep" />
