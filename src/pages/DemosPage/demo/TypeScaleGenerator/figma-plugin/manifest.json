@@ -1,10 +1,12 @@
 {
   "name": "Type Scale Generator",
-  "id": "type-scale-generator",
   "api": "1.0.0",
+"id": "1657326398726232460",
   "main": "code.js",
   "ui": "ui.html",
   "capabilities": [],
   "enableProposedApi": false,
-  "editorType": ["figma"]
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": { "allowedDomains": ["none"] }
 }

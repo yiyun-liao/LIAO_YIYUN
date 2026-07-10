@@ -13,6 +13,7 @@ import { TypeScaleScene } from "./components";
 
 import {
   TYPESCALEGENERATOR,
+  FIGMA_SECTION,
   MOTIVATION_SECTION,
   FORMULA_SECTION,
   FORMULA_CODE,
@@ -48,6 +49,8 @@ export function TypeScaleGenerator() {
 
       <Motivation section={MOTIVATION_SECTION} />
       <Emphasis intros={intro} />
+
+      <Sections section={FIGMA_SECTION} index={0} />
 
       <Sections section={FORMULA_SECTION} index={1} />
       <CodeBlockView block={FORMULA_CODE} />

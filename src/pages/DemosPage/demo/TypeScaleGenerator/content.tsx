@@ -38,6 +38,16 @@ export const TYPESCALEGENERATOR: Demo = {
 
 export const TYPESCALEGENERATOR_DATA: Demo[] = [TYPESCALEGENERATOR];
 
+// ─── 00 Figma Plugin ───
+
+export const FIGMA_SECTION: BodySection = {
+  title: { en: "Figma Plugin", "zh-TW": "Figma 外掛" },
+  content: {
+    en: "This type scale generator is also available as a Figma plugin. Install it directly from the Figma Community and generate text styles or a reference frame without leaving your design file.\n→ [Try it on Figma](https://www.figma.com/community/plugin/1657326398726232460)",
+    "zh-TW": "這個字級產生器也有 Figma 外掛版本。直接從 Figma Community 安裝，不離開設計檔就能產生文字樣式或參考框架。\n→ [在 Figma 上試試](https://www.figma.com/community/plugin/1657326398726232460)",
+  },
+};
+
 // ─── Motivation ───
 
 export const MOTIVATION_SECTION: BodySection = {
