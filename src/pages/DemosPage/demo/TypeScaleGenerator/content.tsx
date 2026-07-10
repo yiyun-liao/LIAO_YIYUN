@@ -12,6 +12,8 @@ export const TYPESCALEGENERATOR: Demo = {
   type: ["design"],
   tags: ["Typography", "CSS", "Design Tool"],
   url: "/demos/type-scale-generator",
+  image:{url:"/assets/demo/TypeScaleGenerator.gif"},
+  codeEmbed:{sandboxId:"kywfp4"},
   introduction: {
     outline: {
       en: "A modular type-scale generator with sidebar controls and a live preview panel. Supports 8 musical-interval ratio presets, custom ratios, and bidirectional base-size input. Outputs copyable CSS custom properties.",
