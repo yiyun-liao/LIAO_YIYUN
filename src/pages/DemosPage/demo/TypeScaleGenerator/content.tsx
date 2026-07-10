@@ -9,7 +9,7 @@ export const TYPESCALEGENERATOR: Demo = {
     en: "Modular scale generator with live preview, ratio presets, and CSS output.",
     "zh-TW": "模組化字級比例產生器，即時預覽、比例預設與 CSS 輸出。",
   },
-  type: ["design"],
+  type: ["experiment"],
   tags: ["Typography", "CSS", "Design Tool"],
   url: "/demos/type-scale-generator",
   image:{url:"/assets/demos/TypeScaleGenerator.gif"},

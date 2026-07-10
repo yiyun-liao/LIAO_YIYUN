@@ -1,6 +1,6 @@
 import type { L } from "@/i18n/types";
 
-export type DemoType = "codepen" | "article" | "demo" | "experiment" | "design" | "AI";
+export type DemoType = "article" | "experiment" | "design" | "AI";
 
 export interface BodySection {
   title: L;

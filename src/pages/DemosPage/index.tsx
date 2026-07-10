@@ -7,7 +7,7 @@ import { Pill } from "@/components/Pill";
 import { Footer } from "@/sections/Footer";
 import { useLanguage } from "@/i18n/LanguageContext";
 
-const FILTER_KEYS: (DemoType | "all")[] = ["all", "codepen", "article", "design", "demo", "experiment", "AI"];
+const FILTER_KEYS: (DemoType | "all")[] = ["all",  "article", "design", "experiment", "AI"];
 
 export function DemosPage() {
   const { t, l } = useLanguage();
