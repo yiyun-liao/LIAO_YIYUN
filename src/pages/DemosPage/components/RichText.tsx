@@ -1,12 +1,12 @@
 import type { ReactNode } from "react";
 
 function parseInlineCode(text: string, keyPrefix: string): ReactNode[] {
-  const segments = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
+  const segments = text.split(/(\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g);
   return segments.map((segment, i) => {
     if (segment.startsWith("**") && segment.endsWith("**")) {
       return (
-        <strong 
-          key={`${keyPrefix}-${i}`} 
+        <strong
+          key={`${keyPrefix}-${i}`}
           className="text-accent"
         >
           {segment.slice(2, -2)}
@@ -21,6 +21,20 @@ function parseInlineCode(text: string, keyPrefix: string): ReactNode[] {
         >
           {segment.slice(1, -1)}
         </code>
+      );
+    }
+    const linkMatch = segment.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (linkMatch) {
+      return (
+        <a
+          key={`${keyPrefix}-${i}`}
+          href={linkMatch[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-accent underline underline-offset-2 hover:opacity-80"
+        >
+          {linkMatch[1]}
+        </a>
       );
     }
     return segment || null;

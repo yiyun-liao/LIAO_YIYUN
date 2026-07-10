@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    font-size: 12px;
+    color: #333;
+    background: #fff;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  h2 { font-size: 13px; font-weight: 600; color: #333; }
+  .section-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #999; margin-bottom: 8px;
+  }
+  .base-row {
+    display: flex; align-items: baseline; gap: 4px; margin-bottom: 8px;
+  }
+  .base-input {
+    font-size: 28px; font-weight: 600; font-family: 'JetBrains Mono', monospace;
+    color: #333; border: none; outline: none; background: transparent;
+    width: 60px; letter-spacing: -0.03em;
+  }
+  .base-input::-webkit-inner-spin-button,
+  .base-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+  .base-unit { font-size: 14px; color: #999; font-family: monospace; }
+  input[type="range"] {
+    -webkit-appearance: none; width: 100%; height: 4px;
+    border-radius: 2px; background: #e5e5e5; outline: none; cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 14px; height: 14px;
+    border-radius: 50%; background: #333; border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  .range-marks {
+    display: flex; justify-content: space-between;
+    margin-top: 4px; font-size: 10px; color: #bbb; font-family: monospace;
+  }
+  .presets { display: flex; flex-direction: column; gap: 2px; }
+  .preset-btn {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 8px; border-radius: 6px; border: none;
+    background: transparent; cursor: pointer; text-align: left;
+    font-family: inherit; font-size: 12px; transition: background 0.12s;
+  }
+  .preset-btn:hover { background: #f5f5f5; }
+  .preset-btn.on { background: #f0f0f0; }
+  .preset-name { font-weight: 500; color: #555; }
+  .preset-btn.on .preset-name { color: #4a6cf7; }
+  .preset-hint { font-size: 9px; color: #bbb; }
+  .preset-btn.on .preset-hint { color: #4a6cf7; opacity: 0.5; }
+  .preset-val { font-size: 11px; font-family: monospace; color: #aaa; }
+  .preset-btn.on .preset-val { color: #4a6cf7; opacity: 0.6; }
+  .preset-left { display: flex; flex-direction: column; gap: 1px; }
+
+  .font-select {
+    width: 100%; padding: 6px 8px; border-radius: 6px;
+    border: 1px solid #e5e5e5; background: #fafafa;
+    font-family: inherit; font-size: 12px; color: #333;
+    outline: none; cursor: pointer;
+  }
+  .font-select:focus { border-color: #4a6cf7; }
+
+  .preview-box {
+    background: #f8f8f8; border-radius: 8px; padding: 12px;
+    display: flex; flex-direction: column; gap: 4px;
+    max-height: 140px; overflow-y: auto;
+  }
+  .preview-row {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 8px;
+  }
+  .preview-key { font-size: 10px; color: #999; font-family: monospace; white-space: nowrap; min-width: 56px; }
+  .preview-key.body { color: #f5a623; }
+  .preview-size { font-size: 10px; color: #999; font-family: monospace; white-space: nowrap; }
+  .preview-size.body { color: #f5a623; }
+
+  .actions { display: flex; flex-direction: column; gap: 6px; }
+  .btn {
+    width: 100%; padding: 8px; border-radius: 8px; border: none;
+    font-family: inherit; font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: all 0.12s;
+  }
+  .btn-primary { background: #333; color: #fff; }
+  .btn-primary:hover { background: #555; }
+  .btn-secondary { background: #f0f0f0; color: #555; }
+  .btn-secondary:hover { background: #e5e5e5; }
+  .btn-ghost { background: transparent; color: #999; font-weight: 400; }
+  .btn-ghost:hover { color: #555; }
+  .note { font-size: 10px; color: #bbb; text-align: center; }
+
+  /* Scene preview */
+  .scene-box {
+    background: #f0f1f3; border-radius: 8px; padding: 10px 12px;
+    margin-top: 8px; overflow: hidden;
+    color: #4a5060; line-height: 1.3;
+    overflow-wrap: break-word; word-wrap: break-word;
+  }
+  .scene-box * { transition: font-size 0.18s ease; }
+  .scene-box p, .scene-box span { overflow-wrap: break-word; word-wrap: break-word; }
+  .sc-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 8px; border-bottom: 1px solid #ccc; margin-bottom: 10px;
+    flex-wrap: wrap; gap: 4px;
+  }
+  .sc-nav-links { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .sc-pill { padding: 2px 8px; border-radius: 12px; border: 1px solid #8a95a8; }
+  .sc-center { text-align: center; margin: 16px 0; }
+  .sc-badge {
+    display: inline-block; padding: 8px; border-radius: 12px;
+    border: 1px solid #ccc; letter-spacing: 0.05em; font-weight: 600;
+  }
+  .sc-hero-text { text-align: center; font-weight: 700; line-height: 1.15; margin: 0 0 6px; letter-spacing: -0.02em;  }
+  .sc-sub { text-align: center; color: #6a7080; margin: 0 auto 20px; max-width: 90%; line-height: 1.45; }
+  .sc-cta {
+    display: inline-block; padding: 4px 14px; border-radius: 4px;
+    background: #4a5060; color: #e0e5ec; font-weight: 600;
+  }
+  .sc-img { background: #b8bec7; border-radius: 6px; margin: 8px 0; opacity: 0.25; }
+  .sc-logos { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; color: #8a95a8; font-weight: 700; letter-spacing: 0.02em; padding: 4px 0; }
+  .sc-mute { color: #8a95a8; }
+  .sc-body { color: #6a7080; }
+  .sc-cards { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  .sc-card { display: flex; gap: 8px; padding-bottom: 6px; border-bottom: 1px solid #ccc; }
+  .sc-thumb { width: 36px; height: 28px; flex-shrink: 0; background: #b8bec7; border-radius: 3px; opacity: 0.25; }
+  .sc-card-info { flex: 1; min-width: 0; }
+  .sc-corp-hero { display: flex;flex-direction: column;; justify-content: space-between; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+  .sc-corp-hero > div:first-child { flex: 1; min-width: 0; }
+  .sc-corp-stats { padding-top: 8px; border-top: 1px solid #ccc; flex-wrap: wrap; }
+  .sc-corp-stats > div { flex: 1; min-width: 0; }
+  .sc-ed-feature { display: flex; flex-direction:column; gap: 8px; margin: 10px 0; flex-wrap: wrap; }
+  .sc-ed-feature > div:first-child { width: 40%; flex-shrink: 0; }
+  .sc-ed-feature > div:last-child { flex: 1; min-width: 0; }
+  .sc-ed-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .sc-landing-features { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .sc-landing-card { padding: 6px; border-radius: 6px; background: #e0e5ec; overflow: hidden; }
+  .sc-hero-scene { display: flex; align-items: center; justify-content: center; min-height: 120px; text-align: center; }
+</style>
+</head>
+<body>
+
+<div>
+  <h2>Type Scale Generator</h2>
+</div>
+
+<div>
+  <div class="section-label">Base Size</div>
+  <div class="base-row">
+    <input class="base-input" type="number" id="base" value="16" min="10" max="24" />
+    <span class="base-unit">px</span>
+  </div>
+  <input type="range" id="baseRange" min="10" max="24" step="1" value="16" />
+  <div class="range-marks"><span>10</span><span>16</span><span>24</span></div>
+</div>
+
+<div>
+  <div class="section-label">Scale Ratio</div>
+  <div class="presets" id="presets"></div>
+</div>
+
+<div>
+  <div class="section-label">Font Family</div>
+  <select class="font-select" id="fontSelect">
+    <option value="Inter">Inter (sans)</option>
+    <option value="Roboto">Roboto (sans)</option>
+    <option value="Georgia">Georgia (serif)</option>
+    <option value="Playfair Display">Playfair Display (serif)</option>
+    <option value="Lora">Lora (serif)</option>
+  </select>
+</div>
+
+<div>
+  <div class="section-label">Preview</div>
+  <div class="preview-box" id="preview"></div>
+</div>
+
+<div class="actions">
+  <button class="btn btn-primary" id="btnStyles">Create Text Styles</button>
+  <button class="btn btn-secondary" id="btnFrame">Generate Frame on Canvas</button>
+  <button class="btn btn-ghost" id="btnClose">Close</button>
+</div>
+
+<div class="note">Sizes snapped to nearest even pixel</div>
+
+<div>
+  <div class="section-label">Scene Preview</div>
+  <div class="scene-box" id="sceneBox" style="width:288px"></div>
+</div>
+
+<div class="note">
+  Read more: <a href="https://liao-yiyun.vercel.app/demos/type-scale-generator" target="_blank" style="color:#4a6cf7;text-decoration:none">liao-yiyun.vercel.app</a>
+</div>
+
+<script>
+const PRESETS = [
+  { name: "Minor Second",     r: 1.067, hint: "Dashboard",  scene: 0 },
+  { name: "Major Second",     r: 1.125, hint: "Docs",       scene: 0 },
+  { name: "Minor Third",      r: 1.200, hint: "Blog",       scene: 1 },
+  { name: "Major Third",      r: 1.250, hint: "Corporate",  scene: 2 },
+  { name: "Perfect Fourth",   r: 1.333, hint: "Editorial",  scene: 3 },
+  { name: "Aug. Fourth (√2)", r: 1.414, hint: "Portfolio",   scene: 3 },
+  { name: "Perfect Fifth",    r: 1.500, hint: "Landing",    scene: 4 },
+  { name: "Golden Ratio",     r: 1.618, hint: "Hero",       scene: 5 },
+];
+
+const STEPS = [
+  { key: "xs",   exp: -2 },
+  { key: "sm",   exp: -1 },
+  { key: "base", exp: 0 },
+  { key: "lg",   exp: 1 },
+  { key: "xl",   exp: 2 },
+  { key: "2xl",  exp: 3 },
+  { key: "3xl",  exp: 4 },
+  { key: "4xl",  exp: 5 },
+  { key: "5xl",  exp: 6 },
+];
+
+function snapEven(n) { return Math.round(n / 2) * 2; }
+function stepSize(exp, base, ratio) {
+  return snapEven(Math.round(base * Math.pow(ratio, exp) * 100) / 100);
+}
+
+let currentRatio = 1.250;
+let currentBase = 16;
+let currentScene = 2;
+
+const baseInput = document.getElementById("base");
+const baseRange = document.getElementById("baseRange");
+const presetsEl = document.getElementById("presets");
+const previewEl = document.getElementById("preview");
+const fontSelect = document.getElementById("fontSelect");
+const sceneBox = document.getElementById("sceneBox");
+
+function sz(exp) { return stepSize(exp, currentBase, currentRatio); }
+function szCap(exp, max) { return Math.min(sz(exp), max || 999); }
+function ff() { return fontSelect.value + ", system-ui, sans-serif"; }
+
+function renderSceneDashboard() {
+  return '<div style="font-family:' + ff() + '">' +
+    '<div class="sc-nav">' +
+      '<span style="font-size:' + sz(0) + 'px;font-weight:700">Supermi</span>' +
+      '<div class="sc-nav-links">' +
+        '<span style="font-size:' + sz(-2) + 'px">Home</span>' +
+        '<span style="font-size:' + sz(-2) + 'px">About</span>' +
+        '<span class="sc-pill" style="font-size:' + sz(-2) + 'px">Login</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="sc-center">' +
+      '<span class="sc-badge" style="font-size:' + sz(-2) + 'px">UNLOCK CONVERSATIONAL POWER</span>' +
+    '</div>' +
+    '<p class="sc-hero-text" style="font-size:' + szCap(4, 48) + 'px">Empower Your Conversations with Next-Gen Dashboard</p>' +
+    '<p class="sc-sub" style="font-size:' + sz(0) + 'px">Unlock seamless communication and streamline your messaging experience</p>' +
+    '<div class="sc-center"><span class="sc-cta" style="font-size:' + sz(0) + 'px">Get Started</span></div>' +
+    '<div class="sc-img" style="height:80px"></div>' +
+    '<div class="sc-logos">' +
+      '<span style="font-size:' + sz(-2) + 'px">amazon</span>' +
+      '<span style="font-size:' + sz(-2) + 'px">ATLASSIAN</span>' +
+      '<span style="font-size:' + sz(-2) + 'px">GitHub</span>' +
+      '<span style="font-size:' + sz(-2) + 'px">Netflix</span>' +
+      '<span style="font-size:' + sz(-2) + 'px">Medium</span>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderSceneBlog() {
+  var cards = ["Staying Cool During Blackouts", "What Does the Texas Grid Have to Do With My AC?", "Fall HVAC Maintenance Tips"];
+  var cardsHtml = "";
+  for (var i = 0; i < cards.length; i++) {
+    cardsHtml += '<div class="sc-card">' +
+      '<div class="sc-thumb"></div>' +
+      '<div class="sc-card-info">' +
+        '<span style="font-size:' + sz(-2) + 'px;letter-spacing:0.06em;font-weight:600">BRAND STRATEGY</span>' +
+        '<span style="font-size:' + sz(-2) + 'px;color:#8a95a8"> · 2024-09-20</span><br>' +
+        '<p style="font-size:' + szCap(1, 26) + 'px;font-weight:700;margin:4px 0 2px;line-height:1.2">' + cards[i] + '</p>' +
+        '<span style="font-size:' + sz(-1) + 'px;color:#6a7080">A limited MOHEIM POP UP shop will be held at Mitsukoshi Department Store.</span>' +
+      '</div>' +
+    '</div>';
+  }
+  return '<div style="font-family:' + ff() + '">' +
+    '<div class="sc-nav">' +
+      '<span style="font-size:' + sz(0) + 'px;font-weight:700;color:#4a6cf7">wokka</span>' +
+      '<div class="sc-nav-links">' +
+        '<span style="font-size:' + sz(-1) + 'px">Home</span>' +
+        '<span style="font-size:' + sz(-1) + 'px">Services</span>' +
+        '<span style="font-size:' + sz(-1) + 'px">About</span>' +
+        '<span style="font-size:' + sz(-1) + 'px;font-weight:600">Blog</span>' +
+        '<span class="sc-cta" style="font-size:' + sz(-2) + 'px;padding:3px 10px">Contact us</span>' +
+      '</div>' +
+    '</div>' +
+    '<p style="font-size:' + szCap(3, 40) + 'px;font-weight:700;line-height:1.15;margin:0 0 6px;letter-spacing:-0.02em">How to Stay Cool While Waiting for Your AC Repair</p>' +
+    '<p style="font-size:' + sz(-1) + 'px;color:#8a95a8;margin:0 0 12px">A limited MOHEIM POP UP shop will be held at Mitsukoshi Nihonbashi Department</p>' +
+    '<div class="sc-img" style="height:60px"></div>' +
+    '<div class="sc-cards">' + cardsHtml + '</div>' +
+  '</div>';
+}
+
+function renderSceneCorporate() {
+  return '<div style="font-family:' + ff() + '">' +
+    '<div class="sc-nav">' +
+      '<span style="font-size:' + sz(0) + 'px;font-weight:700">◆ Duwy</span>' +
+      '<div class="sc-nav-links">' +
+        '<span style="font-size:' + sz(-1) + 'px">Personal</span>' +
+        '<span style="font-size:' + sz(-1) + 'px">Business</span>' +
+        '<span style="font-size:' + sz(-1) + 'px">Partner</span>' +
+        '<span style="font-size:' + sz(-1) + 'px">About Us</span>' +
+        '<span class="sc-pill" style="font-size:' + sz(-1) + 'px">Sign In</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="sc-corp-hero">' +
+      '<div>' +
+        '<p style="font-size:' + szCap(5, 56) + 'px;font-weight:700;line-height:1.0;margin:0 0 8px;letter-spacing:-0.04em">Product Designer</p>' +
+        '<p style="font-size:' + sz(-1) + 'px;color:#6a7080;max-width:600px;line-height:1.4">Hi, I\'m Duwy. A UI/UX Designer Creating Intuitive Digital Experiences.</p>' +
+      '</div>' +
+      '<div class="sc-img" style="width:100%;height:80px;flex-shrink:0"></div>' +
+    '</div>' +
+    '<div class="sc-logos" style="margin-bottom:14px">' +
+      '<span style="font-size:' + sz(-2) + 'px">coinbase</span>' +
+      '<span style="font-size:' + sz(-2) + 'px">Spotify</span>' +
+      '<span style="font-size:' + sz(-2) + 'px">zoom</span>' +
+      '<span style="font-size:' + sz(-2) + 'px">slack</span>' +
+      '<span style="font-size:' + sz(-2) + 'px">Dropbox</span>' +
+    '</div>' +
+    '<div class="sc-corp-stats">' +
+      '<div>' +
+        '<p style="font-size:' + sz(1) + 'px;font-weight:500;line-height:1.3;margin:0 0 4px">Design has always been more than just a job — it\'s my passion.</p>' +
+        '<p style="font-size:' + sz(-1) + 'px;color:#6a7080;margin:0;line-height:1.4">Design is not just a job for me, it\'s a passion that drives me.</p>' +
+      '</div>' +
+      '<div style="text-align:right;display: flex; justify-content: flex-end; gap: 8px; ">' +
+        '<div>'+
+          '<p style="font-size:' + szCap(3, 36) + 'px;font-weight:700;margin:0 0 2px">+320</p>' +
+          '<p style="font-size:' + sz(-2) + 'px;color:#8a95a8;margin:0 0 8px">Projects Finished</p>' +
+        '</div>'+
+        '<div>'+
+          '<p style="font-size:' + szCap(3, 36) + 'px;font-weight:700;margin:0 0 2px">+280</p>' +
+          '<p style="font-size:' + sz(-2) + 'px;color:#8a95a8;margin:0">Happy Clients</p>' +
+        '</div>'+
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderSceneEditorial() {
+  var stories = ["WHAT STREET FASHION WAS LIKE A DECADE AGO", "MEN, PROMISE, SKIRTS AREN'T THAT SCARY!"];
+  var gridHtml = "";
+  for (var i = 0; i < stories.length; i++) {
+    gridHtml += '<div>' +
+      '<div class="sc-img" style="height:40px;margin-bottom:6px"></div>' +
+      '<p style="font-size:' + sz(0) + 'px;font-weight:700;line-height:1.2;margin:0">' + stories[i] + '</p>' +
+    '</div>';
+  }
+  return '<div style="font-family:' + ff() + '">' +
+    '<div class="sc-nav" style="border-bottom:2px solid #4a5060">' +
+      '<span style="font-size:' + szCap(3, 36) + 'px;font-weight:900;letter-spacing:-0.04em">ZENITH</span>' +
+      '<div class="sc-nav-links">' +
+        '<span style="font-size:' + sz(-2) + 'px;letter-spacing:0.04em">STORIES</span>' +
+        '<span style="font-size:' + sz(-2) + 'px;letter-spacing:0.04em">CELEBRITY</span>' +
+        '<span style="font-size:' + sz(-2) + 'px;letter-spacing:0.04em">VIDEOS</span>' +
+        '<span style="font-size:' + sz(-2) + 'px;letter-spacing:0.04em">GALLERY</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="sc-ed-feature">' +
+      '<div class="sc-img" style="width:100%;height:100px;flex-shrink:0"></div>' +
+      '<div style="flex:1">' +
+        '<p style="font-size:' + szCap(2, 32) + 'px;font-weight:700;line-height:1.1;margin:0 0 8px;letter-spacing:-0.02em">THE MANHATTAN STREET SHOW INCLUDED A LOT OF ECCENTRIC FASHION.</p>' +
+        '<p style="font-size:' + sz(-1) + 'px;color:#6a7080;line-height:1.4;margin:0 0 6px">Despite the cold weather, Manhattan\'s Fall street style showed designers pushing creative boundaries.</p>' +
+        '<p style="font-size:' + sz(-2) + 'px;color:#8a95a8;margin:0">by Cameron Alexandre</p>' +
+      '</div>' +
+    '</div>' +
+    '<p style="font-size:' + szCap(2, 32) + 'px;font-weight:800;letter-spacing:0.02em;margin:14px 0 8px;border-top:2px solid #4a5060;padding-top:10px">TODAY\'S STORIES</p>' +
+    '<div class="sc-ed-grid">' + gridHtml + '</div>' +
+  '</div>';
+}
+
+function renderSceneLanding() {
+  return '<div style="font-family:' + ff() + '">' +
+    '<div class="sc-nav">' +
+      '<span style="font-size:' + sz(0) + 'px;font-weight:700">◧ RANTY</span>' +
+      '<div class="sc-nav-links">' +
+        '<span style="font-size:' + sz(-1) + 'px">Services</span>' +
+        '<span style="font-size:' + sz(-1) + 'px">Homes</span>' +
+        '<span style="font-size:' + sz(-1) + 'px">About us</span>' +
+        '<span style="font-size:' + sz(-1) + 'px">Cases</span>' +
+      '</div>' +
+    '</div>' +
+    '<p style="font-size:' + szCap(6, 64) + 'px;font-weight:800;line-height:0.95;margin:8px 0 6px;letter-spacing:-0.04em;text-transform:uppercase">The<br>Perfect<br>Home</p>' +
+    '<p style="font-size:' + sz(0) + 'px;color:#6a7080;margin:0 0 14px">/ We craft custom homes /</p>' +
+    '<div style="margin-bottom:16px"><span class="sc-cta" style="font-size:' + sz(0) + 'px;padding:8px 24px;border-radius:24px">START</span></div>' +
+    '<div class="sc-landing-features">' +
+      '<div class="sc-landing-card">' +
+        '<p style="font-size:' + sz(1) + 'px;font-weight:700;margin:0 0 4px">We use best materials!</p>' +
+        '<p style="font-size:' + sz(-1) + 'px;color:#6a7080;margin:0">Working with verified suppliers.</p>' +
+      '</div>' +
+      '<div class="sc-landing-card" style="text-align:center">' +
+        '<p style="font-size:' + szCap(3, 36) + 'px;font-weight:700;margin:0 0 2px;font-style:italic">12m+</p>' +
+        '<p style="font-size:' + sz(-2) + 'px;color:#8a95a8;margin:0">Customers</p>' +
+      '</div>' +
+      '<div class="sc-landing-card">' +
+        '<p style="font-size:' + sz(0) + 'px;font-weight:800;margin:0 0 4px;letter-spacing:0.02em;text-transform:uppercase">We can combine nature &amp; home comfort</p>' +
+        '<p style="font-size:' + sz(-2) + 'px;color:#8a95a8;margin:0;text-decoration:underline">LEARN MORE</p>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderSceneHero() {
+  return '<div class="sc-hero-scene" style="font-family:' + ff() + '">' +
+    '<div>' +
+      '<p style="font-size:' + szCap(6, 64) + 'px;font-weight:800;line-height:0.9;margin:0 0 12px;letter-spacing:-0.05em">Build<br>Better.</p>' +
+      '<p style="font-size:' + sz(1) + 'px;color:#6a7080;margin:0 0 20px;line-height:1.4">Design tools for the modern web</p>' +
+      '<span class="sc-cta" style="font-size:' + sz(0) + 'px;padding:10px 32px">Get Started →</span>' +
+      '<p style="font-size:' + sz(-1) + 'px;color:#8a95a8;margin-top:12px">Free forever · No credit card required</p>' +
+    '</div>' +
+  '</div>';
+}
+
+var sceneRenderers = [
+  renderSceneDashboard,
+  renderSceneBlog,
+  renderSceneCorporate,
+  renderSceneEditorial,
+  renderSceneLanding,
+  renderSceneHero,
+];
+
+function renderScene() {
+  var idx = Math.max(0, Math.min(currentScene, sceneRenderers.length - 1));
+  sceneBox.innerHTML = sceneRenderers[idx]();
+}
+
+function renderPresets() {
+  presetsEl.innerHTML = "";
+  PRESETS.forEach(function(p) {
+    var btn = document.createElement("button");
+    btn.className = "preset-btn" + (currentRatio === p.r ? " on" : "");
+    btn.innerHTML =
+      '<div class="preset-left">' +
+        '<span class="preset-name">' + p.name + '</span>' +
+        '<span class="preset-hint">' + p.hint + '</span>' +
+      '</div>' +
+      '<span class="preset-val">' + p.r.toFixed(3) + '</span>';
+    btn.onclick = function() {
+      currentRatio = p.r;
+      currentScene = p.scene;
+      renderPresets();
+      renderPreview();
+      renderScene();
+    };
+    presetsEl.appendChild(btn);
+  });
+}
+
+function renderPreview() {
+  previewEl.innerHTML = "";
+  STEPS.forEach(function(s) {
+    var size = stepSize(s.exp, currentBase, currentRatio);
+    var isBody = size >= 14 && size <= 20;
+    var row = document.createElement("div");
+    row.className = "preview-row";
+    row.innerHTML =
+      '<span class="preview-key' + (isBody ? " body" : "") + '">--text-' + s.key + '</span>' +
+      '<span class="preview-size' + (isBody ? " body" : "") + '">' + size + 'px' + (isBody ? " body" : "") + '</span>';
+    previewEl.appendChild(row);
+  });
+}
+
+baseInput.oninput = function() {
+  var v = parseInt(baseInput.value, 10);
+  if (isNaN(v)) v = 16;
+  currentBase = Math.max(10, Math.min(24, v));
+  baseRange.value = currentBase;
+  renderPreview();
+  renderScene();
+};
+
+baseRange.oninput = function() {
+  currentBase = parseInt(baseRange.value, 10);
+  baseInput.value = currentBase;
+  renderPreview();
+  renderScene();
+};
+
+fontSelect.onchange = function() {
+  renderScene();
+};
+
+function getPayload() {
+  return {
+    base: currentBase,
+    ratio: currentRatio,
+    fontFamily: fontSelect.value,
+  };
+}
+
+document.getElementById("btnStyles").onclick = function() {
+  parent.postMessage({ pluginMessage: { type: "generate-styles", ...getPayload() } }, "*");
+};
+
+document.getElementById("btnFrame").onclick = function() {
+  parent.postMessage({ pluginMessage: { type: "generate-frame", ...getPayload() } }, "*");
+};
+
+document.getElementById("btnClose").onclick = function() {
+  parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
+};
+
+renderPresets();
+renderPreview();
+renderScene();
+</script>
+</body>
+</html>
