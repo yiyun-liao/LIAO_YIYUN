@@ -25,12 +25,7 @@ import {
   CONTROLS_PRESET,
   BODY_SECTION,
   BODY_CODE,
-  TRANSITION_SECTION,
-  TRANSITION_CODE,
-  TRANSITION_JSX,
-  TRANSITION_CODE_JSX,
   SCENE_SECTION,
-  SCENE_CODE,
 } from "./content";
 
 const demo = TYPESCALEGENERATOR;
@@ -69,13 +64,7 @@ export function TypeScaleGenerator() {
       <Sections section={BODY_SECTION} index={4} />
       <CodeBlockView block={BODY_CODE} />
 
-      <Sections section={TRANSITION_SECTION} index={5} />
-      <CodeBlockView block={TRANSITION_CODE} />
-      <Sections section={TRANSITION_JSX} />
-      <CodeBlockView block={TRANSITION_CODE_JSX} />
-
-      <Sections section={SCENE_SECTION} index={6} />
-      <CodeBlockView block={SCENE_CODE} />
+      <Sections section={SCENE_SECTION} index={5} />
 
       <CodeSection demo={demo} />
 

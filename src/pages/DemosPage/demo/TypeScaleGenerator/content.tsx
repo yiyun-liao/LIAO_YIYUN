@@ -31,12 +31,6 @@ export const TYPESCALEGENERATOR: Demo = {
         "zh-TW": "即時 CSS 輸出 — 產生的 `:root` 區塊包含 `--text-*` 自訂屬性，一鍵複製就能直接貼進任何樣式表。",
       },
     ],
-    refs: [
-      { label: "Modular Scale — every designer's typographic secret", url: "https://every-layout.dev/rudiments/modular-scale/" },
-      { label: "Type Scale — A Visual Calculator", url: "https://typescale.com/" },
-      { label: "MDN — Using CSS custom properties", url: "https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties" },
-      { label: "Practical Typography — font size", url: "https://practicaltypography.com/summary-of-key-rules.html" },
-    ],
   },
 };
 
@@ -184,43 +178,7 @@ const isBody = readable(sz);
 </div>`,
 };
 
-// ─── 05 Smooth Font-Size Transitions ───
-
-export const TRANSITION_SECTION: BodySection = {
-  title: { en: "Smooth Font-Size Transitions", "zh-TW": "平滑字級轉場" },
-  content: {
-    en: "When you change the base or ratio, the sample text in each row smoothly resizes instead of jumping. This works because React updates the `style.fontSize` prop on the same DOM element — no teardown and rebuild. The CSS `transition` on `.tsg-rtext` picks up the change and animates it over 0.22 seconds with an ease curve.\nThis is one of those details where the implementation choice matters: if you used `innerHTML` or `key` changes to force React to remount the elements, you'd get new DOM nodes every time and the transition would never fire. Keeping the same element and only patching its style is what makes the animation possible.",
-    "zh-TW": "當你改變 base 或 ratio 時，每一行的示範文字會平滑地變大變小，而不是瞬間跳過去。這能運作是因為 React 更新的是同一個 DOM 元素上的 `style.fontSize` prop——沒有拆掉重建。CSS 在 `.tsg-rtext` 上的 `transition` 偵測到變化，用 0.22 秒的緩動曲線動畫過去。\n這是實作選擇很關鍵的細節之一：如果用 `innerHTML` 或改 `key` 強迫 React 重新掛載元素，每次都會產生新的 DOM 節點，transition 就永遠不會觸發。保留同一個元素、只修補它的 style，才是動畫能動的原因。",
-  },
-};
-
-export const TRANSITION_CODE: CodeBlock = {
-  codeType: "css",
-  code: `.tsg-rtext {
-  color: var(--neu-text-heading);
-  line-height: 1.15;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  transition: font-size 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-}`,
-};
-
-export const TRANSITION_JSX: BodySection = {
-  title: _,
-  content: {
-    en: "The render just sets `fontSize` directly from the computed step size. React diffs the virtual DOM, finds only the style change, and patches the real DOM in place — the CSS transition handles the rest.",
-    "zh-TW": "render 時直接從計算出來的 step 大小設定 `fontSize`。React 對比 virtual DOM，發現只有 style 變了，就地修補真實 DOM——剩下的交給 CSS transition 處理。",
-  },
-};
-
-export const TRANSITION_CODE_JSX: CodeBlock = {
-  codeType: "tsx",
-  code: `<span className="tsg-rtext" style={{ fontSize: sz }}>
-  {s.text}
-</span>`,
-};
-
-// ─── 06 Scene Previews ───
+// ─── 05 Scene Previews ───
 
 export const SCENE_SECTION: BodySection = {
   title: { en: "Scene Previews", "zh-TW": "情境預覽" },
@@ -230,17 +188,4 @@ export const SCENE_SECTION: BodySection = {
   },
 };
 
-export const SCENE_CODE: CodeBlock = {
-  codeType: "ts",
-  code: `const PRESETS = [
-  { name: "Minor Second",     r: 1.067, hint: "Dashboard",  scene: 0 },
-  { name: "Major Second",     r: 1.125, hint: "Docs",       scene: 0 },
-  { name: "Minor Third",      r: 1.200, hint: "Blog",       scene: 1 },
-  { name: "Major Third",      r: 1.250, hint: "Corporate",  scene: 2 },
-  { name: "Perfect Fourth",   r: 1.333, hint: "Editorial",  scene: 3 },
-  { name: "Aug. Fourth (√2)", r: 1.414, hint: "Portfolio",   scene: 3 },
-  { name: "Perfect Fifth",    r: 1.500, hint: "Landing",    scene: 4 },
-  { name: "Golden Ratio",     r: 1.618, hint: "Hero",       scene: 5 },
-] as const;`,
-};
 
