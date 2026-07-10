@@ -12,7 +12,7 @@ export const TYPESCALEGENERATOR: Demo = {
   type: ["design"],
   tags: ["Typography", "CSS", "Design Tool"],
   url: "/demos/type-scale-generator",
-  image:{url:"/assets/demo/TypeScaleGenerator.gif"},
+  image:{url:"/assets/demos/TypeScaleGenerator.gif"},
   codeEmbed:{sandboxId:"kywfp4"},
   introduction: {
     outline: {
