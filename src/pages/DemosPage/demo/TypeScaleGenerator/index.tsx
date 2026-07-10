@@ -29,6 +29,8 @@ import {
   TRANSITION_CODE,
   TRANSITION_JSX,
   TRANSITION_CODE_JSX,
+  SCENE_SECTION,
+  SCENE_CODE,
 } from "./content";
 
 const demo = TYPESCALEGENERATOR;
@@ -71,6 +73,9 @@ export function TypeScaleGenerator() {
       <CodeBlockView block={TRANSITION_CODE} />
       <Sections section={TRANSITION_JSX} />
       <CodeBlockView block={TRANSITION_CODE_JSX} />
+
+      <Sections section={SCENE_SECTION} index={6} />
+      <CodeBlockView block={SCENE_CODE} />
 
       <CodeSection demo={demo} />
 

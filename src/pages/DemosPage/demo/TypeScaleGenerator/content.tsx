@@ -219,3 +219,28 @@ export const TRANSITION_CODE_JSX: CodeBlock = {
   {s.text}
 </span>`,
 };
+
+// ─── 06 Scene Previews ───
+
+export const SCENE_SECTION: BodySection = {
+  title: { en: "Scene Previews", "zh-TW": "情境預覽" },
+  content: {
+    en: "Each ratio preset auto-switches to a wireframe scene that matches its visual character. Here's the design rationale:\n- **Dashboard / Docs** — Minor Second (1.067) · Major Second (1.125). Tight scale keeps many text levels close together. Data labels, table headers, and sidebar links all need to be distinct but not competing — small jumps preserve scannability without visual noise.\n- **Blog** — Minor Third (1.200). Moderate contrast separates article titles from body copy while keeping card grids readable. Enough hierarchy for a headline → excerpt → metadata pattern.\n- **Corporate** — Major Third (1.250). Balanced proportion that pairs a confident hero heading with comfortable body text. Safe and versatile — the default choice when you don't know the final context.\n- **Editorial / Portfolio** — Perfect Fourth (1.333) · Aug. Fourth (1.414). Strong contrast gives magazine-style layouts their dramatic headline-to-body ratio. Feature images and pull quotes benefit from the breathing room.\n- **Landing** — Perfect Fifth (1.500). Bold scale makes a single CTA section impossible to miss. Feature cards and stat counters pop without needing color or weight tricks.\n- **Hero** — Golden Ratio (1.618). Maximum drama — two words at display size dominate the viewport. Only works when the page has very few text elements competing for attention.",
+    "zh-TW": "每個比例預設會自動切換到最能展現其視覺特性的線框情境，以下是設計上的考量：\n- **Dashboard / Docs** — Minor Second（1.067）· Major Second（1.125）。緊湊的字級讓多個文字層級彼此接近。數據標籤、表頭、側邊欄連結都需要可辨識但不互相搶戲——小跳躍保持可掃描性，不產生視覺噪音。\n- **Blog** — Minor Third（1.200）。適度的對比把文章標題和內文拉開，同時保持卡片網格的可讀性。足夠的層級支撐「標題 → 摘要 → metadata」的閱讀模式。\n- **Corporate** — Major Third（1.250）。均衡的比例讓 Hero 標題有份量、內文也舒適。安全且萬用——當你還不確定最終情境時的預設選擇。\n- **Editorial / Portfolio** — Perfect Fourth（1.333）· Aug. Fourth（1.414）。強對比賦予雜誌式排版戲劇化的標題與內文比例，特寫圖和引言區塊因此獲得呼吸空間。\n- **Landing** — Perfect Fifth（1.500）。大膽的字級讓單一 CTA 區塊不可能被忽略。特色卡片和數據計數器不靠顏色或字重就能跳出來。\n- **Hero** — Golden Ratio（1.618）。最大戲劇性——兩個字以 display 尺寸佔據整個視窗。只在頁面上幾乎沒有其他文字元素搶注意力時才成立。",
+  },
+};
+
+export const SCENE_CODE: CodeBlock = {
+  codeType: "ts",
+  code: `const PRESETS = [
+  { name: "Minor Second",     r: 1.067, hint: "Dashboard",  scene: 0 },
+  { name: "Major Second",     r: 1.125, hint: "Docs",       scene: 0 },
+  { name: "Minor Third",      r: 1.200, hint: "Blog",       scene: 1 },
+  { name: "Major Third",      r: 1.250, hint: "Corporate",  scene: 2 },
+  { name: "Perfect Fourth",   r: 1.333, hint: "Editorial",  scene: 3 },
+  { name: "Aug. Fourth (√2)", r: 1.414, hint: "Portfolio",   scene: 3 },
+  { name: "Perfect Fifth",    r: 1.500, hint: "Landing",    scene: 4 },
+  { name: "Golden Ratio",     r: 1.618, hint: "Hero",       scene: 5 },
+] as const;`,
+};
+
