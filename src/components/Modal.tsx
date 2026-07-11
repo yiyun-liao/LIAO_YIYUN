@@ -31,7 +31,7 @@ function Carousel({ images, name }: CarouselProps) {
   };
 
   return (
-    <div className="relative aspect-[16/10] bg-[#EDECE6] overflow-hidden border border-ink/14 group">
+    <div className="relative aspect-[16/9] bg-[#EDECE6] overflow-hidden border border-ink/14 group">
       <div
         className="flex h-full transition-transform duration-500 ease-[cubic-bezier(.4,0,.2,1)]"
         style={{ transform: `translateX(-${idx * 100}%)` }}
@@ -142,7 +142,7 @@ export function Modal({ project: p, onClose, onPrev, onNext }: ModalProps) {
                 )}
               </div>
               <h2 className="font-serif text-[clamp(48px,7vw,110px)] leading-[.9] tracking-[-.02em] m-0 font-normal">
-                {p.titleIt ? <span className="italic">{p.name}</span> : p.name}
+                { p.name}
               </h2>
             </div>
             <div className="hidden md:block font-mono text-[12px] tracking-[.16em] uppercase text-ink-soft text-right">

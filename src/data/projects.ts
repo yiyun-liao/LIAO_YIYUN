@@ -10,7 +10,6 @@ export interface Project {
   id: string;
   idx: string;
   name: string;
-  titleIt: boolean;
   tagline: L;
   vibe: boolean;
   tags: string[];
@@ -30,7 +29,6 @@ export const PROJECTS: Project[] = [
     id: "at",
     idx: "01",
     name: "AmazingTalker - VCaaS",
-    titleIt: false,
     tagline: {
       en: "Real-time classroom platform — screen sharing, whiteboard, stream reactions, Electron desktop.",
       "zh-TW":
@@ -94,7 +92,6 @@ export const PROJECTS: Project[] = [
     id: "trackstock",
     idx: "02",
     name: "Track Stock",
-    titleIt: false,
     tagline: {
       en: "An AI-assisted US equities monitor — live quotes, news digests, alerts.",
       "zh-TW": "AI 輔助美股監控工具——即時報價、新聞摘要、警報通知。",
@@ -160,7 +157,6 @@ export const PROJECTS: Project[] = [
     id: "daily",
     idx: "03",
     name: "Daily Assistant",
-    titleIt: true,
     tagline: {
       en: "Telegram × iCloud calendar — AI-driven daily planning, automated.",
       "zh-TW":
@@ -210,7 +206,6 @@ export const PROJECTS: Project[] = [
     id: "splitly",
     idx: "04",
     name: "Splitly",
-    titleIt: true,
     tagline: {
       en: "Help friends settle bills fast — three split modes, real-time math.",
       "zh-TW":
@@ -287,7 +282,6 @@ export const PROJECTS: Project[] = [
     id: "at-design",
     idx: "05",
     name: "AmazingTalker — Designer",
-    titleIt: false,
     tagline: {
       en: "Led UI/UX across cart checkout, design system, classroom UI, and 70+ product design tasks over two years.",
       "zh-TW":
@@ -361,8 +355,7 @@ export const PROJECTS: Project[] = [
   {
     id: "bukku",
     idx: "06",
-    name: "BUKKU",
-    titleIt: true,
+    name: "BUKKU - Designer/PM",
     tagline: {
       en: "Booking tool for Instagram creators — from project charter to high-fidelity UI, closed before deploy.",
       "zh-TW":
@@ -415,18 +408,23 @@ export const PROJECTS: Project[] = [
     links: [
       {
         label: "Presentation",
-        href: "",
-        disabled: true,
+        href: "https://www.figma.com/proto/SK132yqquO5w5M3UPLGu1N/all-presentation---wehelp?node-id=540-4463&viewport=-1958%2C170%2C0.06&t=BWARYY36lpNN1A3F-0&scaling=contain&content-scaling=fixed&starting-point-node-id=540%3A4463&show-proto-sidebar=1",
+        disabled: false,
       },
     ],
-    cover: "",
-    images: [],
+    cover: "assets/bukku/cover.png",
+    images: [
+      "assets/bukku/cover.png",
+      "assets/bukku/1.jpg",
+      "assets/bukku/2.jpg",
+      "assets/bukku/3.jpg",
+      "assets/bukku/4.jpg",
+    ],
   },
   {
     id: "designer-portfolio",
     idx: "07",
     name: "Designer Portfolio",
-    titleIt: true,
     tagline: {
       en: "The chapter before engineering — product design, branding, TV drama graphics, and a BenQ collaboration.",
       "zh-TW":
