@@ -47,12 +47,12 @@ export function Card({ project: p, onOpen, idx = 0, headIn = false }: CardProps)
         {p.vibe && <Pill vibe>{t("card.vibeCoded")}</Pill>}
       </div>
 
-      <div className="aspect-[4/3] bg-[#EDECE6] relative overflow-hidden border border-ink/10">
+      <div className="aspect-[16/9] bg-[#EDECE6] relative overflow-hidden border border-ink/10">
         <img src={p.cover} alt={p.name} className="absolute inset-0 w-full h-full object-cover" />
       </div>
 
       <h3 className="font-serif text-[32px] sm:text-[38px] leading-none m-0 tracking-[-.01em] font-normal">
-        {p.titleIt ? <span className="italic">{p.name}</span> : p.name}
+        {p.name}
       </h3>
 
       <p className="m-0 text-ink-soft text-sm leading-[1.55]">{l(p.tagline)}</p>
