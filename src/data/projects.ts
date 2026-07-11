@@ -359,8 +359,72 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    id: "designer-portfolio",
+    id: "bukku",
     idx: "06",
+    name: "BUKKU",
+    titleIt: true,
+    tagline: {
+      en: "Booking tool for Instagram creators — from project charter to high-fidelity UI, closed before deploy.",
+      "zh-TW":
+        "Instagram 創作者預約工具——從專案章程到高保真 UI，於上線前結束。",
+    },
+    vibe: false,
+    tags: [
+      "Product Design",
+      "UX Research",
+      "Project Management",
+      "Figma",
+      "Competitive Analysis",
+      "User Flow",
+    ],
+    role: { en: "Co-founder — Product Design & PM", "zh-TW": "共同創辦人 — 產品設計 & PM" },
+    year: "2023",
+    status: { en: "Closed before deploy", "zh-TW": "上線前結束" },
+    overview: {
+      en: "A lightweight booking platform for Instagram sellers and small studios in Taiwan. IG reaches ~70% of Taiwan's population and is the default sales channel for solo creators, yet its commercial tooling lags — sellers coordinate booking, scheduling, and order status by hand over DM. BUKKU aimed to replace that with a near-zero-learning-curve tool. I led the full product design and PM cycle: project charter with SMART goals, market research (trademark data as demand proxy, Instagram reach/conversion analysis), competitive benchmarking (Simplybook, 17Fit, Book Fast, Tiny Book), persona, CJM, SWOT, information architecture, 3-iteration user flow, and high-fidelity mobile + desktop UI. The project closed after the research and design phase when two of three co-founders had shifts in personal priorities.",
+      "zh-TW":
+        "為台灣 Instagram 賣家與小型工作室打造的輕量級預約平台。IG 觸及台灣約 70% 的人口，是獨立創作者的主要銷售管道，但商業工具仍落後——賣家透過 DM 手動協調預約、排程與訂單狀態。BUKKU 目標以極低學習成本的工具取代這些流程。我主導完整的產品設計與 PM 週期：包含 SMART 目標的專案章程、市場研究（以商標登記資料作為需求指標、Instagram 觸及率/轉換率分析）、競品分析（Simplybook、17Fit、Book Fast、Tiny Book）、人物誌、CJM、SWOT、資訊架構、三次迭代的使用者流程，以及高保真的行動版與桌面版 UI。專案在研究與設計階段完成後結束，因三位共同創辦人中有兩位的個人生活優先順序產生變化。",
+    },
+    highlights: [
+      {
+        en: "Wrote formal project charter with SMART goal: onboard 30 creators by Nov 2023, 50% retained",
+        "zh-TW":
+          "撰寫正式專案章程，設定 SMART 目標：2023 年 11 月前導入 30 位創作者，50% 留存",
+      },
+      {
+        en: "Used trademark registration data as a demand proxy to size the market — food & beverage, retail, and education had the highest booking-model fit",
+        "zh-TW":
+          "以商標登記資料作為需求指標評估市場規模——餐飲、零售與教育最符合預約模式",
+      },
+      {
+        en: "Competitive analysis mapped on feature richness vs. price and learning curve vs. flexibility — identified a gap for small creators",
+        "zh-TW":
+          "競品分析以功能豐富度 vs. 價格、學習曲線 vs. 彈性兩軸繪製——發現小型創作者的市場缺口",
+      },
+      {
+        en: "Designed dual-role IA (Provider: manage & create; Consumer: book & view) with 3-iteration user flow aligned to database schema",
+        "zh-TW":
+          "設計雙角色資訊架構（Provider：管理與建立；Consumer：預約與瀏覽），使用者流程經三次迭代與資料庫 schema 對齊",
+      },
+      {
+        en: "Delivered high-fidelity mobile + desktop UI covering service creation, calendar, order management, and notifications",
+        "zh-TW":
+          "交付高保真行動版與桌面版 UI，涵蓋服務建立、日曆、訂單管理與通知功能",
+      },
+    ],
+    links: [
+      {
+        label: "Presentation",
+        href: "",
+        disabled: true,
+      },
+    ],
+    cover: "",
+    images: [],
+  },
+  {
+    id: "designer-portfolio",
+    idx: "07",
     name: "Designer Portfolio",
     titleIt: true,
     tagline: {
