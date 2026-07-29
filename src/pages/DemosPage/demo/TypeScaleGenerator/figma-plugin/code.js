@@ -25,13 +25,14 @@ figma.ui.onmessage = async (msg) => {
   if (msg.type === "generate-styles") {
     const { base, ratio, fontFamily } = msg;
 
-    const fontName = { family: fontFamily, style: "Regular" };
+    let resolvedFont = { family: fontFamily, style: "Regular" };
     try {
-      await figma.loadFontAsync(fontName);
+      await figma.loadFontAsync(resolvedFont);
     } catch (e) {
       figma.notify(`Font "${fontFamily}" not found. Using "Inter" instead.`);
+      resolvedFont = { family: "Inter", style: "Regular" };
       try {
-        await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+        await figma.loadFontAsync(resolvedFont);
       } catch (e2) {
         figma.notify("Could not load fallback font either.", { error: true });
         return;
@@ -51,14 +52,7 @@ figma.ui.onmessage = async (msg) => {
         style.name = name;
       }
 
-      const resolvedFont = { family: fontFamily, style: "Regular" };
-      try {
-        await figma.loadFontAsync(resolvedFont);
-        style.fontName = resolvedFont;
-      } catch (e) {
-        style.fontName = { family: "Inter", style: "Regular" };
-      }
-
+      style.fontName = resolvedFont;
       style.fontSize = sz;
       style.lineHeight = { value: Math.round(sz * 1.5), unit: "PIXELS" };
       style.description = `--text-${s.key}: ${sz}px  (${base} × ${ratio}^${s.exp})`;
