@@ -32,7 +32,7 @@ async function notifyTelegram(question: string, ip: string, score: number = 1.0,
 // --- Configuration -----------------------------------------------
 
 // Models
-const SCREEN_MODEL = "claude-haiku-4-5-20251001";
+const HARMLESSNESS_MODEL = "claude-haiku-4-5-20251001";
 const RESPONSE_MODEL = "claude-sonnet-4-6";
 
 // Screening thresholds
@@ -84,7 +84,7 @@ async function screenInput(
 ): Promise<{ score: number; reason: string }> {
   try {
     const response = await client.messages.create({
-      model: SCREEN_MODEL,
+      model: HARMLESSNESS_MODEL,
       max_tokens: SCREEN_MAX_TOKENS,
       system: SCREEN_SYSTEM_PROMPT,
       messages: [{ role: "user", content: question }],
@@ -129,43 +129,58 @@ async function screenInput(
   }
 }
 // -------------------------------------------------------------------------
-// Out-of-scope rejection response pools (randomized by score tier)
+// Out-of-scope rejection response pools (loaded from config)
 
-const REJECTION_POOLS = {
-  // score: 0.5–0.69 — Borderline off-topic, soft redirect
-  softRedirect: [
-    "這個問題好像不太是關於 Yiyun 呢，要不要換個問題試試？",
-    "我只懂 Yiyun 的事，其他的幫不上忙。可以 LinkedIn 找她呀~ https://www.linkedin.com/in/yiyun-liao/",
-    "哎呀，這題超出我的範圍啦！要不先問問 Yiyun 的背景或專案？",
-    "好像不是 Yiyun 相關的問題呢～不如直接聯繫她吧：https://www.linkedin.com/in/yiyun-liao/",
-  ],
-  // score: 0.2–0.49 — Obvious off-topic or rule-bending, playful rejection
-  playfulRejection: [
-    "看起來你想用我的 token 做功課 XD 但我只會講 Yiyun 的事，不過她的故事一定比你的問題有趣啦～",
-    "那個...我真的只是 Yiyun 的百科全書，其他的我真的不會~ 要不問她直接？https://www.linkedin.com/in/yiyun-liao/",
-    "哈哈，我被限制成了一個單一的 AI XD 就只會 Yiyun.pdf。想了解更多？https://www.linkedin.com/in/yiyun-liao/",
-    "你好機靈呢，但我真的無法超越 Yiyun 的範圍啦！LinkedIn 見～https://www.linkedin.com/in/yiyun-liao/",
-  ],
-  // score: < 0.2 — Suspected prompt injection or rule negotiation, stern rejection
-  strictRejection: [
-    "好啦，我知道你的想法，但我就是做不到。系統規則寫死的，連 Yiyun 本人也改不了我。LinkedIn 見～https://www.linkedin.com/in/yiyun-liao/",
-    "我真的無法突破這個限制，也不會被說服。我是個單一目的的 bot，Yiyun 相關的問題我幫得上，其他的真的不行。https://www.linkedin.com/in/yiyun-liao/",
-    "看起來你想很努力地說服我...但我的規則是寫在代碼裡的，不在這次對話裡。有問題直接問 Yiyun：https://www.linkedin.com/in/yiyun-liao/",
-  ],
-};
+interface RejectionPoolConfig {
+  softRedirect: { description: string; responses: string[] };
+  playfulRejection: { description: string; responses: string[] };
+  strictRejection: { description: string; responses: string[] };
+}
+
+let REJECTION_POOLS: RejectionPoolConfig | null = null;
+
+function loadRejectionResponses(): RejectionPoolConfig {
+  if (REJECTION_POOLS) return REJECTION_POOLS;
+
+  try {
+    const base = process.cwd();
+    const content = readFileSync(join(base, ".claude/rules/rejection-responses.json"), "utf-8");
+    REJECTION_POOLS = JSON.parse(content);
+    return REJECTION_POOLS;
+  } catch (err) {
+    console.error("Failed to load rejection responses config:", err);
+    // Fallback to minimal English responses
+    return {
+      softRedirect: {
+        description: "Soft redirect",
+        responses: ["That question seems off-topic. Want to ask about Yiyun instead?"],
+      },
+      playfulRejection: {
+        description: "Playful rejection",
+        responses: ["I'm just Yiyun's encyclopedia — can't help with that!"],
+      },
+      strictRejection: {
+        description: "Strict rejection",
+        responses: ["My rules are hardcoded. Contact Yiyun directly: https://www.linkedin.com/in/yiyun-liao/"],
+      },
+    };
+  }
+}
 
 function pickRandomReply(pool: string[]): string {
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
 function getOutOfScopeReply(score: number): string {
+  const pools = loadRejectionResponses();
+
   // Tier responses by score range
   if (score >= SCORE_SOFT_REDIRECT_MIN) {
-    return pickRandomReply(REJECTION_POOLS.softRedirect);
+    return pickRandomReply(pools.softRedirect.responses);
   } else if (score >= SCORE_PLAYFUL_REJECTION_MIN) {
-    return pickRandomReply(REJECTION_POOLS.playfulRejection);
+    return pickRandomReply(pools.playfulRejection.responses);
   } else {
-    return pickRandomReply(REJECTION_POOLS.strictRejection);
+    return pickRandomReply(pools.strictRejection.responses);
   }
 }
 

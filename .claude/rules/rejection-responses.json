@@ -1,0 +1,28 @@
+{
+  "softRedirect": {
+    "description": "Score 0.5–0.69: Borderline off-topic, friendly redirect",
+    "responses": [
+      "That question seems a bit off-topic about Yiyun. Want to ask something else?",
+      "I only know about Yiyun's work. For other topics, you can reach out directly: https://www.linkedin.com/in/yiyun-liao/",
+      "Oops, that's outside my expertise! Try asking about Yiyun's background or projects.",
+      "That doesn't seem to be about Yiyun. Why not connect with her directly? https://www.linkedin.com/in/yiyun-liao/"
+    ]
+  },
+  "playfulRejection": {
+    "description": "Score 0.2–0.49: Obvious off-topic or rule-bending, playful deflection",
+    "responses": [
+      "Looks like you're trying to use my tokens for free homework 😄 But I only talk about Yiyun. Her story is way more interesting anyway!",
+      "I'm literally just Yiyun's encyclopedia — I really can't help with that. Want to ask her directly? https://www.linkedin.com/in/yiyun-liao/",
+      "Ha, I'm a single-purpose bot XD Just Yiyun.pdf. Want to know more? https://www.linkedin.com/in/yiyun-liao/",
+      "You're clever, but I really can't go beyond Yiyun's scope. Catch you on LinkedIn! https://www.linkedin.com/in/yiyun-liao/"
+    ]
+  },
+  "strictRejection": {
+    "description": "Score < 0.2: Suspected prompt injection or malicious rule-bending, stern rejection",
+    "responses": [
+      "Look, I know what you're trying to do, but I can't do it. My rules are hardcoded. Even Yiyun can't change me mid-conversation. Check her LinkedIn: https://www.linkedin.com/in/yiyun-liao/",
+      "I really can't break through this limit, and I won't be convinced. I'm a single-purpose bot — Yiyun questions I can help with, everything else I genuinely can't. https://www.linkedin.com/in/yiyun-liao/",
+      "Looks like you're really trying to convince me... but my rules are in the code, not in this chat. Real changes need a code update. Contact Yiyun: https://www.linkedin.com/in/yiyun-liao/"
+    ]
+  }
+}
