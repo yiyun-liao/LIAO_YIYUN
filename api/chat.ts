@@ -20,6 +20,24 @@ async function notifyTelegram(question: string, ip: string) {
   }
 }
 
+async function notifyRejectedQuestion(question: string, ip: string, score: number, reason: string) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return;
+
+  const scoreEmoji = score >= 0.5 ? "⚠️" : score >= 0.2 ? "🚫" : "🛡️";
+  const text = `${scoreEmoji} AskYiYun question rejected\n\nFrom: ${ip}\nScore: ${(score * 100).toFixed(0)}%\nReason: ${reason}\n\n"${question}"`;
+  try {
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text }),
+    });
+  } catch {
+    // silent fail — notification is best-effort
+  }
+}
+
 // --- Harmlessness screen -----------------------------------------------
 // Runs before the main model call. A lightweight/cheap model classifies
 // whether the incoming question is actually in-scope (about Yiyun), so
@@ -27,6 +45,7 @@ async function notifyTelegram(question: string, ip: string) {
 // and can't be "argued into" an exception mid-conversation.
 
 const SCREEN_MODEL = "claude-haiku-4-5-20251001";
+const RESPONSE_MODEL = 'claude-sonnet-4-6';
 
 const SCREEN_SYSTEM_PROMPT = `You are a strict gatekeeper for an AI assistant that only answers questions about Yiyun Liao (a designer-turned-engineer): his background, education, work history, skills, tech stack, projects, career story, availability, and contact info.
 
@@ -203,6 +222,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (lastUserMsg) {
     const screen = await screenInput(client, lastUserMsg.content);
     if (screen.score < SCOPE_THRESHOLD) {
+      notifyRejectedQuestion(lastUserMsg.content, ip, screen.score, screen.reason);
       const reply = getOutOfScopeReply(screen.score);
       return res.status(200).json({ reply });
     }
@@ -210,7 +230,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const response = await client.messages.create({
-      model: "claude-sonnet-4-6",
+      model: RESPONSE_MODEL,
       max_tokens: 300,
       system: getSystemPrompt(),
       messages: messages.slice(-10).map((m: { role: string; content: string }) => ({
