@@ -189,13 +189,15 @@ Judge: (1) Is LAST message safe/on-topic? (2) Should we ask about their backgrou
       reason: "no verdict — failing open",
     };
   } catch (err) {
-    console.error("Screening error:", err);
+    const errorMsg = err instanceof Error ? err.message : String(err);
+    console.error("Screening error:", errorMsg);
+    console.error("Full error:", err);
     return {
       isSafe: true,
       shouldInquireBackground: false,
       isWorkQuestion: false,
       score: SCORE_FAIL_OPEN,
-      reason: "screen call failed — failing open",
+      reason: `screen call failed: ${errorMsg}`,
     };
   }
 }
@@ -284,11 +286,17 @@ function getOutOfScopeReply(score: number): string {
 // -------------------------------------------------------------------------
 
 function loadSystemPrompt(): string {
-  const base = process.cwd();
-  const agent = readFileSync(join(base, ".claude/agents/portfolio-assistant.md"), "utf-8");
-  const knowledge = readFileSync(join(base, ".claude/agents/yiyun-knowledge.md"), "utf-8");
-  const scope = readFileSync(join(base, ".claude/rules/ai-scope.md"), "utf-8");
-  return [agent, knowledge, scope].join("\n\n---\n\n");
+  try {
+    const base = process.cwd();
+    const agent = readFileSync(join(base, ".claude/agents/portfolio-assistant.md"), "utf-8");
+    const knowledge = readFileSync(join(base, ".claude/agents/yiyun-knowledge.md"), "utf-8");
+    const scope = readFileSync(join(base, ".claude/rules/ai-scope.md"), "utf-8");
+    return [agent, knowledge, scope].join("\n\n---\n\n");
+  } catch (err) {
+    const errorMsg = err instanceof Error ? err.message : String(err);
+    console.error("Failed to load system prompt:", errorMsg);
+    throw new Error(`System prompt load failed: ${errorMsg}`);
+  }
 }
 
 let systemPrompt: string | null = null;
@@ -408,6 +416,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({ reply: mainReply });
   } catch (err) {
     console.error("Anthropic API error:", err);
-    return res.status(502).json({ error: "Failed to get response from AI" });
+    const errorMsg = err instanceof Error ? err.message : String(err);
+    console.error("Detailed error:", errorMsg);
+    return res.status(502).json({ error: `Failed to get response from AI: ${errorMsg}` });
   }
 }
