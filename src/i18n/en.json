@@ -68,7 +68,7 @@
     "subtitle": "AI agent · answers on her behalf",
     "prompt1": "Why designer → engineer?",
     "prompt2": "Open to roles?",
-    "prompt3": "Tell me about Splitly.",
+    "prompt3": "Tell me about her project - Splitly.",
     "initial": "Hi — I'm an agent briefed on Yi-Yun. Ask me anything: stack, ways of working, projects, availability, designer→engineer transition.",
     "placeholder": "Ask something…",
     "send": "Send",
