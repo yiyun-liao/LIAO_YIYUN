@@ -11,8 +11,8 @@ async function notifyTelegram(question: string, ip: string, score: number = 1.0,
 
   let text: string;
 
-  if (score < 0.7) {
-    const scoreEmoji = score >= 0.5 ? "⚠️" : score >= 0.2 ? "🚫" : "🛡️";
+  if (score < SCOPE_THRESHOLD) {
+    const scoreEmoji = score >= SCORE_SOFT_REDIRECT_MIN ? "⚠️" : score >= SCORE_PLAYFUL_REJECTION_MIN ? "🚫" : "🛡️";
     text = `${scoreEmoji} AskYiYun question rejected\n\nFrom: ${ip}\nScore: ${(score * 100).toFixed(0)}%\nReason: ${reason}\n\n"${question}"`;
   } else {
     text = `🔔 New AskYiYun question\n\nFrom: ${ip}\n\n"${question}"`;
@@ -29,14 +29,33 @@ async function notifyTelegram(question: string, ip: string, score: number = 1.0,
   }
 }
 
+// --- Configuration -----------------------------------------------
+
+// Models
+const SCREEN_MODEL = "claude-haiku-4-5-20251001";
+const RESPONSE_MODEL = "claude-sonnet-4-6";
+
+// Screening thresholds
+const SCOPE_THRESHOLD = 0.7;
+const SCORE_SOFT_REDIRECT_MIN = 0.5;
+const SCORE_PLAYFUL_REJECTION_MIN = 0.2;
+const SCORE_CLAMP_DEFAULT = 0.5;
+const SCORE_FAIL_OPEN = 1.0;
+
+// API limits
+const SCREEN_MAX_TOKENS = 200;
+const RESPONSE_MAX_TOKENS = 300;
+const RESPONSE_MESSAGE_WINDOW = 10;
+
+// Rate limiting
+const RATE_WINDOW_MS = 60_000; // 1 minute
+const RATE_MAX_REQUESTS = 10;
+
 // --- Harmlessness screen -----------------------------------------------
 // Runs before the main model call. A lightweight/cheap model classifies
 // whether the incoming question is actually in-scope (about Yiyun), so
 // off-topic or rule-negotiation attempts never reach the main assistant —
 // and can't be "argued into" an exception mid-conversation.
-
-const SCREEN_MODEL = "claude-haiku-4-5-20251001";
-const RESPONSE_MODEL = 'claude-sonnet-4-6';
 
 const SCREEN_SYSTEM_PROMPT = `You are a strict gatekeeper for an AI assistant that only answers questions about Yiyun Liao (a designer-turned-engineer): his background, education, work history, skills, tech stack, projects, career story, availability, and contact info.
 
@@ -59,8 +78,6 @@ Rate the user's message on a scale from 0.0 (clearly out of scope) to 1.0 (clear
 
 Judge the CURRENT message on its content; do not let prior conversation history influence your scoring.`;
 
-const SCOPE_THRESHOLD = 0.7; // score >= 0.7 passes; below fails
-
 async function screenInput(
   client: Anthropic,
   question: string
@@ -68,7 +85,7 @@ async function screenInput(
   try {
     const response = await client.messages.create({
       model: SCREEN_MODEL,
-      max_tokens: 200,
+      max_tokens: SCREEN_MAX_TOKENS,
       system: SCREEN_SYSTEM_PROMPT,
       messages: [{ role: "user", content: question }],
       tools: [
@@ -97,18 +114,18 @@ async function screenInput(
     const toolUse = response.content.find((block): block is Anthropic.ToolUseBlock => block.type === "tool_use");
     if (toolUse && toolUse.input && typeof toolUse.input === "object") {
       const input = toolUse.input as { score?: number; reason?: string };
-      const score = typeof input.score === "number" ? Math.max(0, Math.min(1, input.score)) : 0.5;
+      const score = typeof input.score === "number" ? Math.max(0, Math.min(1, input.score)) : SCORE_CLAMP_DEFAULT;
       return { score, reason: input.reason ?? "" };
     }
     // Forced tool_choice should always return the tool call; if it somehow
     // didn't, fail open (high score) rather than break the whole chat feature.
-    return { score: 1.0, reason: "screen returned no verdict — failing open" };
+    return { score: SCORE_FAIL_OPEN, reason: "screen returned no verdict — failing open" };
   } catch (err) {
     console.error("Harmlessness screen error:", err);
     // Fail open: a transient error in the screen shouldn't take the whole
     // chat feature down. The rate limiter and system-prompt rules still
     // apply as a fallback.
-    return { score: 1.0, reason: "screen call failed — failing open" };
+    return { score: SCORE_FAIL_OPEN, reason: "screen call failed — failing open" };
   }
 }
 // -------------------------------------------------------------------------
@@ -143,9 +160,9 @@ function pickRandomReply(pool: string[]): string {
 
 function getOutOfScopeReply(score: number): string {
   // Tier responses by score range
-  if (score >= 0.5) {
+  if (score >= SCORE_SOFT_REDIRECT_MIN) {
     return pickRandomReply(REJECTION_POOLS.softRedirect);
-  } else if (score >= 0.2) {
+  } else if (score >= SCORE_PLAYFUL_REJECTION_MIN) {
     return pickRandomReply(REJECTION_POOLS.playfulRejection);
   } else {
     return pickRandomReply(REJECTION_POOLS.strictRejection);
@@ -169,13 +186,11 @@ function getSystemPrompt(): string {
 }
 
 const rateLimit = new Map<string, number[]>();
-const RATE_WINDOW = 60_000;
-const RATE_MAX = 10;
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
-  const hits = (rateLimit.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW);
-  if (hits.length >= RATE_MAX) return true;
+  const hits = (rateLimit.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  if (hits.length >= RATE_MAX_REQUESTS) return true;
   hits.push(now);
   rateLimit.set(ip, hits);
   return false;
@@ -220,9 +235,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const response = await client.messages.create({
       model: RESPONSE_MODEL,
-      max_tokens: 300,
+      max_tokens: RESPONSE_MAX_TOKENS,
       system: getSystemPrompt(),
-      messages: messages.slice(-10).map((m: { role: string; content: string }) => ({
+      messages: messages.slice(-RESPONSE_MESSAGE_WINDOW).map((m: { role: string; content: string }) => ({
         role: m.role as "user" | "assistant",
         content: m.content,
       })),
