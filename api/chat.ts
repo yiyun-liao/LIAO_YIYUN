@@ -84,7 +84,9 @@ false if:
 - Too few messages (< 2) or too many (> 15)
 - Already disclosed company + role info
 
-Judge the CURRENT message only; ignore conversation history.`;
+**IMPORTANT:** Use full conversation context (not just the last message) to judge.
+If asking about something mentioned earlier in the conversation, it's ON-TOPIC.
+Example: if Yiyun's projects were described, then "Tell me more about X project" is safe.`;
 
 interface ScreeningResult {
   isSafe: boolean;
@@ -97,8 +99,13 @@ async function screenAndAnalyze(
   client: Anthropic,
   messages: Array<{ role: string; content: string }>
 ): Promise<ScreeningResult> {
-  const lastUserMsg = messages.slice().reverse().find((m) => m.role === "user")?.content || "";
   const totalMessages = messages.length;
+
+  // Get last 5 messages for context (so Haiku understands conversation flow)
+  const recentMessages = messages.slice(-5);
+  const conversationContext = recentMessages
+    .map((m) => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)
+    .join("\n\n");
 
   try {
     const response = await client.messages.create({
@@ -108,7 +115,7 @@ async function screenAndAnalyze(
       messages: [
         {
           role: "user",
-          content: `Analyze this message. Return ONLY valid JSON:
+          content: `Analyze the conversation. Return ONLY valid JSON:
 {
   "score": number (0.0-1.0, safety score),
   "isSafe": boolean,
@@ -117,7 +124,11 @@ async function screenAndAnalyze(
 }
 
 Message count: ${totalMessages}
-Message: "${lastUserMsg}"`,
+
+Recent conversation:
+${conversationContext}
+
+Judge whether the LAST message (the user's most recent message) is safe and whether we should ask about their background. Use full context.`,
         },
       ],
       tools: [
