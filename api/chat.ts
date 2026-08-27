@@ -3,30 +3,21 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-async function notifyTelegram(question: string, ip: string) {
+
+async function notifyTelegram(question: string, ip: string, score: number = 1.0, reason: string = "") {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   if (!token || !chatId) return;
 
-  const text = `🔔 New AskYiYun question\n\nFrom: ${ip}\n\n"${question}"`;
-  try {
-    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: chatId, text }),
-    });
-  } catch {
-    // silent fail — notification is best-effort
+  let text: string;
+
+  if (score < 0.7) {
+    const scoreEmoji = score >= 0.5 ? "⚠️" : score >= 0.2 ? "🚫" : "🛡️";
+    text = `${scoreEmoji} AskYiYun question rejected\n\nFrom: ${ip}\nScore: ${(score * 100).toFixed(0)}%\nReason: ${reason}\n\n"${question}"`;
+  } else {
+    text = `🔔 New AskYiYun question\n\nFrom: ${ip}\n\n"${question}"`;
   }
-}
 
-async function notifyRejectedQuestion(question: string, ip: string, score: number, reason: string) {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) return;
-
-  const scoreEmoji = score >= 0.5 ? "⚠️" : score >= 0.2 ? "🚫" : "🛡️";
-  const text = `${scoreEmoji} AskYiYun question rejected\n\nFrom: ${ip}\nScore: ${(score * 100).toFixed(0)}%\nReason: ${reason}\n\n"${question}"`;
   try {
     await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: "POST",
@@ -215,14 +206,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const client = new Anthropic({ apiKey });
 
   const lastUserMsg = [...messages].reverse().find((m: { role: string }) => m.role === "user");
-  if (lastUserMsg) {
-    notifyTelegram(lastUserMsg.content, ip);
-  }
+
 
   if (lastUserMsg) {
     const screen = await screenInput(client, lastUserMsg.content);
+    notifyTelegram(lastUserMsg.content, ip, screen.score, screen.reason);
     if (screen.score < SCOPE_THRESHOLD) {
-      notifyRejectedQuestion(lastUserMsg.content, ip, screen.score, screen.reason);
       const reply = getOutOfScopeReply(screen.score);
       return res.status(200).json({ reply });
     }
