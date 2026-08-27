@@ -10,7 +10,20 @@ const server = createServer((req, res) => {
     req.on("data", (chunk) => (body += chunk));
     req.on("end", () => {
       const vercelReq = Object.assign(req, { body: JSON.parse(body) });
-      handler(vercelReq as never, res as never);
+
+      // Adapt Node.js response to Vercel response API
+      const vercelRes = Object.assign(res, {
+        status: (code: number) => {
+          res.writeHead(code, { "Content-Type": "application/json" });
+          return vercelRes;
+        },
+        json: (data: unknown) => {
+          res.end(JSON.stringify(data));
+          return vercelRes;
+        },
+      });
+
+      handler(vercelReq as never, vercelRes as never);
     });
   } else {
     res.writeHead(404).end();
