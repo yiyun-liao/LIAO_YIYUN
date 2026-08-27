@@ -56,8 +56,12 @@ export function AskYiYun() {
         throw new Error(err.error || `HTTP ${res.status}`);
       }
 
-      const { reply } = await res.json();
-      setMessages((m) => [...m, { role: "assistant", content: reply || "(no response)" }]);
+      const { reply, followUp } = await res.json();
+      const assistantMessages: Message[] = [{ role: "assistant", content: reply || "(no response)" }];
+      if (followUp) {
+        assistantMessages.push({ role: "assistant", content: followUp });
+      }
+      setMessages((m) => [...m, ...assistantMessages]);
     } catch {
       setMessages((m) => [
         ...m,
