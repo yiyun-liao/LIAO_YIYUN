@@ -57,10 +57,8 @@ export function AskYiYun() {
       }
 
       const { reply, followUp } = await res.json();
-      console.log("API response:", { reply, followUp }); // DEBUG
       const assistantMessages: Message[] = [{ role: "assistant", content: reply || "(no response)" }];
       if (followUp) {
-        console.log("Adding followUp message:", followUp); // DEBUG
         assistantMessages.push({ role: "assistant", content: followUp });
       }
       setMessages((m) => [...m, ...assistantMessages]);
