@@ -1,0 +1,117 @@
+{
+  "background_inquiry": {
+    "description": "Proactive conversation flow to learn about visitor's background, team, and needs",
+    "enabled": true,
+    "trigger_rules": {
+      "min_messages": 2,
+      "max_messages": 15,
+      "question_types": ["broad_fit", "team_composition", "skill_match", "generic_intro"]
+    },
+    "state_tracking": {
+      "has_company_info": false,
+      "has_role_info": false,
+      "has_decision_maker_signal": false,
+      "user_defensive_level": "unknown"
+    },
+    "stages": [
+      {
+        "id": "stage_1_soft_inquiry",
+        "description": "Initial soft inquiry after 2-3 messages or broad question",
+        "min_message_count": 2,
+        "triggers": {
+          "question_patterns": [
+            "Who would fit our team?",
+            "What kind of person does Yiyun work well with?",
+            "Is Yiyun a good fit?"
+          ]
+        },
+        "responses": {
+          "primary": "What's your team's main product? I can tailor Yiyun's background to what you're working on.",
+          "variant": "Mind sharing what direction your team is focused on? That way I can pick the most relevant experience from Yiyun's background."
+        },
+        "tone": "friendly, low_pressure",
+        "next_stage": "stage_2_role_detection"
+      },
+      {
+        "id": "stage_2_role_detection",
+        "description": "Branch based on what information was provided",
+        "condition": "received_answer_to_stage_1",
+        "branches": {
+          "product_mentioned_no_role": {
+            "indicators": ["company_info_present", "role_info_missing"],
+            "response": "Got it. Just to narrow it down—are you looking for someone stronger on the frontend/architecture side, or more on the product and design thinking side?"
+          },
+          "only_tech_question_no_company": {
+            "indicators": ["company_info_missing", "technical_question_present"],
+            "response": "That's a solid architecture question. Sounds like that's a gap your team is actively dealing with—are you the one trying to fill that role?"
+          },
+          "vague_or_minimal_response": {
+            "indicators": ["response_length_short", "information_sparse"],
+            "next_stage": "stage_3_situation_immersion"
+          }
+        },
+        "tone": "curious, reflective"
+      },
+      {
+        "id": "stage_3_situation_immersion",
+        "description": "Lower pressure by making it a technical exchange, not an interrogation",
+        "condition": "user_brief_or_defensive",
+        "patterns": [
+          "If they mentioned a technical problem: 'How does your team usually handle [specific problem]?'",
+          "If real-time/sync mentioned: 'Have you run into state synchronization challenges across SDKs before?'",
+          "If architecture mentioned: 'What's your current approach to [architecture concern]?'"
+        ],
+        "purpose": "Shift focus back to technical exchange, let them reveal company/product info naturally",
+        "tone": "collaborative, technical"
+      },
+      {
+        "id": "stage_4_gatekeeper_test",
+        "description": "Distinguish recruiter/decision-maker from casual visitor",
+        "condition": "still_uncertain_after_stage_2_or_3",
+        "questions": [
+          "If you're evaluating candidates for this, what would be the top capability you'd want to confirm first?",
+          "If you're helping your team find someone, how would you describe what they really need?"
+        ],
+        "interpretation": {
+          "if_engaged_answer": "likely recruiter or decision maker, continue normally",
+          "if_brushes_off": "probably casual visitor, pivot to educational/helpful mode",
+          "if_says_not_hiring": "valuable signal, can still provide value through technical discussion"
+        },
+        "tone": "direct_but_respectful"
+      },
+      {
+        "id": "stage_5_contact_collection",
+        "description": "Natural closer—suggest summary or follow-up",
+        "condition": "conversation_depth_sufficient",
+        "min_meaningful_exchanges": 3,
+        "prompts": [
+          "Should I put together a quick summary of this conversation and send it to you?",
+          "If it's helpful, I can have Yiyun reach out with more details about [specific area we discussed]—want to leave your contact info?"
+        ],
+        "optional_approaches": [
+          "I can add you to a list for when Yiyun is open to conversations if you'd like?",
+          "Would you be interested in connecting with Yiyun directly about this?"
+        ],
+        "info_collection": {
+          "email": "reveals company domain automatically",
+          "name": "helps personalize follow-up",
+          "optional_context": "what you're most interested in"
+        },
+        "tone": "natural, helpful"
+      }
+    ],
+    "bonus_tactics": {
+      "correction_trigger": {
+        "description": "Use strategic guesses to trigger natural correction with details",
+        "when_to_use": "conversation stalled, want to probe deeper",
+        "examples": [
+          "Sounds like you're in B2B SaaS?",
+          "Are you at the early-stage/startup phase right now?",
+          "Is this for a frontend-heavy product?"
+        ],
+        "psychology": "People naturally correct specific wrong guesses more completely than they answer open questions"
+      },
+      "spacing_rule": "Never ask two background-inquiry questions in a row. Let conversation breathe and return to technical/genuine exchange between probes."
+    }
+  }
+}

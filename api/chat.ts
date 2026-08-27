@@ -51,6 +51,56 @@ const RESPONSE_MESSAGE_WINDOW = 10;
 const RATE_WINDOW_MS = 60_000; // 1 minute
 const RATE_MAX_REQUESTS = 10;
 
+// Conversation flow
+const BACKGROUND_INQUIRY_MIN_MESSAGES = 2;
+const BACKGROUND_INQUIRY_MAX_MESSAGES = 15;
+
+// --- Conversation State -----------------------------------------------
+
+interface ConversationState {
+  totalMessages: number;
+  hasCompanyInfo: boolean;
+  hasRoleInfo: boolean;
+  backgroundAsked: boolean;
+  isBroad: boolean;
+}
+
+function analyzeConversation(messages: Array<{ role: string; content: string }>): ConversationState {
+  const totalMessages = messages.length;
+  const userMessages = messages.filter((m) => m.role === "user");
+  const lastUserMsg = userMessages[userMessages.length - 1]?.content || "";
+
+  // Simple heuristics
+  const isBroad =
+    lastUserMsg.toLowerCase().includes("fit") ||
+    lastUserMsg.toLowerCase().includes("suitable") ||
+    lastUserMsg.toLowerCase().includes("team") ||
+    lastUserMsg.toLowerCase().includes("what kind");
+
+  const hasCompanyKeywords =
+    lastUserMsg.toLowerCase().includes("company") ||
+    lastUserMsg.toLowerCase().includes("team") ||
+    lastUserMsg.toLowerCase().includes("product") ||
+    lastUserMsg.toLowerCase().includes("startup") ||
+    lastUserMsg.toLowerCase().includes("saas");
+
+  const hasRoleKeywords =
+    lastUserMsg.toLowerCase().includes("role") ||
+    lastUserMsg.toLowerCase().includes("position") ||
+    lastUserMsg.toLowerCase().includes("frontend") ||
+    lastUserMsg.toLowerCase().includes("backend") ||
+    lastUserMsg.toLowerCase().includes("designer") ||
+    lastUserMsg.toLowerCase().includes("pm");
+
+  return {
+    totalMessages,
+    hasCompanyInfo: hasCompanyKeywords,
+    hasRoleInfo: hasRoleKeywords,
+    backgroundAsked: false, // Would need persistent storage to track this accurately
+    isBroad,
+  };
+}
+
 // --- Harmlessness screen -----------------------------------------------
 // Runs before the main model call. A lightweight/cheap model classifies
 // whether the incoming question is actually in-scope (about Yiyun), so
@@ -248,10 +298,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
+    // Analyze conversation state to determine if background inquiry should be encouraged
+    const convState = analyzeConversation(messages as Array<{ role: string; content: string }>);
+    const shouldEncourageBackgroundInquiry =
+      convState.totalMessages >= BACKGROUND_INQUIRY_MIN_MESSAGES &&
+      convState.totalMessages <= BACKGROUND_INQUIRY_MAX_MESSAGES &&
+      (convState.isBroad || (!convState.hasCompanyInfo && !convState.hasRoleInfo));
+
+    // Build dynamic system prompt
+    let systemPromptText = getSystemPrompt();
+    if (shouldEncourageBackgroundInquiry) {
+      systemPromptText += `\n\n## Current Conversation Context\n\nThe visitor is ${BACKGROUND_INQUIRY_MIN_MESSAGES}-${BACKGROUND_INQUIRY_MAX_MESSAGES} messages in. ${
+        convState.isBroad ? "They asked a broad question about fit." : "They haven't yet mentioned their company or role."
+      } This is a natural moment to proactively learn their context. Refer to the "Proactive Background Inquiry" section in your instructions to guide this conversation appropriately.`;
+    }
+
     const response = await client.messages.create({
       model: RESPONSE_MODEL,
       max_tokens: RESPONSE_MAX_TOKENS,
-      system: getSystemPrompt(),
+      system: systemPromptText,
       messages: messages.slice(-RESPONSE_MESSAGE_WINDOW).map((m: { role: string; content: string }) => ({
         role: m.role as "user" | "assistant",
         content: m.content,
