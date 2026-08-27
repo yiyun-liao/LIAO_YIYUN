@@ -83,10 +83,14 @@ false if: defensive attitude, too few/many messages, already disclosed company+r
 
 **DIMENSION 3: Is this a work-related question?**
 true if asking about:
+- Yiyun's current job search or roles she's looking for
 - Yiyun's work experience, career transition, roles, companies
 - Specific projects or technical work she did
 - Her skills in the context of employment/hiring
 - Why she made career decisions
+- How she would fit in a role or team
+
+Examples: "目前在找什麼職位？", "What role is she looking for?", "Can she do X job?", "What was her last role?"
 
 false if: asking about personal life, general design/engineering advice, unrelated topics
 
