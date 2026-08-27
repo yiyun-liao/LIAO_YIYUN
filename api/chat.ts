@@ -373,8 +373,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   // Track if we should send followUp after Claude's response
-  let sendWorkInquiry = screening.isWorkQuestion;
-  let sendBackgroundInquiry = screening.shouldInquireBackground && !screening.isWorkQuestion;
+  // Only send every 3 turns (to avoid cluttering conversation)
+  const totalMessages = messages.length;
+  const shouldSendFollowUp = totalMessages > 0 && totalMessages % 3 === 0;
+
+  let sendWorkInquiry = screening.isWorkQuestion && shouldSendFollowUp;
+  let sendBackgroundInquiry = screening.shouldInquireBackground && !screening.isWorkQuestion && shouldSendFollowUp;
 
   try {
     // Build dynamic system prompt
