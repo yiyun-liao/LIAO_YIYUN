@@ -315,9 +315,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Send to Telegram
   notifyTelegram(lastUserMsg.content, ip, screening.score, screening.reason);
 
-  // If unsafe → return rejection immediately
+  // If unsafe → return rejection
   if (!screening.isSafe) {
     const reply = getOutOfScopeReply(screening.score);
+
+    // Even if we're rejecting, ask about background if conditions met
+    if (screening.shouldInquireBackground) {
+      const followUp = getBackgroundInquiryPrompt();
+      return res.status(200).json({
+        reply,
+        followUp,
+      });
+    }
+
     return res.status(200).json({ reply });
   }
 
