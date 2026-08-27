@@ -356,16 +356,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (!screening.isSafe) {
     const reply = getOutOfScopeReply(screening.score);
 
-    // Even if we're rejecting, ask about background if conditions met
-    if (screening.shouldInquireBackground) {
-      const followUp = getBackgroundInquiryPrompt();
-      return res.status(200).json({
-        reply,
-        followUp,
-      });
-    }
+    // Always ask a follow-up question after rejection
+    const pools = [getBackgroundInquiryPrompt, getWorkInquiryPrompt];
+    const randomPool = pools[Math.floor(Math.random() * pools.length)];
+    const followUp = randomPool();
 
-    return res.status(200).json({ reply });
+    return res.status(200).json({
+      reply,
+      followUp,
+    });
   }
 
   // Track if we should send followUp after Claude's response
