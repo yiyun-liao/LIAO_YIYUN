@@ -68,7 +68,7 @@
     "subtitle": "AI 代理 · 代替她回答",
     "prompt1": "為什麼從設計轉工程？",
     "prompt2": "目前在找什麼職位？",
-    "prompt3": "介紹一下 Splitly。",
+    "prompt3": "介紹一下他的專案 Splitly。",
     "initial": "嗨——我是宜昀的 AI 代理。可以問我任何問題：技術棧、工作方式、專案、可到職時間、設計師轉工程師的經歷。",
     "placeholder": "問點什麼⋯",
     "send": "送出",
