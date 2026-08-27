@@ -61,44 +61,58 @@ interface ConversationState {
   totalMessages: number;
   hasCompanyInfo: boolean;
   hasRoleInfo: boolean;
-  backgroundAsked: boolean;
   isBroad: boolean;
+  defensiveLevel: "open" | "neutral" | "defensive";
 }
 
-function analyzeConversation(messages: Array<{ role: string; content: string }>): ConversationState {
+async function analyzeConversation(
+  client: Anthropic,
+  messages: Array<{ role: string; content: string }>
+): Promise<ConversationState> {
   const totalMessages = messages.length;
-  const userMessages = messages.filter((m) => m.role === "user");
-  const lastUserMsg = userMessages[userMessages.length - 1]?.content || "";
+  const lastUserMsg = messages.slice().reverse().find((m) => m.role === "user")?.content || "";
 
-  // Simple heuristics
-  const isBroad =
-    lastUserMsg.toLowerCase().includes("fit") ||
-    lastUserMsg.toLowerCase().includes("suitable") ||
-    lastUserMsg.toLowerCase().includes("team") ||
-    lastUserMsg.toLowerCase().includes("what kind");
+  try {
+    const response = await client.messages.create({
+      model: HARMLESSNESS_MODEL,
+      max_tokens: 150,
+      messages: [
+        {
+          role: "user",
+          content: `Analyze this message for conversation context. Respond with ONLY valid JSON (no markdown, no explanation):
+{
+  "isBroad": boolean,
+  "mentionsCompany": boolean,
+  "mentionsRole": boolean,
+  "defensiveLevel": "open" | "neutral" | "defensive"
+}
 
-  const hasCompanyKeywords =
-    lastUserMsg.toLowerCase().includes("company") ||
-    lastUserMsg.toLowerCase().includes("team") ||
-    lastUserMsg.toLowerCase().includes("product") ||
-    lastUserMsg.toLowerCase().includes("startup") ||
-    lastUserMsg.toLowerCase().includes("saas");
+Message: "${lastUserMsg}"`,
+        },
+      ],
+    });
 
-  const hasRoleKeywords =
-    lastUserMsg.toLowerCase().includes("role") ||
-    lastUserMsg.toLowerCase().includes("position") ||
-    lastUserMsg.toLowerCase().includes("frontend") ||
-    lastUserMsg.toLowerCase().includes("backend") ||
-    lastUserMsg.toLowerCase().includes("designer") ||
-    lastUserMsg.toLowerCase().includes("pm");
+    const text = response.content[0]?.type === "text" ? response.content[0].text : "{}";
+    const parsed = JSON.parse(text);
 
-  return {
-    totalMessages,
-    hasCompanyInfo: hasCompanyKeywords,
-    hasRoleInfo: hasRoleKeywords,
-    backgroundAsked: false, // Would need persistent storage to track this accurately
-    isBroad,
-  };
+    return {
+      totalMessages,
+      hasCompanyInfo: parsed.mentionsCompany ?? false,
+      hasRoleInfo: parsed.mentionsRole ?? false,
+      isBroad: parsed.isBroad ?? false,
+      defensiveLevel: parsed.defensiveLevel ?? "neutral",
+    };
+  } catch (err) {
+    console.error("Failed to analyze conversation:", err);
+    // Fallback to neutral state
+    return {
+      totalMessages,
+      hasCompanyInfo: false,
+      hasRoleInfo: false,
+      isBroad: false,
+      defensiveLevel: "neutral",
+    };
+  }
 }
 
 // --- Harmlessness screen -----------------------------------------------
@@ -221,6 +235,18 @@ function pickRandomReply(pool: string[]): string {
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
+// Background inquiry messages (trigger even if not injected into response)
+const BACKGROUND_INQUIRY_PROMPTS = [
+  "What's your team's main product or service? That way I can tailor Yiyun's background to what you're working on.",
+  "Mind sharing what direction your team is focused on? I can highlight the most relevant parts of Yiyun's experience.",
+  "What's the main thing your team is building right now? I'd love to connect it with Yiyun's background.",
+  "Are you working on a specific product or type of project? That helps me explain Yiyun's fit better.",
+];
+
+function getBackgroundInquiryPrompt(): string {
+  return pickRandomReply(BACKGROUND_INQUIRY_PROMPTS);
+}
+
 function getOutOfScopeReply(score: number): string {
   const pools = loadRejectionResponses();
 
@@ -299,15 +325,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     // Analyze conversation state to determine if background inquiry should be encouraged
-    const convState = analyzeConversation(messages as Array<{ role: string; content: string }>);
+    const convState = await analyzeConversation(client, messages as Array<{ role: string; content: string }>);
     const shouldEncourageBackgroundInquiry =
       convState.totalMessages >= BACKGROUND_INQUIRY_MIN_MESSAGES &&
       convState.totalMessages <= BACKGROUND_INQUIRY_MAX_MESSAGES &&
-      (convState.isBroad || (!convState.hasCompanyInfo && !convState.hasRoleInfo));
+      (convState.isBroad || (!convState.hasCompanyInfo && !convState.hasRoleInfo)) &&
+      convState.defensiveLevel !== "defensive";
+
+    // Decide injection strategy: inject into system prompt for natural response-embedded inquiry
+    const injectIntoResponse = shouldEncourageBackgroundInquiry;
 
     // Build dynamic system prompt
     let systemPromptText = getSystemPrompt();
-    if (shouldEncourageBackgroundInquiry) {
+
+    if (injectIntoResponse) {
+      // Inject into system prompt → Claude will naturally include inquiry in response
       systemPromptText += `\n\n## Current Conversation Context\n\nThe visitor is ${BACKGROUND_INQUIRY_MIN_MESSAGES}-${BACKGROUND_INQUIRY_MAX_MESSAGES} messages in. ${
         convState.isBroad ? "They asked a broad question about fit." : "They haven't yet mentioned their company or role."
       } This is a natural moment to proactively learn their context. Refer to the "Proactive Background Inquiry" section in your instructions to guide this conversation appropriately.`;
@@ -323,9 +355,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       })),
     });
 
-    const text = response.content[0]?.type === "text" ? response.content[0].text : "";
+    const mainReply = response.content[0]?.type === "text" ? response.content[0].text : "";
 
-    return res.status(200).json({ reply: text });
+    // Only inquire if conditions are met (符合詢問條件)
+    if (!shouldEncourageBackgroundInquiry) {
+      // Not appropriate to inquire right now → just return main response
+      return res.status(200).json({ reply: mainReply });
+    }
+
+    // Conditions MET for background inquiry, two possible paths:
+    if (injectIntoResponse) {
+      // CASE 1: Injected into system prompt
+      // → Claude naturally includes inquiry in same response (one message)
+      return res.status(200).json({ reply: mainReply });
+    } else {
+      // CASE 2: Did NOT inject into system prompt
+      // → Send normal response, then add follow-up inquiry as separate message (two messages)
+      const followUpInquiry = getBackgroundInquiryPrompt();
+      return res.status(200).json({
+        reply: mainReply,
+        followUp: followUpInquiry,
+      });
+    }
   } catch (err) {
     console.error("Anthropic API error:", err);
     return res.status(502).json({ error: "Failed to get response from AI" });
