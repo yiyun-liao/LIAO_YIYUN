@@ -3,7 +3,6 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-
 async function notifyTelegram(question: string, ip: string, score: number = 1.0, reason: string = "") {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
@@ -57,7 +56,6 @@ const BACKGROUND_INQUIRY_MAX_MESSAGES = 15;
 
 // --- Conversation State -----------------------------------------------
 
-
 // --- Combined Screening (Haiku) -----------------------------------------------
 // Single Haiku call analyzes TWO things simultaneously:
 // 1. Is this a safe question about Yiyun?
@@ -106,7 +104,7 @@ interface ScreeningResult {
 
 async function screenAndAnalyze(
   client: Anthropic,
-  messages: Array<{ role: string; content: string }>
+  messages: Array<{ role: string; content: string }>,
 ): Promise<ScreeningResult> {
   const totalMessages = messages.length;
 
@@ -218,8 +216,9 @@ function loadRejectionResponses(): RejectionPoolConfig {
   try {
     const base = process.cwd();
     const content = readFileSync(join(base, ".claude/rules/rejection-responses.json"), "utf-8");
-    REJECTION_POOLS = JSON.parse(content);
-    return REJECTION_POOLS;
+    const parsed = JSON.parse(content) as RejectionPoolConfig;
+    REJECTION_POOLS = parsed;
+    return parsed;
   } catch (err) {
     console.error("Failed to load rejection responses config:", err);
     // Fallback to minimal English responses
@@ -376,16 +375,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Only send every 3 turns (to avoid cluttering conversation)
   const totalMessages = messages.length;
   const shouldSendFollowUp = totalMessages > 0 && totalMessages % 3 === 0;
+  // Defense-in-depth: Haiku is already told the message count and asked to
+  // apply this 2-15 window itself (see DIMENSION 2 above), but we re-check
+  // it here in code too rather than trusting that judgment alone.
+  const withinInquiryWindow =
+    totalMessages >= BACKGROUND_INQUIRY_MIN_MESSAGES && totalMessages <= BACKGROUND_INQUIRY_MAX_MESSAGES;
 
-  let sendWorkInquiry = screening.isWorkQuestion && shouldSendFollowUp;
-  let sendBackgroundInquiry = screening.shouldInquireBackground && !screening.isWorkQuestion && shouldSendFollowUp;
+  const sendWorkInquiry = screening.isWorkQuestion && shouldSendFollowUp;
+  const sendBackgroundInquiry =
+    screening.shouldInquireBackground && withinInquiryWindow && !screening.isWorkQuestion && shouldSendFollowUp;
 
   try {
     // Build dynamic system prompt
     let systemPromptText = getSystemPrompt();
 
     // If background inquiry eligible → inject context hint
-    if (screening.shouldInquireBackground) {
+    if (screening.shouldInquireBackground && withinInquiryWindow) {
       systemPromptText += `\n\n## Current Conversation Context\n\nVisitor is in messages 2-15. This is a natural moment to proactively learn their background. Refer to "Proactive Background Inquiry" section in your instructions.`;
     }
 
